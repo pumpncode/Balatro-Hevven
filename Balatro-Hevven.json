@@ -1,10 +1,10 @@
 {
 	"id": "rheaven",
-	"name": "Rhythm Heaven",
+	"name": "Balatro Hevven",
 	"author": ["TheAlternateDoctor"],
 	"description": "A set of Jokers and cards all coming from Rhythm Heaven.",
 	"prefix": "rh",
-	"main_file": "RHeaven.lua",
+	"main_file": "Balatro-Hevven.lua",
 	"priority": 0,
 	"badge_colour": "000000",
 	"badge_text_colour": "F8EC1B",

@@ -18,7 +18,14 @@ SMODS.Back {
                 local card_t = {
                     set = "Tarot",
                     area = G.consumeables,
-                    key = "c_rh_trio"
+                    key = "c_rh_try_again"
+                }
+                local card = SMODS.create_card(card_t)
+                G.consumeables:emplace(card)
+                local card_t = {
+                    set = "Tarot",
+                    area = G.consumeables,
+                    key = "c_rh_ok"
                 }
                 local card = SMODS.create_card(card_t)
                 G.consumeables:emplace(card)
@@ -27,4 +34,3 @@ SMODS.Back {
         }))
     end
 }
-

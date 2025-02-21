@@ -1,6 +1,6 @@
 SMODS.Atlas({
     key = "consumables", 
-    path = "placeholders.png", 
+    path = "consumeables.png", 
     px = 71,
     py = 95
 })
@@ -14,6 +14,11 @@ SMODS.Consumable({
             "Creates a random planet, tarot",
             "and flow card."
         }
+    },
+    atlas = 'consumables',
+    pos = {
+        x = 1,
+        y = 1
     },
 
     use = function(self, card, area, copier)

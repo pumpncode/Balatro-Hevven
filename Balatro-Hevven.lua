@@ -16,16 +16,23 @@ SMODS.Back {
             blockable = false,
             func = function()
                 local card_t = {
-                    set = "Tarot",
+                    set = "Flow",
                     area = G.consumeables,
                     key = "c_rh_try_again"
                 }
                 local card = SMODS.create_card(card_t)
                 G.consumeables:emplace(card)
                 local card_t = {
-                    set = "Tarot",
+                    set = "Flow",
                     area = G.consumeables,
                     key = "c_rh_ok"
+                }
+                local card = SMODS.create_card(card_t)
+                G.consumeables:emplace(card)
+                local card_t = {
+                    set = "Flow",
+                    area = G.consumeables,
+                    key = "c_rh_superb"
                 }
                 local card = SMODS.create_card(card_t)
                 G.consumeables:emplace(card)

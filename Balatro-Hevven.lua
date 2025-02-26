@@ -1,3 +1,11 @@
+function inc_flow_count()
+    if G.GAME.consumeable_usage_total.flow ~= nil then
+        G.GAME.consumeable_usage_total.flow = G.GAME.consumeable_usage_total.flow + 1
+    else
+        G.GAME.consumeable_usage_total.flow = 1
+    end
+end
+
 SMODS.load_file("Consumables.lua")()
 SMODS.load_file("Flow.lua")()
 SMODS.load_file("Jokers.lua")()
@@ -16,23 +24,23 @@ SMODS.Back {
             blockable = false,
             func = function()
                 local card_t = {
-                    set = "Flow",
-                    area = G.consumeables,
-                    key = "c_rh_try_again"
+                    set = "Joker",
+                    area = G.jokers,
+                    key = "j_rh_cosmic_girl"
                 }
                 local card = SMODS.create_card(card_t)
-                G.consumeables:emplace(card)
+                G.jokers:emplace(card)
                 local card_t = {
-                    set = "Flow",
-                    area = G.consumeables,
-                    key = "c_rh_ok"
+                    set = "Joker",
+                    area = G.jokers,
+                    key = "j_rh_munchy_monk"
                 }
                 local card = SMODS.create_card(card_t)
-                G.consumeables:emplace(card)
+                G.jokers:emplace(card)
                 local card_t = {
-                    set = "Flow",
+                    set = "Tarot",
                     area = G.consumeables,
-                    key = "c_rh_superb"
+                    key = "c_rh_trio"
                 }
                 local card = SMODS.create_card(card_t)
                 G.consumeables:emplace(card)

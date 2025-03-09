@@ -1,0 +1,115 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# New/Edited functions used for Simple Tap and New Record
+[[patches]]
+[patches.copy]
+target = "main.lua"
+position = "append"
+sources = [
+	"functions.lua"
+]
+
+# All this stolen and slightly edited from Cryptid
+# Pity Skip - don't lose
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''G.RESET_JIGGLES = true'''
+position = 'after'
+match_indent = true
+payload = '''
+if G.GAME.current_round.rh_flow_pity_skip then
+    game_over = false
+end
+'''
+
+# Pity Skip - end screen text
+[[patches]]
+[patches.regex]
+target = "functions/common_events.lua"
+pattern = '''localize\('ph_mr_bones'\)..' '\}, colours = \{G.C.FILTER'''
+position = 'at'
+# match_indent = true
+line_prepend = ''
+payload = '''(G.GAME.current_round.rh_flow_pity_skip and localize('rh_skip_save')..G.GAME.current_round.rh_flow_pity_skip_host or localize('ph_mr_bones'))..' '}, colours = {G.C.FILTER'''
+
+# Pity Skip - polished UI
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''{n=G.UIT.T, config={text = localize('b_cash_out')..": ", scale = 1, colour = G.C.UI.TEXT_LIGHT, shadow = true}},'''
+position = "at"
+payload = '''{n=G.UIT.T, config={text = G.GAME.current_round.rh_flow_pity_skip and localize('rh_skip_cash_out') or (localize('b_cash_out')..": "), scale = 1, colour = G.C.UI.TEXT_LIGHT, shadow = true}},'''
+match_indent = true
+
+# Pity Skip - polished UI
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''{n=G.UIT.T, config={text = localize('$')..config.dollars, scale = 1.2*scale, colour = G.C.WHITE, shadow = true, juice = true}}'''
+position = "at"
+payload = '''{n=G.UIT.T, config={text = not G.GAME.current_round.rh_flow_pity_skip and localize('$')..config.dollars or '', scale = 1.2*scale, colour = G.C.WHITE, shadow = true, juice = true}}'''
+match_indent = true
+
+# Pity Skip - reset value at start of round
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "G.GAME.blind:set_blind(G.GAME.round_resets.blind)"
+position = "after"
+payload = '''
+G.GAME.current_round.rh_flow_pity_skip = false
+'''
+match_indent = true
+
+# Simple Tap - reset value at start of round
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "G.GAME.blind:set_blind(G.GAME.round_resets.blind)"
+position = "after"
+payload = '''
+G.GAME.current_round.rh_flow_simple_tap = false
+'''
+match_indent = true
+
+# New Record - Checks high score to deliver the rare tag
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "check_and_set_high_score('hand', hand_chips*mult)"
+position = "before"
+payload = '''
+rh_flow_check_for_new_record(hand_chips*mult)
+'''
+match_indent = true
+
+# New Record - Delivers the Rare Tag
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "check_for_unlock({type = 'round_win'})"
+position = "before"
+payload = '''
+if G.GAME.current_round.rh_flow_new_record_tag then
+    add_tag(Tag('tag_rare'))
+    play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+    play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
+end 
+'''
+match_indent = true
+
+# New Record - reset value at start of round
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "G.GAME.blind:set_blind(G.GAME.round_resets.blind)"
+position = "after"
+payload = '''
+G.GAME.current_round.rh_flow_new_record = false
+G.GAME.current_round.rh_flow_new_record_tag = false
+'''
+match_indent = true

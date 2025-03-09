@@ -14,9 +14,6 @@ SMODS.ConsumableType({
         name = 'Flow',
         collection = 'Flow Cards',
 
-    },
-    cards = {
-        ["c_rh_try_again"] = true,
     }
 })
 
@@ -224,7 +221,6 @@ SMODS.Consumable({
     end,
 
     calculate = function(self, card, context)
-        sendDebugMessage("Context: "..context.consumeable, "rh_c_superb")
         if
 			context.using_consumeable
 			and context.consumeable.beginning_end
@@ -285,7 +281,7 @@ SMODS.Consumable({
                 local enhancement_type = pseudorandom(pseudoseed("perfect"))
                 local aura_card = G.hand.highlighted[i]
                 if enhancement_type > 0.67 then 
-                    local edition = poll_edition('aura', nil, true, true)
+                    local edition = poll_edition('perfect', nil, true, true)
                     if not aura_card.edition then
                         aura_card:set_edition(edition, true)
                         aura_card:juice_up(0.3, 0.5)
@@ -350,6 +346,165 @@ SMODS.Consumable({
         },
         code = {
             "TheAlternateDoctor"
+        }
+    }
+})
+
+-- Pity Skip
+SMODS.Consumable({
+    key = "pity_skip",
+    set = 'Flow',
+    cost=7,
+    loc_txt = {
+        name = 'Pity Skip',
+        text = {
+            "Skip non-boss blind without cashing out",
+            "{s:0.6}Have you been having difficulties with Monkey Watch?"
+        }
+    },
+    atlas = 'flow',
+    pos = {
+        x = 4,
+        y = 0
+    },
+
+    use = function(self, card, area, copier)   
+        inc_flow_count()
+        G.E_MANAGER:add_event(
+			Event({
+				trigger = "immediate",
+				func = function()
+					if G.STATE ~= G.STATES.SELECTING_HAND then
+						return false
+					end
+					G.GAME.current_round.rh_flow_pity_skip = true
+                    local host = pseudorandom(pseudoseed("pity_skip"))
+                    if host > 0.25 then 
+                        G.GAME.current_round.rh_flow_pity_skip_host = localize("rh_pity_skip_host_barista")
+                    else
+                        G.GAME.current_round.rh_flow_pity_skip_host = localize("rh_pity_skip_host_rupert")
+                    end
+					G.STATE = G.STATES.HAND_PLAYED
+					G.STATE_COMPLETE = true
+					end_round()
+					return true
+				end,
+			}),
+			"other"
+		)
+    end,
+
+    can_use = function(self, card)
+		return G.STATE == G.STATES.SELECTING_HAND and not G.GAME.blind.boss
+	end,
+
+    rh_credits = {
+        idea = {
+            "The Cryptid Mod"
+        },
+        code = {
+            "The Cryptid Mod"
+        }
+    }
+})
+-- Rewritting vanilla evaluate_round somewhat to make Pity Skip work
+local gfer = G.FUNCS.evaluate_round
+function G.FUNCS.evaluate_round()
+    if G.GAME.current_round.rh_flow_pity_skip then
+        add_round_eval_row({ dollars = 0, name = "blind1", pitch = 0.95, saved = true })
+        G.E_MANAGER:add_event(Event({
+            trigger = "before",
+            delay = 1.3 * math.min(G.GAME.blind.dollars + 2, 7) / 2 * 0.15 + 0.5,
+            func = function()
+                G.GAME.blind:defeat()
+                return true
+            end,
+        }))
+        delay(0.2)
+        add_round_eval_row({ name = "bottom", dollars = 0 })
+    else
+        return gfer()
+    end
+end
+
+-- Simple Tap
+SMODS.Consumable({
+    key = "simple_tap",
+    set = 'Flow',
+    cost=7,
+    loc_txt = {
+        name = 'Simple Tap',
+        text = {
+            "Skip non-boss blind without cashing out",
+            "{s:0.6}Have you been having difficulties with Monkey Watch?"
+        }
+    },
+    atlas = 'flow',
+    pos = {
+        x = 4,
+        y = 0
+    },
+
+    use = function(self, card, area, copier)   
+        inc_flow_count()
+        G.GAME.current_round.rh_flow_simple_tap = true
+    end,
+
+    can_use = function(self, card)
+		return G.STATE == G.STATES.SELECTING_HAND
+		-- return G.STATE == G.STATES.SELECTING_HAND and not G.GAME.blind.boss
+	end,
+
+    rh_credits = {
+        idea = {
+            "patataofcourse"
+        },
+        code = {
+            "TheAltDoc"
+        }
+    }
+})
+
+-- New Record
+SMODS.Consumable({
+    key = "new_record",
+    set = 'Flow',
+    cost=7,
+    loc_txt = {
+        name = 'New Record',
+        text = {
+            "If you get a new hand record for this run",
+            "after using this card this round,",
+            "create a {C:red}Rare Tag",
+            "{C:inactive}(Current record: {C:red}#1#{C:inactive})"
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {G.GAME.round_scores['hand'].amt}
+        }
+    end,
+    atlas = 'flow',
+    pos = {
+        x = 4,
+        y = 0
+    },
+
+    use = function(self, card, area, copier)   
+        inc_flow_count()
+        G.GAME.current_round.rh_flow_new_record = true
+    end,
+
+    can_use = function(self, card)
+		return G.STATE == G.STATES.SELECTING_HAND
+	end,
+
+    rh_credits = {
+        idea = {
+            "patataofcourse"
+        },
+        code = {
+            "TheAltDoc"
         }
     }
 })

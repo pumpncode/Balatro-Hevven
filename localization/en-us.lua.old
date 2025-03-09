@@ -1,9 +1,0 @@
-return {
-    descriptions = {
-        Joker = {
-            j_rh_widget = {
-                
-            }
-        }
-    }
-}

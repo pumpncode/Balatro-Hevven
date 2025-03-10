@@ -10,6 +10,8 @@ return {
         dictionary = {
             rh_skip_save = "Skipped by ",
             rh_skip_cash_out = "Round cleared!",
+            rh_good_parts_save = "There were some good parts!",
+            rh_good_parts_cash_out = "Round cleared!",
             rh_pity_skip_host_barista = "Barista", 
             rh_pity_skip_host_rupert = "Rupert" 
         },

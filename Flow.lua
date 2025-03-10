@@ -350,83 +350,6 @@ SMODS.Consumable({
     }
 })
 
--- Pity Skip
-SMODS.Consumable({
-    key = "pity_skip",
-    set = 'Flow',
-    cost=7,
-    loc_txt = {
-        name = 'Pity Skip',
-        text = {
-            "Skip non-boss blind without cashing out",
-            "{s:0.6}Have you been having difficulties with Monkey Watch?"
-        }
-    },
-    atlas = 'flow',
-    pos = {
-        x = 4,
-        y = 0
-    },
-
-    use = function(self, card, area, copier)   
-        inc_flow_count()
-        G.E_MANAGER:add_event(
-			Event({
-				trigger = "immediate",
-				func = function()
-					if G.STATE ~= G.STATES.SELECTING_HAND then
-						return false
-					end
-					G.GAME.current_round.rh_flow_pity_skip = true
-                    local host = pseudorandom(pseudoseed("pity_skip"))
-                    if host > 0.25 then 
-                        G.GAME.current_round.rh_flow_pity_skip_host = localize("rh_pity_skip_host_barista")
-                    else
-                        G.GAME.current_round.rh_flow_pity_skip_host = localize("rh_pity_skip_host_rupert")
-                    end
-					G.STATE = G.STATES.HAND_PLAYED
-					G.STATE_COMPLETE = true
-					end_round()
-					return true
-				end,
-			}),
-			"other"
-		)
-    end,
-
-    can_use = function(self, card)
-		return G.STATE == G.STATES.SELECTING_HAND and not G.GAME.blind.boss
-	end,
-
-    rh_credits = {
-        idea = {
-            "The Cryptid Mod"
-        },
-        code = {
-            "The Cryptid Mod"
-        }
-    }
-})
--- Rewritting vanilla evaluate_round somewhat to make Pity Skip work
-local gfer = G.FUNCS.evaluate_round
-function G.FUNCS.evaluate_round()
-    if G.GAME.current_round.rh_flow_pity_skip then
-        add_round_eval_row({ dollars = 0, name = "blind1", pitch = 0.95, saved = true })
-        G.E_MANAGER:add_event(Event({
-            trigger = "before",
-            delay = 1.3 * math.min(G.GAME.blind.dollars + 2, 7) / 2 * 0.15 + 0.5,
-            func = function()
-                G.GAME.blind:defeat()
-                return true
-            end,
-        }))
-        delay(0.2)
-        add_round_eval_row({ name = "bottom", dollars = 0 })
-    else
-        return gfer()
-    end
-end
-
 -- Simple Tap
 SMODS.Consumable({
     key = "simple_tap",
@@ -508,3 +431,128 @@ SMODS.Consumable({
         }
     }
 })
+
+-- Pity Skip
+SMODS.Consumable({
+    key = "pity_skip",
+    set = 'Flow',
+    cost=7,
+    loc_txt = {
+        name = 'Pity Skip',
+        text = {
+            "Skip non-boss blind without cashing out",
+            "{s:0.6}Have you been having difficulties with Monkey Watch?"
+        }
+    },
+    atlas = 'flow',
+    pos = {
+        x = 4,
+        y = 0
+    },
+
+    use = function(self, card, area, copier)   
+        inc_flow_count()
+        G.E_MANAGER:add_event(
+			Event({
+				trigger = "immediate",
+				func = function()
+					if G.STATE ~= G.STATES.SELECTING_HAND then
+						return false
+					end
+					G.GAME.current_round.rh_flow_pity_skip = true
+                    local host = pseudorandom(pseudoseed("pity_skip"))
+                    if host > 0.25 then 
+                        G.GAME.current_round.rh_flow_pity_skip_host = localize("rh_pity_skip_host_barista")
+                    else
+                        G.GAME.current_round.rh_flow_pity_skip_host = localize("rh_pity_skip_host_rupert")
+                    end
+					G.STATE = G.STATES.HAND_PLAYED
+					G.STATE_COMPLETE = true
+					end_round()
+					return true
+				end,
+			}),
+			"other"
+		)
+    end,
+
+    can_use = function(self, card)
+		return G.STATE == G.STATES.SELECTING_HAND and not G.GAME.blind.boss
+	end,
+
+    rh_credits = {
+        idea = {
+            "The Cryptid Mod"
+        },
+        code = {
+            "The Cryptid Mod"
+        }
+    }
+})
+
+-- Some Good Parts
+SMODS.Consumable({
+    key = "some_good_parts",
+    set = 'Flow',
+    cost=7,
+    loc_txt = {
+        name = 'Some Good Parts',
+        text = {
+            "Prevents Death if chips scored are at least 60% of required chips",
+            "{C:green}#1# in #2#{} chances"
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars= {
+                G.GAME and G.GAME.probabilities.normal or 1,
+                card.config.extra.chances
+            }
+        }
+    end,
+
+    config = {extra = {chances=8}},
+    atlas = 'flow',
+    pos = {
+        x = 4,
+        y = 0
+    },
+
+    use = function(self, card, area, copier)   
+        inc_flow_count()
+        G.GAME.current_round.rh_flow_good_parts = true
+        G.GAME.current_round.rh_flow_good_parts_chances = card.config.extra.chances
+    end,
+
+    can_use = function(self, card)
+		return G.STATE == G.STATES.SELECTING_HAND and not G.GAME.blind.boss
+	end,
+
+    rh_credits = {
+        idea = {
+            "The Cryptid Mod"
+        },
+        code = {
+            "The Cryptid Mod"
+        }
+    }
+})
+-- Rewritting vanilla evaluate_round somewhat to make Pity Skip and Some Good Parts work
+local gfer = G.FUNCS.evaluate_round
+function G.FUNCS.evaluate_round()
+    if G.GAME.current_round.rh_flow_pity_skip or G.GAME.current_round.rh_flow_good_parts then
+        add_round_eval_row({ dollars = 0, name = "blind1", pitch = 0.95, saved = true })
+        G.E_MANAGER:add_event(Event({
+            trigger = "before",
+            delay = 1.3 * math.min(G.GAME.blind.dollars + 2, 7) / 2 * 0.15 + 0.5,
+            func = function()
+                G.GAME.blind:defeat()
+                return true
+            end,
+        }))
+        delay(0.2)
+        add_round_eval_row({ name = "bottom", dollars = 0 })
+    else
+        return gfer()
+    end
+end

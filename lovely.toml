@@ -26,6 +26,17 @@ if G.GAME.current_round.rh_flow_pity_skip then
 end
 '''
 
+# Some Good Parts - don't lose
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''G.RESET_JIGGLES = true'''
+position = 'after'
+match_indent = true
+payload = '''
+game_over = rh_flow_good_parts_save()
+'''
+
 # Pity Skip - end screen text
 [[patches]]
 [patches.regex]
@@ -34,7 +45,7 @@ pattern = '''localize\('ph_mr_bones'\)..' '\}, colours = \{G.C.FILTER'''
 position = 'at'
 # match_indent = true
 line_prepend = ''
-payload = '''(G.GAME.current_round.rh_flow_pity_skip and localize('rh_skip_save')..G.GAME.current_round.rh_flow_pity_skip_host or localize('ph_mr_bones'))..' '}, colours = {G.C.FILTER'''
+payload = '''rh_saved_run_text()..' '}, colours = {G.C.FILTER'''
 
 # Pity Skip - polished UI
 [[patches]]
@@ -42,19 +53,19 @@ payload = '''(G.GAME.current_round.rh_flow_pity_skip and localize('rh_skip_save'
 target = "functions/common_events.lua"
 pattern = '''{n=G.UIT.T, config={text = localize('b_cash_out')..": ", scale = 1, colour = G.C.UI.TEXT_LIGHT, shadow = true}},'''
 position = "at"
-payload = '''{n=G.UIT.T, config={text = G.GAME.current_round.rh_flow_pity_skip and localize('rh_skip_cash_out') or (localize('b_cash_out')..": "), scale = 1, colour = G.C.UI.TEXT_LIGHT, shadow = true}},'''
+payload = '''{n=G.UIT.T, config={text = rh_saved_run_round_text(), scale = 1, colour = G.C.UI.TEXT_LIGHT, shadow = true}},'''
 match_indent = true
 
 # Pity Skip - polished UI
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
-pattern = '''{n=G.UIT.T, config={text = localize('$')..config.dollars, scale = 1.2*scale, colour = G.C.WHITE, shadow = true, juice = true}}'''
+pattern = '''{n=G.UIT.T, config={text = localize('$')..format_ui_value(config.dollars), scale = 1.2*scale, colour = G.C.WHITE, shadow = true, juice = true}}'''
 position = "at"
-payload = '''{n=G.UIT.T, config={text = not G.GAME.current_round.rh_flow_pity_skip and localize('$')..config.dollars or '', scale = 1.2*scale, colour = G.C.WHITE, shadow = true, juice = true}}'''
+payload = '''{n=G.UIT.T, config={text = rh_saved_run_money_text(), scale = 1.2*scale, colour = G.C.WHITE, shadow = true, juice = true}}'''
 match_indent = true
 
-# Pity Skip - reset value at start of round
+# Pity Skip, Simple Tap, Some Good Parts, New Record - reset value at start of round
 [[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
@@ -62,17 +73,10 @@ pattern = "G.GAME.blind:set_blind(G.GAME.round_resets.blind)"
 position = "after"
 payload = '''
 G.GAME.current_round.rh_flow_pity_skip = false
-'''
-match_indent = true
-
-# Simple Tap - reset value at start of round
-[[patches]]
-[patches.pattern]
-target = "functions/state_events.lua"
-pattern = "G.GAME.blind:set_blind(G.GAME.round_resets.blind)"
-position = "after"
-payload = '''
 G.GAME.current_round.rh_flow_simple_tap = false
+G.GAME.current_round.rh_flow_good_parts = false
+G.GAME.current_round.rh_flow_new_record = false
+G.GAME.current_round.rh_flow_new_record_tag = false
 '''
 match_indent = true
 
@@ -99,17 +103,5 @@ if G.GAME.current_round.rh_flow_new_record_tag then
     play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
     play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
 end 
-'''
-match_indent = true
-
-# New Record - reset value at start of round
-[[patches]]
-[patches.pattern]
-target = "functions/state_events.lua"
-pattern = "G.GAME.blind:set_blind(G.GAME.round_resets.blind)"
-position = "after"
-payload = '''
-G.GAME.current_round.rh_flow_new_record = false
-G.GAME.current_round.rh_flow_new_record_tag = false
 '''
 match_indent = true

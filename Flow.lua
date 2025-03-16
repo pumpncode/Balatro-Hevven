@@ -4,6 +4,12 @@ SMODS.Atlas({
     px = 71,
     py = 95
 })
+SMODS.Atlas({
+    key = "stickers", 
+    path = "stickers.png", 
+    px = 71,
+    py = 95
+})
 
 SMODS.ConsumableType({
     key='Flow',
@@ -452,6 +458,7 @@ SMODS.Consumable({
 
     use = function(self, card, area, copier)   
         inc_flow_count()
+        add_tag(Tag('tag_investment'))
         G.E_MANAGER:add_event(
 			Event({
 				trigger = "immediate",
@@ -506,7 +513,7 @@ SMODS.Consumable({
         return {
             vars= {
                 G.GAME and G.GAME.probabilities.normal or 1,
-                card.config.extra.chances
+                card.ability.extra.chances
             }
         }
     end,
@@ -521,7 +528,10 @@ SMODS.Consumable({
     use = function(self, card, area, copier)   
         inc_flow_count()
         G.GAME.current_round.rh_flow_good_parts = true
-        G.GAME.current_round.rh_flow_good_parts_chances = card.config.extra.chances
+        G.GAME.current_round.rh_flow_good_parts_chances = card.ability.extra.chances
+        add_tag_ineffective(Tag('tag_rh_some_good_parts'))
+        play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+        play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
     end,
 
     can_use = function(self, card)
@@ -556,3 +566,62 @@ function G.FUNCS.evaluate_round()
         return gfer()
     end
 end
+
+-- You (card)
+SMODS.Consumable({
+    key = "you",
+    set = 'Flow',
+    cost=7,
+    loc_txt = {
+        name = 'You',
+        text = {
+            "Marks a selected card as You.",
+            "For the round, this card will",
+            "always be selected and played",
+            "in every hand"
+        }
+    },
+    atlas = 'flow',
+    pos = {
+        x = 4,
+        y = 0
+    },
+
+    use = function(self, card, area, copier)   
+        inc_flow_count()
+        add_tag_ineffective(Tag('tag_rh_you'))
+        play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+        play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
+        G.hand.highlighted[1]:add_sticker("rh_you_sticker", true)
+        G.hand.highlighted[1].you = true
+        G.hand.highlighted[1].ability.forced_selection = true
+        G.GAME.current_round.you_card = G.hand.highlighted[1]
+    end,
+
+    can_use = function(self, card)
+		return G.STATE == G.STATES.SELECTING_HAND and #G.hand.highlighted == 1
+	end,
+
+    rh_credits = {
+        idea = {
+            "TheAlternateDoctor"
+        },
+        code = {
+            "TheAlternateDoctor"
+        }
+    }
+})
+-- You (Sticker)
+SMODS.Sticker({
+    key="you_sticker",
+    loc_txt={
+        name = 'You',
+        text = {
+            "This card will always be selected",
+            "and played in every hand"
+        }
+    },
+    atlas='stickers',
+    default_compat=true,
+    rate=0
+})

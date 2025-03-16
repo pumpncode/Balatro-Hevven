@@ -37,8 +37,35 @@ function Card:remove_edition()
     self.edition.type = ''
 end
 
+function add_tag_ineffective(_tag)
+    G.HUD_tags = G.HUD_tags or {}
+    local flow_sprite_ui = _tag:generate_UI()
+    -- G.HUD_tags[#G.HUD_tags+1] = UIBox{
+    --     definition = {n=G.UIT.ROOT, config={align = "tl",padding = 0.05, colour = G.C.CLEAR}, nodes={
+    --         flow_sprite_ui
+    --     }},
+    --     config = {
+    --       align = 'bm',
+    --       offset = {x=6.7,y=-0.93},
+    --       major = G.ROOM_ATTACH}
+    -- }
+    G.HUD_tags[#G.HUD_tags+1] = UIBox{
+        definition = {n=G.UIT.ROOT, config={align = "cm",padding = 0.05, colour = G.C.CLEAR}, nodes={
+            flow_sprite_ui
+        }},
+        config = {
+          align = G.HUD_tags[1] and 'tm' or 'bri',
+          offset = G.HUD_tags[1] and {x=0,y=0} or {x=0.7,y=0},
+          major = G.HUD_tags[1] and G.HUD_tags[#G.HUD_tags] or G.ROOM_ATTACH}
+    }
+    
+    G.GAME.tags[#G.GAME.tags+1] = _tag
+    _tag.HUD_tag = G.HUD_tags[#G.HUD_tags]
+end
+
 SMODS.load_file("Consumables.lua")()
 SMODS.load_file("Flow.lua")()
+SMODS.load_file("Flow_Tags.lua")()
 SMODS.load_file("Jokers.lua")()
 SMODS.load_file("Sounds.lua")()
 
@@ -89,9 +116,9 @@ SMODS.Back {
                 G.jokers:emplace(card)
 
                 local card_t = {
-                    set = "Tarot",
+                    set = "Flow",
                     area = G.consumeables,
-                    key = "c_chariot"
+                    key = "c_rh_you"
                 }
                 local card = SMODS.create_card(card_t)
                 G.consumeables:emplace(card)
@@ -99,7 +126,7 @@ SMODS.Back {
                 local card_t = {
                     set = "Flow",
                     area = G.consumeables,
-                    key = "c_rh_new_record"
+                    key = "c_rh_some_good_parts"
                 }
                 local card = SMODS.create_card(card_t)
                 G.consumeables:emplace(card)

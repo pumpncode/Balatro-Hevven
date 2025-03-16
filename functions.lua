@@ -53,13 +53,13 @@ function rh_saved_run_text()
     end
 end
 
-function rh_saved_run_money_text()
+function rh_saved_run_money_text(dollars)
     if G.GAME.current_round.rh_flow_pity_skip then
         return ''
     elseif G.GAME.current_round.rh_flow_good_parts then
         return ''
     else
-        return localize('$')..config.dollars
+        return localize('$')..dollars
     end
 end
 

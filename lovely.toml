@@ -37,6 +37,19 @@ payload = '''
 game_over = rh_flow_good_parts_save()
 '''
 
+# Some Good Parts - SFX
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''table.insert(left_text, {n=G.UIT.O, config={w=1.2,h=1.2 , object = blind_sprite, hover = true, can_collide = false}})'''
+position = 'after'
+match_indent = true
+payload = '''
+if G.GAME.current_round.rh_flow_good_parts then
+    play_sound('rh_some_good_parts', 1, 5)
+end
+'''
+
 # Pity Skip - end screen text
 [[patches]]
 [patches.regex]
@@ -62,10 +75,10 @@ match_indent = true
 target = "functions/common_events.lua"
 pattern = '''{n=G.UIT.T, config={text = localize('$')..format_ui_value(config.dollars), scale = 1.2*scale, colour = G.C.WHITE, shadow = true, juice = true}}'''
 position = "at"
-payload = '''{n=G.UIT.T, config={text = rh_saved_run_money_text(), scale = 1.2*scale, colour = G.C.WHITE, shadow = true, juice = true}}'''
+payload = '''{n=G.UIT.T, config={text = rh_saved_run_money_text(format_ui_value(config.dollars)), scale = 1.2*scale, colour = G.C.WHITE, shadow = true, juice = true}}'''
 match_indent = true
 
-# Pity Skip, Simple Tap, Some Good Parts, New Record - reset value at start of round
+# Balatro Hevven - reset values at start of round
 [[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
@@ -102,6 +115,25 @@ if G.GAME.current_round.rh_flow_new_record_tag then
     add_tag(Tag('tag_rare'))
     play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
     play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
+end 
+'''
+match_indent = true
+
+# You - Disables card from being discarded
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+            draw_card(G.play,G.discard, it*100/play_count,'down', false, v)
+            it = it + 1'''
+position = "at"
+payload = '''
+if v.you then
+    draw_card(G.play,G.hand, it*100/play_count,'down', false, v)
+    it = it + 1
+else
+    draw_card(G.play,G.discard, it*100/play_count,'down', false, v)
+    it = it + 1
 end 
 '''
 match_indent = true

@@ -119,7 +119,7 @@ end
 '''
 match_indent = true
 
-# You - Disables card from being discarded
+# You - Disables card from being discarded when played
 [[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
@@ -135,5 +135,24 @@ else
     draw_card(G.play,G.discard, it*100/play_count,'down', false, v)
     it = it + 1
 end 
+'''
+match_indent = true
+
+# You - Disables card from being discarded by player
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+    stop_use()
+    G.CONTROLLER.interrupt.focus = true
+    G.CONTROLLER:save_cardarea_focus('hand')
+'''
+position = "after"
+payload = '''
+for k, v in ipairs(G.hand.highlighted) do
+    if v.you then
+        G.hand:remove_from_highlighted(v, true)
+    end
+end
 '''
 match_indent = true

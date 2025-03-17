@@ -28,13 +28,6 @@ SMODS.Consumable({
     key = "try_again",
     set = 'Flow',
     cost=7,
-    loc_txt = {
-        name = 'Try Again',
-        text = {
-            "Discards and redraws",
-            "your entire hand"
-        }
-    },
     atlas = 'flow',
     pos = {
         x = 1,
@@ -73,14 +66,6 @@ SMODS.Consumable({
     key = "ok",
     set = 'Flow',
     cost=7,
-    loc_txt = {
-        name = 'OK',
-        text = {
-            "Discards and redraws",
-            "your entire hand, save for",
-            "selected cards"
-        }
-    },
     atlas = 'flow',
     pos = {
         x = 2,
@@ -125,14 +110,6 @@ SMODS.Consumable({
     key = "superb",
     set = 'Flow',
     cost=7,
-    loc_txt = {
-        name = 'Superb',
-        text = {
-            "Enhances selected cards,",
-            "plays them, and discards",
-            "the rest of your hand"
-        }
-    },
     atlas = 'flow',
     pos = {
         x = 3,
@@ -361,13 +338,6 @@ SMODS.Consumable({
     key = "simple_tap",
     set = 'Flow',
     cost=7,
-    loc_txt = {
-        name = 'Simple Tap',
-        text = {
-            "Skip non-boss blind without cashing out",
-            "{s:0.6}Have you been having difficulties with Monkey Watch?"
-        }
-    },
     
     atlas = 'flow',
     pos = {
@@ -403,15 +373,6 @@ SMODS.Consumable({
     key = "new_record",
     set = 'Flow',
     cost=7,
-    loc_txt = {
-        name = 'New Record',
-        text = {
-            "If you get a new hand record for this run",
-            "after using this card this round,",
-            "create a {C:red}Rare Tag",
-            "{C:inactive}(Current record: {C:red}#1#{C:inactive})"
-        }
-    },
     loc_vars = function(self, info_queue, card)
         return {
             vars = {G.GAME.round_scores['hand'].amt}
@@ -450,13 +411,6 @@ SMODS.Consumable({
     key = "pity_skip",
     set = 'Flow',
     cost=7,
-    loc_txt = {
-        name = 'Pity Skip',
-        text = {
-            "Skip non-boss blind without cashing out",
-            "{s:0.6}Have you been having difficulties with Monkey Watch?"
-        }
-    },
     atlas = 'flow',
     pos = {
         x = 2,
@@ -508,23 +462,17 @@ SMODS.Consumable({
     key = "some_good_parts",
     set = 'Flow',
     cost=7,
-    loc_txt = {
-        name = 'Some Good Parts',
-        text = {
-            "Prevents Death if chips scored are at least 60% of required chips",
-            "{C:green}#1# in #2#{} chances"
-        }
-    },
     loc_vars = function(self, info_queue, card)
         return {
             vars= {
+                card.ability.extra.percentage,
                 G.GAME and G.GAME.probabilities.normal or 1,
                 card.ability.extra.chances
             }
         }
     end,
 
-    config = {extra = {chances=8}},
+    config = {extra = {percentage=60,chances=8}},
     atlas = 'flow',
     pos = {
         x = 3,
@@ -535,6 +483,7 @@ SMODS.Consumable({
         inc_flow_count()
         G.GAME.current_round.rh_flow_good_parts = true
         G.GAME.current_round.rh_flow_good_parts_chances = card.ability.extra.chances
+        G.GAME.current_round.rh_flow_good_parts_percentage = card.ability.extra.percentage
         add_tag_ineffective(Tag('tag_rh_some_good_parts'))
         play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
         play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
@@ -578,15 +527,6 @@ SMODS.Consumable({
     key = "you",
     set = 'Flow',
     cost=7,
-    loc_txt = {
-        name = 'You',
-        text = {
-            "Marks a selected card as You.",
-            "For the round, this card will",
-            "always be selected and played",
-            "in every hand"
-        }
-    },
     atlas = 'flow',
     pos = {
         x = 4,
@@ -620,13 +560,7 @@ SMODS.Consumable({
 -- You (Sticker)
 SMODS.Sticker({
     key="you_sticker",
-    loc_txt={
-        name = 'You',
-        text = {
-            "This card will always be selected",
-            "and played in every hand"
-        }
-    },
+    badge_colour=G.C.BLACK,
     atlas='stickers',
     default_compat=true,
     rate=0
@@ -637,18 +571,14 @@ SMODS.Consumable({
     key = "extra_life",
     set = 'Flow',
     cost=7,
-    loc_txt = {
-        name = 'Extra Life',
-        text = {
-            "+#1# hand, +#2# discard"
-        }
-    },
     config = {extra = {hands=1,discards=1}},
     loc_vars = function(self, info_queue, card)
         return {
             vars= {
                 card.ability.extra.hands,
-                card.ability.extra.discards
+                (card.ability.extra.hands>1) and "s" or "",
+                card.ability.extra.discards,
+                (card.ability.extra.discards>1) and "s" or "",
             }
         }
     end,
@@ -685,14 +615,6 @@ SMODS.Consumable({
     key = "skill_star",
     set = 'Flow',
     cost=7,
-    loc_txt = {
-        name = 'Skill Star',
-        text = {
-            "For every #1#% of required score",
-            "exceeded, gain $#2#",
-            "(Max of $#3#)"
-        }
-    },
     loc_vars = function(self, info_queue, card)
         return {
             vars= {

@@ -9,7 +9,7 @@ priority = 0
 target = "main.lua"
 position = "append"
 sources = [
-	"functions.lua"
+	"inject_functions.lua"
 ]
 
 # All this stolen and slightly edited from Cryptid

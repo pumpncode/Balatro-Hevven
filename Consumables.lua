@@ -10,17 +10,10 @@ SMODS.Consumable({
     key = "trio",
     set = 'Tarot',
     cost=3,
-    loc_txt = {
-        name = 'The Trio',
-        text = {
-            "Creates a random {C:planet}Planet{} , {C:tarot}Tarot{}",
-            "and {C:rh_flow}Flow{} card."
-        }
-    },
     atlas = 'consumables',
     pos = {
         x = 0,
-        y = 1
+        y = 0
     },
 
     use = function(self, card, area, copier)
@@ -82,17 +75,10 @@ SMODS.Consumable({
     key = "castle",
     set = 'Tarot',
     cost=3,
-    loc_txt = {
-        name = 'The Castle',
-        text = {
-            "Creates a random {C:rh_flow}Flow{} card",
-            "{C:inactive}(Must have room)",
-        }
-    },
     atlas = 'consumables',
     pos = {
-        x = 0,
-        y = 1
+        x = 1,
+        y = 0
     },
 
     use = function(self, card, area, copier)
@@ -117,21 +103,15 @@ SMODS.Consumable({
     end
 })
 
--- Interpreter
+-- Translator
 SMODS.Consumable({
     key = "translator",
     set = 'Tarot',
     cost=3,
-    loc_txt = {
-        name = 'The Translator',
-        text = {
-            "Makes a random card {C:dark_edition}Negative{}"
-        }
-    },
     atlas = 'consumables',
     pos = {
-        x = 0,
-        y = 1
+        x = 2,
+        y = 0
     },
 
     use = function(self, card, area, copier)
@@ -162,14 +142,7 @@ SMODS.Consumable({
 SMODS.Consumable({
     key = "remix",
     set = 'Spectral',
-    cost=3,
-    loc_txt = {
-        name = 'Remix',
-        text = {
-            "All suits transform into an {C:dark_edition}enhancement, {C:dark_edition}seal{} or {C:dark_edition}edition{}",
-            "Destroys all jokers, -1 Joker Slot"
-        }
-    },
+    cost=5,
     atlas = 'consumables',
     pos = {
         x = 0,
@@ -279,6 +252,51 @@ SMODS.Consumable({
 
         --Finally, -1 Joker Slot
         G.jokers.config.card_limit = G.jokers.config.card_limit - 1
+	end,
+
+    can_use = function (self, card)
+		return true
+	end,
+})
+
+-- Hevven World
+SMODS.Consumable({
+    key = "hevven_world",
+    set = 'Planet',
+    cost=3,
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars= {
+                card.ability.extra.hands,
+                card.ability.extra.times,
+            }
+        }
+    end,
+    config = {extra = {hands=3,times=2}},
+    atlas = 'consumables',
+    pos = {
+        x = 0,
+        y = 2
+    },
+
+    use = function(self, card, area, copier)
+        for i = 1, card.ability.extra.hands do
+            local hand = poll_poker_hand({}, "hevven", false)
+            update_hand_text(
+                { sound = "button", volume = 0.7, pitch = 0.8, delay = 0.3 },
+                {
+                    handname = localize(hand, "poker_hands"),
+                    chips = G.GAME.hands[hand].chips*card.ability.extra.times,
+                    mult = G.GAME.hands[hand].mult*card.ability.extra.times,
+                    level = G.GAME.hands[hand].level*card.ability.extra.times,
+                }
+            )
+            level_up_hand(card, hand, nil, card.ability.extra.times)
+        end
+        update_hand_text(
+			{ sound = "button", volume = 0.7, pitch = 1.1, delay = 0 },
+			{ mult = 0, chips = 0, handname = "", level = "" }
+		)
 	end,
 
     can_use = function (self, card)

@@ -10,6 +10,14 @@ if SMODS and SMODS.calculate_individual_effect then
             if ret then
                 return ret
             end
+        elseif (key == 'xchips' or key == 'x_chips' or key == 'Xchip_mod') and
+            amount and
+            G.GAME.current_round.simple_tap then
+            -- scored_card then 
+            local ret scie(effect, scored_card, "xmult", amount, from_edition)
+            if ret then
+                return ret
+            end
         else
             local ret = scie(effect, scored_card, key, amount, from_edition)
             if ret then
@@ -32,7 +40,7 @@ end
 
 function rh_flow_good_parts_save()
     if G.GAME.current_round.rh_flow_good_parts and
-    G.GAME.chips/G.GAME.blind.chips >= 0.60 then
+    G.GAME.chips/G.GAME.blind.chips >= (G.GAME.current_round.rh_flow_good_parts_percentage/100) then
         local some_good_parts = pseudorandom(pseudoseed("some_good_parts"))
         if some_good_parts > G.GAME.probabilities.normal/G.GAME.current_round.rh_flow_good_parts_chances then
             return false        

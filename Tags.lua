@@ -9,13 +9,6 @@ SMODS.Atlas({
 -- Some Good Parts
 SMODS.Tag({
     key = "some_good_parts",
-    loc_txt = {
-        name = 'Some Good Parts',
-        text = {
-            "Prevents Death if chips scored are at least 60% of required chips",
-            "{C:green}#1# in #2#{} chances"
-        }
-    },
     no_collection = false,
     discovered = true,
     atlas = "tags_flow",
@@ -27,6 +20,7 @@ SMODS.Tag({
     loc_vars = function(self, info_queue, card)
         return {
             vars= {
+                G.GAME and G.GAME.current_round.rh_flow_good_parts_percentage or 60,
                 G.GAME and G.GAME.probabilities.normal or 1,
                 G.GAME and G.GAME.current_round.rh_flow_good_parts_chances or 8
             }
@@ -49,15 +43,6 @@ SMODS.Tag({
 -- You
 SMODS.Tag({
     key = "you",
-    loc_txt = {
-        name = 'You',
-        text = {
-            "Marks a selected card as You.",
-            "For the round, this card will",
-            "always be selected and played",
-            "in every hand"
-        }
-    },
     no_collection = false,
     discovered = true,
     atlas = "tags_flow",
@@ -88,20 +73,12 @@ SMODS.Tag({
 -- Skill Star
 SMODS.Tag({
     key = "skill_star",
-    loc_txt = {
-        name = 'Skill Star',
-        text = {
-            "For every #1#% of required score",
-            "exceeded, gain $#2#",
-            "(Max of $#3#)"
-        }
-    },
     loc_vars = function(self, info_queue, card)
         return {
             vars= {
-                G.GAME.current_round.skill_star.percentage,
-                G.GAME.current_round.skill_star.base_money,
-                G.GAME.current_round.skill_star.max_money
+                G.GAME.current_round.skill_star and G.GAME.current_round.skill_star.percentage or 5,
+                G.GAME.current_round.skill_star and G.GAME.current_round.skill_star.base_money or 1,
+                G.GAME.current_round.skill_star and G.GAME.current_round.skill_star.max_money or 40
             }
         }
     end,
@@ -139,13 +116,6 @@ SMODS.Tag({
 -- Simple Tap
 SMODS.Tag({
     key = "simple_tap",
-    loc_txt = {
-        name = 'Simple Tap',
-        text = {
-            "Skip non-boss blind without cashing out",
-            "{s:0.6}Have you been having difficulties with Monkey Watch?"
-        }
-    },
     no_collection = false,
     discovered = true,
     atlas = "tags_flow",
@@ -168,15 +138,6 @@ SMODS.Tag({
 -- New Record
 SMODS.Tag({
     key = "new_record",
-    loc_txt = {
-        name = 'New Record',
-        text = {
-            "If you get a new hand record for this run",
-            "after using this card this round,",
-            "create a {C:red}Rare Tag",
-            "{C:inactive}(Current record: {C:red}#1#{C:inactive})"
-        }
-    },
     no_collection = false,
     discovered = true,
     atlas = "tags_flow",
@@ -184,6 +145,11 @@ SMODS.Tag({
         x = 1,
         y = 0
     },
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {G.GAME.round_scores['hand'].amt or 0}
+        }
+    end,
 	in_pool = function()
 		return false
 	end,

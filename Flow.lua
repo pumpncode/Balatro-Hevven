@@ -368,14 +368,18 @@ SMODS.Consumable({
             "{s:0.6}Have you been having difficulties with Monkey Watch?"
         }
     },
+    
     atlas = 'flow',
     pos = {
-        x = 4,
-        y = 0
+        x = 1,
+        y = 1
     },
 
     use = function(self, card, area, copier)   
         inc_flow_count()
+        add_tag_ineffective(Tag('tag_rh_simple_tap'))
+        play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+        play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
         G.GAME.current_round.rh_flow_simple_tap = true
     end,
 
@@ -415,13 +419,16 @@ SMODS.Consumable({
     end,
     atlas = 'flow',
     pos = {
-        x = 4,
-        y = 0
+        x = 1,
+        y = 2
     },
 
     use = function(self, card, area, copier)   
         inc_flow_count()
         G.GAME.current_round.rh_flow_new_record = true
+        add_tag_ineffective(Tag('tag_rh_new_record'))
+        play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+        play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
     end,
 
     can_use = function(self, card)
@@ -452,13 +459,12 @@ SMODS.Consumable({
     },
     atlas = 'flow',
     pos = {
-        x = 4,
-        y = 0
+        x = 2,
+        y = 1
     },
 
     use = function(self, card, area, copier)   
         inc_flow_count()
-        add_tag(Tag('tag_investment'))
         G.E_MANAGER:add_event(
 			Event({
 				trigger = "immediate",
@@ -521,8 +527,8 @@ SMODS.Consumable({
     config = {extra = {chances=8}},
     atlas = 'flow',
     pos = {
-        x = 4,
-        y = 0
+        x = 3,
+        y = 1
     },
 
     use = function(self, card, area, copier)   
@@ -584,7 +590,7 @@ SMODS.Consumable({
     atlas = 'flow',
     pos = {
         x = 4,
-        y = 0
+        y = 1
     },
 
     use = function(self, card, area, copier)   
@@ -624,4 +630,107 @@ SMODS.Sticker({
     atlas='stickers',
     default_compat=true,
     rate=0
+})
+
+-- Extra Life
+SMODS.Consumable({
+    key = "extra_life",
+    set = 'Flow',
+    cost=7,
+    loc_txt = {
+        name = 'Extra Life',
+        text = {
+            "+#1# hand, +#2# discard"
+        }
+    },
+    config = {extra = {hands=1,discards=1}},
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars= {
+                card.ability.extra.hands,
+                card.ability.extra.discards
+            }
+        }
+    end,
+    atlas = 'flow',
+    pos = {
+        x = 0,
+        y = 2
+    },
+
+    use = function(self, card, area, copier)
+        inc_flow_count()
+        G.E_MANAGER:add_event(Event({func = function()
+            ease_discard(card.ability.extra.discards)
+            ease_hands_played(card.ability.extra.hands)
+        return true end }))
+    end,
+
+    can_use = function(self, card)
+		return G.STATE == G.STATES.SELECTING_HAND
+	end,
+
+    rh_credits = {
+        idea = {
+            "patataofcourse"
+        },
+        code = {
+            "TheAlternateDoctor"
+        }
+    }
+})
+
+-- Skill Star
+SMODS.Consumable({
+    key = "skill_star",
+    set = 'Flow',
+    cost=7,
+    loc_txt = {
+        name = 'Skill Star',
+        text = {
+            "For every #1#% of required score",
+            "exceeded, gain $#2#",
+            "(Max of $#3#)"
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars= {
+                card.ability.extra.percentage,
+                card.ability.extra.base_money,
+                card.ability.extra.max_money
+            }
+        }
+    end,
+    config = {extra = {
+        percentage = 5,
+        base_money = 1,
+        max_money = 40,
+    }},
+    atlas = 'flow',
+    pos = {
+        x = 0,
+        y = 1
+    },
+
+    use = function(self, card, area, copier)
+        inc_flow_count()
+        add_tag_ineffective(Tag('tag_rh_skill_star'))
+        G.GAME.current_round.skill_star = card.ability.extra
+        play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+        play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
+    end,
+
+    can_use = function(self, card)
+		return G.STATE == G.STATES.SELECTING_HAND
+	end,
+
+    rh_credits = {
+        idea = {
+            "patataofcourse"
+        },
+        code = {
+            "TheAlternateDoctor"
+        }
+    }
 })

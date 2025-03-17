@@ -40,15 +40,6 @@ end
 function add_tag_ineffective(_tag)
     G.HUD_tags = G.HUD_tags or {}
     local flow_sprite_ui = _tag:generate_UI()
-    -- G.HUD_tags[#G.HUD_tags+1] = UIBox{
-    --     definition = {n=G.UIT.ROOT, config={align = "tl",padding = 0.05, colour = G.C.CLEAR}, nodes={
-    --         flow_sprite_ui
-    --     }},
-    --     config = {
-    --       align = 'bm',
-    --       offset = {x=6.7,y=-0.93},
-    --       major = G.ROOM_ATTACH}
-    -- }
     G.HUD_tags[#G.HUD_tags+1] = UIBox{
         definition = {n=G.UIT.ROOT, config={align = "cm",padding = 0.05, colour = G.C.CLEAR}, nodes={
             flow_sprite_ui
@@ -65,7 +56,7 @@ end
 
 SMODS.load_file("Consumables.lua")()
 SMODS.load_file("Flow.lua")()
-SMODS.load_file("Flow_Tags.lua")()
+SMODS.load_file("Tags.lua")()
 SMODS.load_file("Jokers.lua")()
 SMODS.load_file("Sounds.lua")()
 
@@ -118,15 +109,7 @@ SMODS.Back {
                 local card_t = {
                     set = "Flow",
                     area = G.consumeables,
-                    key = "c_rh_you"
-                }
-                local card = SMODS.create_card(card_t)
-                G.consumeables:emplace(card)
-
-                local card_t = {
-                    set = "Flow",
-                    area = G.consumeables,
-                    key = "c_rh_some_good_parts"
+                    key = "c_rh_skill_star"
                 }
                 local card = SMODS.create_card(card_t)
                 G.consumeables:emplace(card)

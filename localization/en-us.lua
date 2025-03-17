@@ -171,7 +171,8 @@ return {
             c_rh_translator = {
                 name = 'The Translator',
                 text = {
-                    "Add {C:dark_edition}Negative{} to a random card"
+                    "Add {C:dark_edition}Negative{} to a random",
+                    "card in your hand"
                 }
             },
             c_rh_castle = {
@@ -184,19 +185,20 @@ return {
             c_rh_trio = {
                 name = 'The Trio',
                 text = {
-                    "Creates a random {C:planet}Planet{} , {C:tarot}Tarot{}",
-                    "and {C:rh_flow}Flow{} card."
+                    "Creates a random {C:planet}Planet{}, {C:tarot}Tarot{}",
+                    "and {C:rh_flow}Flow{} card",
+                    "{C:inactive}(Must have room)",
                 }
             },
         },
         Other = {
             rh_you_sticker = {
-                label = 'YOU',
                 name = 'You',
                 text = {
                     "This card will always be selected",
                     "and played in every hand"
-                }
+                },
+                label = 'YOU',
             }
         }
     },

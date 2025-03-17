@@ -152,7 +152,7 @@ return {
                 name = 'Hevven World',
                 text = {
                     "Upgrade {C:attention}#1#{} random",
-                    "poker hands #2# times"
+                    "poker hands {C:attention}#2#{} times"
                 }                
             }
         },
@@ -161,9 +161,9 @@ return {
                 name = 'Remix',
                 text = {
                     "All suits transform into an",
-                    "{C:dark_edition}enhancement, {C:dark_edition}seal{} or {C:dark_edition}edition{}",
-                    "Destroys all jokers",
-                    "-1 Joker Slot"
+                    "{C:dark_edition}enhancement, {C:dark_edition}seal{} or {C:dark_edition}edition{},",
+                    "destroys all jokers,",
+                    "{C:red}-1{} Joker slot"
                 }
             }
         },

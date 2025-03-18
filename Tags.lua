@@ -58,7 +58,7 @@ SMODS.Tag({
         if context.type == "round_start_bonus" then
             G.hand:add_to_highlighted(G.GAME.current_round.you_card, false)
             G.GAME.current_round.you_card.ability.forced_selection = true
-        elseif context.type == "eval" then
+        elseif context.type == "shop_start" then
             sendDebugMessage("Deleting tag!", "RhFlowYou")
             G.GAME.current_round.you_card:remove_sticker("rh_you_sticker")
             G.GAME.current_round.you_card.you = false
@@ -127,7 +127,7 @@ SMODS.Tag({
 		return false
 	end,
     apply = function(self, tag, context)
-		if context.type == "eval" then
+		if context.type == "shop_start" then
             tag:yep("", G.C.SECONDARY_SET.FLOW, function() return true end)
 			tag.triggered = true
             return true
@@ -154,7 +154,7 @@ SMODS.Tag({
 		return false
 	end,
     apply = function(self, tag, context)
-		if context.type == "eval" then
+		if context.type == "shop_start" then
             tag:yep("", G.C.SECONDARY_SET.FLOW, function() return true end)
 			tag.triggered = true
             return true

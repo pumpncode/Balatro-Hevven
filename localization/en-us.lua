@@ -199,6 +199,13 @@ return {
                     "and played in every hand"
                 },
                 label = 'YOU',
+            },
+            active_flow = {
+                name="Flow Card (Active)",
+                text={
+                    "Only {C:attention}1{} active",
+                    "per round",
+                },
             }
         }
     },

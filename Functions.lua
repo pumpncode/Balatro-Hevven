@@ -37,7 +37,8 @@ function Card:remove_edition()
     self.edition.type = ''
 end
 
-function add_tag_ineffective(_tag)
+function add_flow_tag(_tag)
+    G.GAME.current_round.rh_flow_used = true
     G.HUD_tags = G.HUD_tags or {}
     local flow_sprite_ui = _tag:generate_UI()
     G.HUD_tags[#G.HUD_tags+1] = UIBox{

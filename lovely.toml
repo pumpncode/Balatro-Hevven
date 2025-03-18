@@ -90,6 +90,7 @@ G.GAME.current_round.rh_flow_simple_tap = false
 G.GAME.current_round.rh_flow_good_parts = false
 G.GAME.current_round.rh_flow_new_record = false
 G.GAME.current_round.rh_flow_new_record_tag = false
+G.GAME.current_round.rh_flow_used = false
 '''
 match_indent = true
 

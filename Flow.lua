@@ -234,14 +234,6 @@ SMODS.Consumable({
     key = "perfect",
     set = 'Flow',
     cost=7,
-    loc_txt = {
-        name = 'Perfect',
-        text = {
-            "Add {C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or {C:dark_edition}Polychrome{}",
-            "to selected cards, plays them,",
-            "and destroys the rest of your hand"
-        }
-    },
     atlas = 'flow',
     pos = {
         x = 4,
@@ -344,18 +336,21 @@ SMODS.Consumable({
         x = 1,
         y = 1
     },
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {key = 'active_flow', set = 'Other'}
+        return {}
+    end,
 
     use = function(self, card, area, copier)   
         inc_flow_count()
-        add_tag_ineffective(Tag('tag_rh_simple_tap'))
+        add_flow_tag(Tag('tag_rh_simple_tap'))
         play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
         play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
         G.GAME.current_round.rh_flow_simple_tap = true
     end,
 
     can_use = function(self, card)
-		return G.STATE == G.STATES.SELECTING_HAND
-		-- return G.STATE == G.STATES.SELECTING_HAND and not G.GAME.blind.boss
+		return G.STATE == G.STATES.SELECTING_HAND and not G.GAME.current_round.rh_flow_used
 	end,
 
     rh_credits = {
@@ -374,6 +369,7 @@ SMODS.Consumable({
     set = 'Flow',
     cost=7,
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {key = 'active_flow', set = 'Other'}
         return {
             vars = {G.GAME.round_scores['hand'].amt}
         }
@@ -387,13 +383,13 @@ SMODS.Consumable({
     use = function(self, card, area, copier)   
         inc_flow_count()
         G.GAME.current_round.rh_flow_new_record = true
-        add_tag_ineffective(Tag('tag_rh_new_record'))
+        add_flow_tag(Tag('tag_rh_new_record'))
         play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
         play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
     end,
 
     can_use = function(self, card)
-		return G.STATE == G.STATES.SELECTING_HAND
+		return G.STATE == G.STATES.SELECTING_HAND and not G.GAME.current_round.rh_flow_used
 	end,
 
     rh_credits = {
@@ -463,6 +459,7 @@ SMODS.Consumable({
     set = 'Flow',
     cost=7,
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {key = 'active_flow', set = 'Other'}
         return {
             vars= {
                 card.ability.extra.percentage,
@@ -484,13 +481,13 @@ SMODS.Consumable({
         G.GAME.current_round.rh_flow_good_parts = true
         G.GAME.current_round.rh_flow_good_parts_chances = card.ability.extra.chances
         G.GAME.current_round.rh_flow_good_parts_percentage = card.ability.extra.percentage
-        add_tag_ineffective(Tag('tag_rh_some_good_parts'))
+        add_flow_tag(Tag('tag_rh_some_good_parts'))
         play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
         play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
     end,
 
     can_use = function(self, card)
-		return G.STATE == G.STATES.SELECTING_HAND and not G.GAME.blind.boss
+		return G.STATE == G.STATES.SELECTING_HAND and not G.GAME.blind.boss and not G.GAME.current_round.rh_flow_used
 	end,
 
     rh_credits = {
@@ -532,10 +529,14 @@ SMODS.Consumable({
         x = 4,
         y = 1
     },
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {key = 'active_flow', set = 'Other'}
+        return {}
+    end,
 
     use = function(self, card, area, copier)   
         inc_flow_count()
-        add_tag_ineffective(Tag('tag_rh_you'))
+        add_flow_tag(Tag('tag_rh_you'))
         play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
         play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
         G.hand.highlighted[1]:add_sticker("rh_you_sticker", true)
@@ -545,7 +546,7 @@ SMODS.Consumable({
     end,
 
     can_use = function(self, card)
-		return G.STATE == G.STATES.SELECTING_HAND and #G.hand.highlighted == 1
+		return G.STATE == G.STATES.SELECTING_HAND and #G.hand.highlighted == 1 and not G.GAME.current_round.rh_flow_used
 	end,
 
     rh_credits = {
@@ -597,7 +598,7 @@ SMODS.Consumable({
     end,
 
     can_use = function(self, card)
-		return G.STATE == G.STATES.SELECTING_HAND
+		return G.STATE == G.STATES.SELECTING_HAND and not G.GAME.current_round.rh_flow_used
 	end,
 
     rh_credits = {
@@ -616,6 +617,7 @@ SMODS.Consumable({
     set = 'Flow',
     cost=7,
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {key = 'active_flow', set = 'Other'}
         return {
             vars= {
                 card.ability.extra.percentage,
@@ -637,14 +639,14 @@ SMODS.Consumable({
 
     use = function(self, card, area, copier)
         inc_flow_count()
-        add_tag_ineffective(Tag('tag_rh_skill_star'))
+        add_flow_tag(Tag('tag_rh_skill_star'))
         G.GAME.current_round.skill_star = card.ability.extra
         play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
         play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
     end,
 
     can_use = function(self, card)
-		return G.STATE == G.STATES.SELECTING_HAND
+		return G.STATE == G.STATES.SELECTING_HAND and not G.GAME.current_round.rh_flow_used
 	end,
 
     rh_credits = {

@@ -115,7 +115,7 @@ SMODS.Consumable({
     },
 
     use = function(self, card, area, copier)
-        local card_index = math.floor((pseudorandom(pseudoseed("translator")) * 100) % #G.hand.cards)
+        local card_index = math.ceil((pseudorandom(pseudoseed("translator")) * 100) % #G.hand.cards)
         sendDebugMessage(card_index, "rhTranslator")
         local CARD = G.hand.cards[card_index]
         local percent = 0.85 + (card_index - 0.999) / (#G.hand.cards - 0.998) * 0.3

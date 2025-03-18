@@ -74,21 +74,34 @@ SMODS.Consumable({
 
     use = function(self, card, area, copier)   
         inc_flow_count()     
-        local to_discard = {}
-        for k, v in ipairs(G.hand.cards) do
-            if v.highlighted ==false then
-                to_discard[#to_discard+1] = v
-            end
-        end
-        G.hand:unhighlight_all()
-        for k, v in ipairs(to_discard) do
-            G.hand:add_to_highlighted(v, true)
-            G.FUNCS.discard_cards_from_highlighted(nil, true)
-            G.hand:remove_from_highlighted(v, true)
-        end
-        while #G.hand.cards < G.hand.config.card_limit do
-            G.FUNCS.draw_from_deck_to_hand(1)
-        end
+        G.E_MANAGER:add_event(Event({
+            func = function() 
+                local any_selected = nil
+                local to_discard = {}
+                for k, v in ipairs(G.hand.cards) do
+                    if v.highlighted ==false then
+                        to_discard[#to_discard+1] = v
+                        any_selected = true
+                    end
+                end
+                G.hand:unhighlight_all()
+                for k, v in ipairs(to_discard) do
+                    G.hand.highlighted[#G.hand.highlighted+1] = v
+                    v:highlight(true)
+                end
+                if any_selected then
+                    G.FUNCS.discard_cards_from_highlighted(nil, true)
+                    G.STATE = G.STATES.DRAW_TO_HAND
+                    G.E_MANAGER:add_event(Event({
+                        func = function() 
+                            G.STATE_COMPLETE = false
+                            return true 
+                        end 
+                    }))
+                end 
+                return true 
+            end 
+        }))   
     end,
 
     can_use = function(self, card)

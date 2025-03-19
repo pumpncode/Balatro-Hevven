@@ -182,7 +182,7 @@ SMODS.Consumable({
         for k, v in pairs(G.playing_cards) do
             G.E_MANAGER:add_event(Event({
 				func = function()
-                    v.edition = {}
+                    v.edition = nil
                     v:set_ability(G.P_CENTERS.c_base, nil, true)
                     v.seal = nil
                     if v.base.suit == 'Spades' then 

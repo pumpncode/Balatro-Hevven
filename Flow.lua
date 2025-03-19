@@ -286,6 +286,7 @@ SMODS.Consumable({
                             offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
                             silent = true
                             })
+                            aura_card.edition = nil
                             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
                                 play_sound('tarot2', 0.76, 0.4);return true end}))
                             play_sound('tarot2', 1, 0.4)

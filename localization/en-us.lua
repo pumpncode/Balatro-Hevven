@@ -41,9 +41,11 @@ return {
             c_rh_perfect = {
                 name = 'Perfect',
                 text = {
-                    "Add {C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or {C:dark_edition}Polychrome{}",
-                    "to selected cards, plays them,",
-                    "and destroys the rest of your hand"
+                    "Overwrite the edition of",
+                    "and play the selected cards,",
+                    "then destroy all cards held in hand",
+                    "{s:0.6}#1# in #2# {s:0.6}chances to blank out the edition,",
+                    "otherwise adds {s:0.6,C:dark_edition}Foil{s:0.6}, {s:0.6,C:dark_edition}Holographic{s:0.6}, or {s:0.6,C:dark_edition}Polychrome"
                 }
             },
             c_rh_simple_tap = {

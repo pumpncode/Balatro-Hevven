@@ -252,6 +252,19 @@ SMODS.Consumable({
         x = 4,
         y = 0
     },
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+
+            }
+        }
+    end,
+    config = {
+        extra = {
+            base_chance = 2,
+            max_chance = 3
+        }
+    },
 
     use = function(self, card, area, copier)   
         inc_flow_count()
@@ -268,7 +281,7 @@ SMODS.Consumable({
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                 local enhancement_type = pseudorandom(pseudoseed("perfect"))
                 local aura_card = G.hand.highlighted[i]
-                if enhancement_type > 0.67 then 
+                if enhancement_type > (G.GAME.probabilities.normal*card.ability.extra.base_chance)/card.ability.extra.max_chance then 
                     local edition = poll_edition('perfect', nil, true, true)
                     if not aura_card.edition then
                         aura_card:set_edition(edition, true)

@@ -44,8 +44,8 @@ return {
                     "Overwrite the edition of",
                     "and play the selected cards,",
                     "then destroy all cards held in hand",
-                    "{s:0.6}#1# in #2# {s:0.6}chances to blank out the edition,",
-                    "otherwise adds {s:0.6,C:dark_edition}Foil{s:0.6}, {s:0.6,C:dark_edition}Holographic{s:0.6}, or {s:0.6,C:dark_edition}Polychrome"
+                    "{s:0.6C:green}#1# in #2# {s:0.6C:inactive}chances to blank out the edition,",
+                    "{s:0.6,C:inactive}otherwise adds {s:0.6,C:dark_edition}Foil{s:0.6C:inactive}, {s:0.6,C:dark_edition}Holographic{s:0.6C:inactive}, or {s:0.6,C:dark_edition}Polychrome"
                 }
             },
             c_rh_simple_tap = {
@@ -151,7 +151,7 @@ return {
         },
         Planet = {
             c_rh_hevven_world = {
-                name = 'Hevven World',
+                name = 'Rhythm Hevven',
                 text = {
                     "Upgrade {C:attention}#1#{} random",
                     "poker hands {C:attention}#2#{} times"

@@ -1,8 +1,26 @@
+-- Adding a beat anim to the main menu (juices up the card)
+function rh_beat_anim(card)
+    -- love.timer.sleep(0)
+    
+    local actual_time = love.timer.getTime()
+    G.E_MANAGER:add_event(Event({
+        blocking = false,
+        blockable = false,
+        func = function()
+            if (love.timer.getTime() - start_time) / 0.556 > 1 then
+                start_time = love.timer.getTime()
+                card:juice_up()
+            end
+            return false
+        end
+    }))
+end
+
 -- Editing SMODS calculation method to account for simple tap
 if SMODS and SMODS.calculate_individual_effect then
     local scie = SMODS.calculate_individual_effect
     function SMODS.calculate_individual_effect(effect, scored_card, key, amount, from_edition)
-        sendDebugMessage("KEY:"..key, "rhFlowTap")
+        sendDebugMessage("KEY:"..key, "rhCalc")
         if (key == 'chips' or key == 'h_chips' or key == 'chip_mod') and
             amount and
             G.GAME.current_round.rh_flow_simple_tap then

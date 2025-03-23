@@ -1,7 +1,7 @@
 -- Adding a beat anim to the main menu (juices up the card)
 function rh_beat_anim(card)
     -- love.timer.sleep(0)
-    
+    local start_time = love.timer.getTime()
     local actual_time = love.timer.getTime()
     G.E_MANAGER:add_event(Event({
         blocking = false,

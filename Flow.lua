@@ -625,7 +625,7 @@ SMODS.Consumable({
         }
     end,
 
-    config = {extra = {percentage=60,chances=8}},
+    config = {extra = {percentage=1,chances=8}},
     atlas = 'flow',
     pos = {
         x = 3,
@@ -658,7 +658,7 @@ SMODS.Consumable({
 -- Rewritting vanilla evaluate_round somewhat to make Pity Skip and Some Good Parts work
 local gfer = G.FUNCS.evaluate_round
 function G.FUNCS.evaluate_round()
-    if G.GAME.current_round.rh_flow_pity_skip or G.GAME.current_round.rh_flow_good_parts then
+    if G.GAME.current_round.rh_flow_pity_skip or G.GAME.current_round.rh_flow_good_parts_saved then
         add_round_eval_row({ dollars = 0, name = "blind1", pitch = 0.95, saved = true })
         G.E_MANAGER:add_event(Event({
             trigger = "before",

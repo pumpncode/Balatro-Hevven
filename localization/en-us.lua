@@ -44,8 +44,8 @@ return {
                     "Overwrite the edition of",
                     "and play the selected cards,",
                     "then destroy all cards held in hand",
-                    "{s:0.6C:green}#1# in #2# {s:0.6C:inactive}chances to blank out the edition,",
-                    "{s:0.6,C:inactive}otherwise adds {s:0.6,C:dark_edition}Foil{s:0.6C:inactive}, {s:0.6,C:dark_edition}Holographic{s:0.6C:inactive}, or {s:0.6,C:dark_edition}Polychrome"
+                    "{s:0.6,C:green}#1# in #2# {s:0.6,C:inactive}chances to blank out the edition,",
+                    "{s:0.6,C:inactive}otherwise adds {s:0.6,C:dark_edition}Foil{s:0.6,C:inactive}, {s:0.6,C:dark_edition}Holographic{s:0.6,C:inactive}, or {s:0.6,C:dark_edition}Polychrome"
                 }
             },
             c_rh_simple_tap = {
@@ -218,7 +218,9 @@ return {
             rh_good_parts_save = "There were some good parts!",
             rh_good_parts_cash_out = "Round cleared!",
             rh_pity_skip_host_barista = "Barista", 
-            rh_pity_skip_host_rupert = "Rupert" 
+            rh_pity_skip_host_rupert = "Rupert",
+            rh_even = "even", 
+            rh_odd = "odd", 
         },
         v_dictionary = {
             a_mmoonk = {"+#1# Chips,+#2# Mult,X#3# Mult"},

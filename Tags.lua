@@ -56,13 +56,21 @@ SMODS.Tag({
     apply = function(self, tag, context)
         sendDebugMessage("Tag calculating..."..inspect(context), "RhFlowYou")
         if context.type == "round_start_bonus" then
-            G.hand:add_to_highlighted(G.GAME.current_round.you_card, false)
-            G.GAME.current_round.you_card.ability.forced_selection = true
+            sendDebugMessage(#G.playing_cards, "rhFlowYou")
+            for k, v in pairs(G.playing_cards) do
+                if v.ability["rh_you_sticker"] then 
+                    G.hand.highlighted[#G.hand.highlighted+1] = v
+                    v:highlight(true)
+                    v.ability.forced_selection = true
+                end
+            end
         elseif context.type == "shop_start" then
             sendDebugMessage("Deleting tag!", "RhFlowYou")
-            G.GAME.current_round.you_card:remove_sticker("rh_you_sticker")
-            G.GAME.current_round.you_card.you = false
-            G.GAME.current_round.you_card = nil
+            for k, v in pairs(G.playing_cards) do
+                if v.ability["rh_you_sticker"]  then 
+                    v:remove_sticker("rh_you_sticker")
+                end
+            end
             tag:yep("", G.C.SECONDARY_SET.FLOW, function() return true end)
 			tag.triggered = true
             return true

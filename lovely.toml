@@ -148,7 +148,7 @@ pattern = '''
             it = it + 1'''
 position = "at"
 payload = '''
-if v.you then
+if v.ability["rh_you_sticker"] then
     draw_card(G.play,G.hand, it*100/play_count,'down', false, v)
     it = it + 1
 else
@@ -170,7 +170,7 @@ pattern = '''
 position = "after"
 payload = '''
 for k, v in ipairs(G.hand.highlighted) do
-    if v.you then
+    if v.ability["rh_you_sticker"] then
         G.hand:remove_from_highlighted(v, true)
     end
 end

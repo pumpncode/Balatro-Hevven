@@ -40,14 +40,14 @@ SMODS.Booster({
     },
     kind = "Spectral",
     atlas = "boosters",
-    config = { extra = 10, choose = 1 },
+    weight = 0,
+    config = { extra = 2, choose = 1 },
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.config.center.config.choose, card.ability.extra } }
 	end,
-    -- select_card = "consumeables",
-    weight = 10000000,
+    select_card = "consumeables",
     create_card = function(self, card)
-		return create_card("Spectral", G.pack_cards, nil, nil, true, true, "c_rh_remix", "rh_flow")
+		return create_card("Flow", G.pack_cards, nil, nil, true, true, nil, "rh_flow")
 	end,
 	ease_background_colour = function(self)
 		ease_colour(G.C.DYN_UI.MAIN, G.C.SECONDARY_SET.Flow)
@@ -71,6 +71,7 @@ SMODS.Booster({
         x = 1,
         y = 0
     },
+    weight = 0,
     config = { extra = 2, choose = 1 },
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.config.center.config.choose, card.ability.extra } }
@@ -101,6 +102,7 @@ SMODS.Booster({
         x = 2,
         y = 0
     },
+    weight = 0,
     config = { extra = 4, choose = 1 },
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.config.center.config.choose, card.ability.extra } }
@@ -131,6 +133,7 @@ SMODS.Booster({
         x = 3,
         y = 0
     },
+    weight = 0,
     config = { extra = 4, choose = 2 },
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.config.center.config.choose, card.ability.extra } }
@@ -150,7 +153,7 @@ SMODS.Booster({
 SMODS.Consumable({
     key = "try_again",
     set = 'Flow',
-    cost=7,
+    cost = 3,
     atlas = 'flow',
     pos = {
         x = 1,
@@ -188,7 +191,7 @@ SMODS.Consumable({
 SMODS.Consumable({
     key = "ok",
     set = 'Flow',
-    cost=7,
+    cost = 3,
     atlas = 'flow',
     pos = {
         x = 2,
@@ -245,7 +248,7 @@ SMODS.Consumable({
 SMODS.Consumable({
     key = "superb",
     set = 'Flow',
-    cost=7,
+    cost = 5,
     atlas = 'flow',
     pos = {
         x = 3,
@@ -373,7 +376,7 @@ SMODS.Consumable({
 SMODS.Consumable({
     key = "perfect",
     set = 'Flow',
-    cost=7,
+    cost = 7,
     atlas = 'flow',
     pos = {
         x = 4,
@@ -485,7 +488,7 @@ SMODS.Consumable({
 SMODS.Consumable({
     key = "simple_tap",
     set = 'Flow',
-    cost=7,
+    cost = 7,
     
     atlas = 'flow',
     pos = {
@@ -523,11 +526,11 @@ SMODS.Consumable({
 SMODS.Consumable({
     key = "new_record",
     set = 'Flow',
-    cost=7,
+    cost = 5,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {key = 'active_flow', set = 'Other'}
         return {
-            vars = {G.GAME.round_scores['hand'].amt}
+            vars = {G.GAME.round_scores['hand'].amt or 0}
         }
     end,
     atlas = 'flow',
@@ -539,6 +542,7 @@ SMODS.Consumable({
     use = function(self, card, area, copier)   
         inc_flow_count()
         G.GAME.current_round.rh_flow_new_record = true
+        G.GAME.current_round.rh_flow_new_record_to_beat = G.GAME.round_scores['hand'].amt
         add_flow_tag(Tag('tag_rh_new_record'))
         play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
         play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
@@ -562,7 +566,7 @@ SMODS.Consumable({
 SMODS.Consumable({
     key = "pity_skip",
     set = 'Flow',
-    cost=7,
+    cost = 3,
     atlas = 'flow',
     pos = {
         x = 2,
@@ -613,7 +617,7 @@ SMODS.Consumable({
 SMODS.Consumable({
     key = "some_good_parts",
     set = 'Flow',
-    cost=7,
+    cost = 5,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {key = 'active_flow', set = 'Other'}
         return {
@@ -679,7 +683,7 @@ end
 SMODS.Consumable({
     key = "you",
     set = 'Flow',
-    cost=7,
+    cost = 5,
     atlas = 'flow',
     pos = {
         x = 4,
@@ -725,7 +729,7 @@ SMODS.Sticker({
 SMODS.Consumable({
     key = "extra_life",
     set = 'Flow',
-    cost=7,
+    cost = 3,
     config = {extra = {hands=1,discards=1}},
     loc_vars = function(self, info_queue, card)
         return {
@@ -769,7 +773,7 @@ SMODS.Consumable({
 SMODS.Consumable({
     key = "skill_star",
     set = 'Flow',
-    cost=7,
+    cost = 7,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {key = 'active_flow', set = 'Other'}
         return {
@@ -817,7 +821,6 @@ SMODS.Consumable({
 SMODS.Consumable({
     key = "remix",
     set = 'Spectral',
-    cost= 5,
     soul_set = 'Flow',
     atlas = 'flow',
     pos = {
@@ -828,115 +831,90 @@ SMODS.Consumable({
         x = 3,
         y = 2
     },
-
+    hidden = true,    
     use = function(self, card, area, copier)
-        sendDebugMessage(#G.hand.cards, "RhFlowRemix")
-        if #G.hand.cards == 0 then
+        if G.STATE == G.STATES.SPECTRAL_PACK then
             local card_t = {
-                set = "Tarot",
+                set = "Flow",
                 area = G.consumeables,
                 key = "c_rh_remix"
             }
             local card = SMODS.create_card(card_t)
             G.consumeables:emplace(card)
         else
+            G.E_MANAGER:add_event(Event({
+                trigger = "after",
+                delay = 0.4,
+                func = function()
+                    play_sound("tarot1")
+                    card:juice_up(0.3, 0.5)
+                    return true
+                end,
+            }))
+            for i = 1, #G.hand.cards do
+                local percent = 1.15 - (i - 0.999) / (#G.hand.cards - 0.998) * 0.3
+                G.E_MANAGER:add_event(Event({
+                    trigger = "after",
+                    delay = 0.15,
+                    func = function()
+                        G.hand.cards[i]:flip()
+                        play_sound("card1", percent)
+                        G.hand.cards[i]:juice_up(0.3, 0.3)
+                        return true
+                    end,
+                }))
+            end
+                G.E_MANAGER:add_event(Event({
+            		func = function()
+                        for k, v in pairs(G.hand.cards) do
+                            -- First we erase all upgrades to the card
+                            v.edition = nil
+                            v:set_ability(G.P_CENTERS.c_base, nil, true)
+                            v.seal = nil
+                            -- Then we poll the new upgrades
+                            enhancement  = SMODS.poll_enhancement({guaranteed = true, type_key = "remix"})
+                            seal = SMODS.poll_seal({guaranteed = true, type_key = "remix"})
+                            edition = poll_edition("remix", nil, true, true)
+                            -- Finally, we add to the card
+                            v:set_ability(G.P_CENTERS[enhancement], nil, true)
+                            v:set_seal(seal, true, true)
+                            v:set_edition(edition, true, true)
+                        end
+                        return true
+            		end,
+            	}))
+            delay(0.2)
+            for i = 1, #G.hand.cards do
+                local CARD = G.hand.cards[i]
+                local percent = 0.85 + (i - 0.999) / (#G.hand.cards - 0.998) * 0.3
+                G.E_MANAGER:add_event(Event({
+                    trigger = "after",
+                    delay = 0.15,
+                    func = function()
+                        CARD:flip()
+                        play_sound("tarot2", percent)
+                        CARD:juice_up(0.3, 0.3)
+                        return true
+                    end,
+                }))
+            end
+
+            --Then we play everything        
+            G.E_MANAGER:add_event(Event({
+                trigger = "after", 
+                delay = 1.2, 
+                blocking = false,
+                func = function() 
+                    for i = 1, #G.hand.cards do
+                        local CARD = G.hand.cards[i]
+                        G.hand.highlighted[#G.hand.highlighted+1] = CARD
+                        CARD:highlight(true)
+                    end
+                    G.FUNCS.play_cards_from_highlighted()
+                    return true
+                end
+            }))
         end
-		-- G.E_MANAGER:add_event(Event({
-		-- 	trigger = "after",
-		-- 	delay = 0.4,
-		-- 	func = function()
-		-- 		play_sound("tarot1")
-		-- 		card:juice_up(0.3, 0.5)
-		-- 		return true
-		-- 	end,
-		-- }))
-		-- for i = 1, #G.hand.cards do
-		-- 	local percent = 1.15 - (i - 0.999) / (#G.hand.cards - 0.998) * 0.3
-		-- 	G.E_MANAGER:add_event(Event({
-		-- 		trigger = "after",
-		-- 		delay = 0.15,
-		-- 		func = function()
-		-- 			G.hand.cards[i]:flip()
-		-- 			play_sound("card1", percent)
-		-- 			G.hand.cards[i]:juice_up(0.3, 0.3)
-		-- 			return true
-		-- 		end,
-		-- 	}))
-		-- end
-		-- delay(0.1)
-        -- for k, v in pairs(G.hand.cards) do
-        --     G.E_MANAGER:add_event(Event({
-		-- 		func = function()
-        --             v.edition = nil
-        --             v:set_ability(G.P_CENTERS.c_base, nil, true)I'm gonna be honest 
-        --             v.seal = nil
-        --             if v.base.suit == 'Spades' then 
-        --                 if upgrades.spades.is_enhancement then
-        --                     v:set_ability(G.P_CENTERS[upgrades.spades.upgrade])
-        --                 elseif upgrades.spades.is_seal then
-        --                     v:set_seal(upgrades.spades.upgrade, true, true)
-        --                 elseif upgrades.spades.is_edition then
-        --                     v:set_edition(upgrades.spades.upgrade, true, true)
-        --                 end
-        --             elseif v.base.suit == 'Hearts' then
-        --                 if upgrades.hearts.is_enhancement then
-        --                     v:set_ability(G.P_CENTERS[upgrades.hearts.upgrade])
-        --                 elseif upgrades.hearts.is_seal then
-        --                     v:set_seal(upgrades.hearts.upgrade, true, true)
-        --                 elseif upgrades.hearts.is_edition then
-        --                     v:set_edition(upgrades.hearts.upgrade, true, true)
-        --                 end
-        --             elseif v.base.suit == 'Clubs' then
-        --                 if upgrades.clubs.is_enhancement then
-        --                     v:set_ability(G.P_CENTERS[upgrades.clubs.upgrade])
-        --                 elseif upgrades.clubs.is_seal then
-        --                     v:set_seal(upgrades.clubs.upgrade, true, true)
-        --                 elseif upgrades.clubs.is_edition then
-        --                     v:set_edition(upgrades.clubs.upgrade, true, true)
-        --                 end
-        --             elseif v.base.suit == 'Diamonds' then
-        --                 if upgrades.diamonds.is_enhancement then
-        --                     v:set_ability(G.P_CENTERS[upgrades.diamonds.upgrade])
-        --                 elseif upgrades.diamonds.is_seal then
-        --                     v:set_seal(upgrades.diamonds.upgrade, true, true)
-        --                 elseif upgrades.diamonds.is_edition then
-        --                     v:set_edition(upgrades.diamonds.upgrade, true, true)
-        --                 end
-        --             end
-        --             return true
-		-- 		end,
-		-- 	}))
-        -- end
-		-- for i = 1, #G.hand.cards do
-		-- 	local CARD = G.hand.cards[i]
-		-- 	local percent = 0.85 + (i - 0.999) / (#G.hand.cards - 0.998) * 0.3
-		-- 	G.E_MANAGER:add_event(Event({
-		-- 		trigger = "after",
-		-- 		delay = 0.15,
-		-- 		func = function()
-		-- 			CARD:flip()
-		-- 			play_sound("tarot2", percent)
-		-- 			CARD:juice_up(0.3, 0.3)
-		-- 			return true
-		-- 		end,
-		-- 	}))
-		-- end
-
-        -- --Then we delete the Jokers
-        -- local deletable_jokers = {}
-        -- for k, v in pairs(G.jokers.cards) do
-        --     if not v.ability.eternal then deletable_jokers[#deletable_jokers + 1] = v end
-        -- end
-        -- local _first_dissolve = nil
-        -- G.E_MANAGER:add_event(Event({func = function()
-        --     for k, v in pairs(deletable_jokers) do
-        --         v:start_dissolve(nil, _first_dissolve)
-        --         _first_dissolve = true
-        --     end
-        -- return true end }))
-
-        -- --Finally, -1 Joker Slot
-        -- G.jokers.config.card_limit = G.jokers.config.card_limit - 1
 	end,
 
     can_use = function (self, card)

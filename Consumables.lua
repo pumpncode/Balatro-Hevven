@@ -106,7 +106,7 @@ SMODS.Consumable({
 -- Translator
 SMODS.Consumable({
     key = "translator",
-    set = 'Tarot',
+    set = 'Spectral',
     cost=3,
     atlas = 'consumables',
     pos = {
@@ -138,126 +138,6 @@ SMODS.Consumable({
 	end,
 })
 
--- Remix
-SMODS.Consumable({
-    key = "remix",
-    set = 'Spectral',
-    cost=5,
-    atlas = 'consumables',
-    pos = {
-        x = 0,
-        y = 1
-    },
-
-    use = function(self, card, area, copier)
-        local upgrades = {
-            spades = poll_everything("remix"),
-            hearts = poll_everything("remix"),
-            clubs = poll_everything("remix"),
-            diamonds = poll_everything("remix")
-        }
-		G.E_MANAGER:add_event(Event({
-			trigger = "after",
-			delay = 0.4,
-			func = function()
-				play_sound("tarot1")
-				card:juice_up(0.3, 0.5)
-				return true
-			end,
-		}))
-		for i = 1, #G.hand.cards do
-			local percent = 1.15 - (i - 0.999) / (#G.hand.cards - 0.998) * 0.3
-			G.E_MANAGER:add_event(Event({
-				trigger = "after",
-				delay = 0.15,
-				func = function()
-					G.hand.cards[i]:flip()
-					play_sound("card1", percent)
-					G.hand.cards[i]:juice_up(0.3, 0.3)
-					return true
-				end,
-			}))
-		end
-		delay(0.2)
-        for k, v in pairs(G.playing_cards) do
-            G.E_MANAGER:add_event(Event({
-				func = function()
-                    v.edition = nil
-                    v:set_ability(G.P_CENTERS.c_base, nil, true)
-                    v.seal = nil
-                    if v.base.suit == 'Spades' then 
-                        if upgrades.spades.is_enhancement then
-                            v:set_ability(G.P_CENTERS[upgrades.spades.upgrade])
-                        elseif upgrades.spades.is_seal then
-                            v:set_seal(upgrades.spades.upgrade, true, true)
-                        elseif upgrades.spades.is_edition then
-                            v:set_edition(upgrades.spades.upgrade, true, true)
-                        end
-                    elseif v.base.suit == 'Hearts' then
-                        if upgrades.hearts.is_enhancement then
-                            v:set_ability(G.P_CENTERS[upgrades.hearts.upgrade])
-                        elseif upgrades.hearts.is_seal then
-                            v:set_seal(upgrades.hearts.upgrade, true, true)
-                        elseif upgrades.hearts.is_edition then
-                            v:set_edition(upgrades.hearts.upgrade, true, true)
-                        end
-                    elseif v.base.suit == 'Clubs' then
-                        if upgrades.clubs.is_enhancement then
-                            v:set_ability(G.P_CENTERS[upgrades.clubs.upgrade])
-                        elseif upgrades.clubs.is_seal then
-                            v:set_seal(upgrades.clubs.upgrade, true, true)
-                        elseif upgrades.clubs.is_edition then
-                            v:set_edition(upgrades.clubs.upgrade, true, true)
-                        end
-                    elseif v.base.suit == 'Diamonds' then
-                        if upgrades.diamonds.is_enhancement then
-                            v:set_ability(G.P_CENTERS[upgrades.diamonds.upgrade])
-                        elseif upgrades.diamonds.is_seal then
-                            v:set_seal(upgrades.diamonds.upgrade, true, true)
-                        elseif upgrades.diamonds.is_edition then
-                            v:set_edition(upgrades.diamonds.upgrade, true, true)
-                        end
-                    end
-                    return true
-				end,
-			}))
-        end
-		for i = 1, #G.hand.cards do
-			local CARD = G.hand.cards[i]
-			local percent = 0.85 + (i - 0.999) / (#G.hand.cards - 0.998) * 0.3
-			G.E_MANAGER:add_event(Event({
-				trigger = "after",
-				delay = 0.15,
-				func = function()
-					CARD:flip()
-					play_sound("tarot2", percent)
-					CARD:juice_up(0.3, 0.3)
-					return true
-				end,
-			}))
-		end
-
-        --Then we delete the Jokers
-        local deletable_jokers = {}
-        for k, v in pairs(G.jokers.cards) do
-            if not v.ability.eternal then deletable_jokers[#deletable_jokers + 1] = v end
-        end
-        local _first_dissolve = nil
-        G.E_MANAGER:add_event(Event({func = function()
-            for k, v in pairs(deletable_jokers) do
-                v:start_dissolve(nil, _first_dissolve)
-                _first_dissolve = true
-            end
-        return true end }))
-
-        --Finally, -1 Joker Slot
-        G.jokers.config.card_limit = G.jokers.config.card_limit - 1
-	end,
-
-    can_use = function (self, card)
-		return true
-	end,
-})
 
 -- Hevven World
 SMODS.Consumable({
@@ -288,7 +168,7 @@ SMODS.Consumable({
                     handname = localize(hand, "poker_hands"),
                     chips = G.GAME.hands[hand].chips*card.ability.extra.times,
                     mult = G.GAME.hands[hand].mult*card.ability.extra.times,
-                    level = G.GAME.hands[hand].level*card.ability.extra.times,
+                    level = G.GAME.hands[hand].level+card.ability.extra.times,
                 }
             )
             level_up_hand(card, hand, nil, card.ability.extra.times)

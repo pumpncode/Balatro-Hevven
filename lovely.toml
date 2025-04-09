@@ -64,7 +64,7 @@ pattern = '''table.insert(left_text, {n=G.UIT.O, config={w=1.2,h=1.2 , object = 
 position = 'after'
 match_indent = true
 payload = '''
-if G.GAME.current_round.rh_flow_good_parts then
+if G.GAME.current_round.rh_flow_good_parts_saved then
     play_sound('rh_some_good_parts', 1, 5)
 end
 '''
@@ -107,7 +107,9 @@ payload = '''
 G.GAME.current_round.rh_flow_pity_skip = false
 G.GAME.current_round.rh_flow_simple_tap = false
 G.GAME.current_round.rh_flow_good_parts = false
+G.GAME.current_round.rh_flow_good_parts_saved = false
 G.GAME.current_round.rh_flow_new_record = false
+G.GAME.current_round.rh_flow_new_record_to_beat = 0
 G.GAME.current_round.rh_flow_new_record_tag = false
 G.GAME.current_round.rh_flow_used = false
 '''
@@ -121,21 +123,6 @@ pattern = "check_and_set_high_score('hand', hand_chips*mult)"
 position = "before"
 payload = '''
 rh_flow_check_for_new_record(hand_chips*mult)
-'''
-match_indent = true
-
-# New Record - Delivers the Rare Tag
-[[patches]]
-[patches.pattern]
-target = "functions/state_events.lua"
-pattern = "check_for_unlock({type = 'round_win'})"
-position = "before"
-payload = '''
-if G.GAME.current_round.rh_flow_new_record_tag then
-    add_tag(Tag('tag_rare'))
-    play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
-    play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
-end 
 '''
 match_indent = true
 

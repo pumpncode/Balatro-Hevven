@@ -155,17 +155,24 @@ SMODS.Tag({
     },
     loc_vars = function(self, info_queue, card)
         return {
-            vars = {G.GAME.round_scores['hand'].amt or 0}
+            vars = {G.GAME.current_round.rh_flow_new_record_to_beat or 0}
         }
     end,
 	in_pool = function()
 		return false
 	end,
     apply = function(self, tag, context)
-		if context.type == "shop_start" then
-            tag:yep("", G.C.SECONDARY_SET.FLOW, function() return true end)
+		if context.type == "eval" then
+                tag:yep("", G.C.SECONDARY_SET.FLOW, function() 
+                    if G.GAME.current_round.rh_flow_new_record_tag then
+                        add_tag(Tag('tag_rare'))
+                        play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+                        play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
+                    end 
+                    return true
+                end)
 			tag.triggered = true
-            return true
+            -- return true
 		end
 	end,
 })

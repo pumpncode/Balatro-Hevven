@@ -279,12 +279,14 @@ SMODS.Joker({
                             (card.ability.extra.monk_level < card.ability.extra.used_tarots) and
                             (card.ability.extra.monk_level < card.ability.extra.used_flows)
                         then
-                            card.ability.extra.monk_level = card.ability.extra.monk_level + 1
-                            card.children.floating_sprite:set_sprite_pos({
-                                x = card.ability.extra.monk_level + 1,
-                                y = 2
-                            })
-                            card.juice_up()
+                            if card.ability.extra.monk_level < 4 then
+                                card.ability.extra.monk_level = card.ability.extra.monk_level + 1
+                                card.children.floating_sprite:set_sprite_pos({
+                                    x = card.ability.extra.monk_level + 1,
+                                    y = 2
+                                })
+                                card.juice_up()
+                            end
                         end
                         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex'), colour = G.C.MULT})
                         return true

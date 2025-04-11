@@ -16,17 +16,24 @@ BHevven = SMODS.current_mod
 --     }}
 -- end
 
-SMODS.load_file("Functions.lua")()
+SMODS.load_file("misc/Functions.lua")()
 
-SMODS.load_file("Consumables.lua")()
-SMODS.load_file("Flow.lua")()
-SMODS.load_file("Tags.lua")()
-SMODS.load_file("Vouchers.lua")()
-SMODS.load_file("Jokers.lua")()
-SMODS.load_file("Sounds.lua")()
+SMODS.load_file("items/Consumables.lua")()
+SMODS.load_file("items/Flow.lua")()
+SMODS.load_file("items/Tags.lua")()
+SMODS.load_file("items/Vouchers.lua")()
+SMODS.load_file("items/Jokers.lua")()
+SMODS.load_file("misc/Sounds.lua")()
 
 SMODS.load_file("Debug.lua")()
 
+-- Icon!
+SMODS.Atlas({
+    key = "modicon",
+    path = "icon.png",
+    px = 34,
+    py = 34
+})
 
 --Localization colors
 local lc = loc_colour

@@ -9,7 +9,7 @@ priority = 0
 target = "main.lua"
 position = "append"
 sources = [
-	"inject_functions.lua"
+	"misc/inject_functions.lua"
 ]
 
 # Add a beat anim to the main menu

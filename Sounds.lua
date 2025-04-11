@@ -18,3 +18,8 @@ SMODS.Sound({
     key="cosmic_girl_pose",
     path="pose_lady.ogg",
 })
+
+SMODS.Sound({
+    key="pluck",
+    path="pluck.ogg"
+})

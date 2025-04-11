@@ -629,7 +629,7 @@ SMODS.Consumable({
         }
     end,
 
-    config = {extra = {percentage=1,chances=8}},
+    config = {extra = {percentage=60,chances=8}},
     atlas = 'flow',
     pos = {
         x = 3,

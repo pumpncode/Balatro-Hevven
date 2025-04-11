@@ -15,6 +15,11 @@ SMODS.Sound({
 })
 
 SMODS.Sound({
-    key="cosmic_girl_pose",
-    path="pose_lady.ogg",
+    key="cosmic_girl_pose_en",
+    path="pose_lady_en.ogg",
+})
+
+SMODS.Sound({
+    key="cosmic_girl_pose_jp",
+    path="pose_lady_jp.ogg",
 })

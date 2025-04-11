@@ -34,6 +34,7 @@ end
 --                     area = G.jokers,
 --                     key = "j_crafty"
 --                 }
+
 --                 local card = SMODS.create_card(card_t)
 --                 G.jokers:emplace(card)
 
@@ -42,6 +43,16 @@ end
 --                     area = G.jokers,
 --                     key = "j_cavendish"
 --                 }
+				
+--                 local card = SMODS.create_card(card_t)
+--                 G.jokers:emplace(card)
+
+-- 				local card_t = {
+--                     set = "Joker",
+--                     area = G.jokers,
+--                     key = "j_rh_onion"
+--                 }
+				
 --                 local card = SMODS.create_card(card_t)
 --                 G.jokers:emplace(card)
 

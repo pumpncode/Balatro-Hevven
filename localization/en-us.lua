@@ -3,6 +3,12 @@ return {
         Joker = {
             j_rh_widget = {
                 
+            },
+            j_rh_onion = {
+                name = 'Hairy Onion',
+                text = {
+                    "On discard, draw {C:attention}#1#{} extra card(s)."
+                }
             }
         },
         Flow = {

@@ -1,10 +1,32 @@
+
+BHevven = SMODS.current_mod
+
+--config
+-- SMODS.current_mod.config_tab = function()
+--     return {n = G.UIT.ROOT, config = {align = "cm"}, nodes = {
+--         create_option_cycle({
+--             label = "Language",
+--             scale = 0.8,
+--             w = 6,
+--             options = {"English", "Japanese", "French"},
+--             ref_value = 'language',
+--             ref_table = BHevven.config,
+--             })
+    
+--     }}
+-- end
+
 SMODS.load_file("Functions.lua")()
 
 SMODS.load_file("Consumables.lua")()
 SMODS.load_file("Flow.lua")()
 SMODS.load_file("Tags.lua")()
--- SMODS.load_file("Jokers.lua")()
+SMODS.load_file("Vouchers.lua")()
+SMODS.load_file("Jokers.lua")()
 SMODS.load_file("Sounds.lua")()
+
+SMODS.load_file("Debug.lua")()
+
 
 --Localization colors
 local lc = loc_colour
@@ -16,45 +38,13 @@ function loc_colour(_c, _default)
 	return lc(_c, _default)
 end
 
--- SMODS.Back {
---     key = "test",
---     loc_txt = {
---         ['default'] = {
---             name = 'RH Test Deck',
---             text = {'Spawns whatever cards I wanna test.'}
---         }
---     },
---     apply = function(self)
---         G.E_MANAGER:add_event(Event({
---             blockable = false,
---             func = function()
-
---                 local card_t = {
---                     set = "Joker",
---                     area = G.jokers,
---                     key = "j_crafty"
---                 }
---                 local card = SMODS.create_card(card_t)
---                 G.jokers:emplace(card)
-
---                 local card_t = {
---                     set = "Joker",
---                     area = G.jokers,
---                     key = "j_cavendish"
---                 }
---                 local card = SMODS.create_card(card_t)
---                 G.jokers:emplace(card)
-
---                 local card_t = {
---                     set = "Planet",
---                     area = G.consumeables,
---                     key = "c_rh_hevven_world"
---                 }
---                 local card = SMODS.create_card(card_t)
---                 G.consumeables:emplace(card)
-
---                 return true
---             end
---         }))
---     end
--- }
+-- function BHevven.rh_update_language(args)
+    -- if args.to_val == "English" then
+    --     BHevven.language = "en"
+    -- elseif args.to_val == "French" then
+    --     BHevven.language = "fr"
+    -- elseif args.to_val == "Japanese" then
+    --     BHevven.language = "jp"
+    -- end
+    -- SMODS.save_mod_config(args)
+-- end

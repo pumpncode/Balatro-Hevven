@@ -18,6 +18,7 @@ SMODS.Joker({
     loc_vars = function(self, info_queue, card)
                 return {
                     vars = {
+                        card.ability.extra.retriggers
                     }
                 }
     end,
@@ -105,11 +106,7 @@ SMODS.Joker({
                 end
             end
         end
-        if 
-            context.cardarea == G.jokers
-            and not context.before
-            and not context.after
-        then
+        if context.joker_main then
             if card.ability.extra.mult > 0 then
                 return {
                     message = localize({ type = "variable", key = "a_mult", vars = {
@@ -163,18 +160,22 @@ SMODS.Joker({
                 if  context.scoring_hand[1].base.suit == "Hearts" or context.scoring_hand[1].base.suit == "Diamonds" and
                     context.scoring_hand[2].base.suit == "Hearts"  or context.scoring_hand[2].base.suit == "Diamonds"  then
                     card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
+                    local sound = 'rh_cosmic_girl_pose_jp'
+                    if BHevven.config.language == "en" then
+                        local sound = 'rh_cosmic_girl_pose_en'
+                    elseif BHevven.config.language == "fr" then
+                        local sound = 'rh_cosmic_girl_pose_en'
+                    end
                     return {
+                        sound = sound,
+                        pitch = 1.0,
                         message = localize('k_upgrade_ex'),
                         colour = G.C.MULT
                     }
                 end
             end
         end
-        if 
-            context.cardarea == G.jokers
-            and not context.before
-            and not context.after
-        then
+        if context.joker_main then
             if card.ability.extra.mult > 0 then
                 return {
                     message = localize({ type = "variable", key = "a_mult", vars = {
@@ -195,9 +196,9 @@ SMODS.Joker({
         name = 'Munchy Monk',
         text = {
             "This Joker gains {C:blue}+#1#{} Chips per",
-            "{C:purple}Flow{} card used this run,  {C:red}+#2#{} Mult ",
-            "per {C:purple}Tarot{} card used this run, and",
-            "{X:mult,C:white} X#3# {} Mult every time a Planet card is used",
+            "{C:rh_flow}Flow{} card used this run,  {C:red}+#2#{} Mult ",
+            "per {C:tarot}Tarot{} card used this run, and",
+            "{X:mult,C:white} X#3# {} Mult every time a {C:planet}Planet{} card is used",
             "{C:inactive}(Currently {C:blue}+#4#{} Chips, {C:red}+#5#{} Mult, {X:mult,C:white} X#6# {C:inactive} Mult)",
         }
     },
@@ -262,7 +263,8 @@ SMODS.Joker({
                         end
                         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult}}})
                         return true
-                    end}))
+                    end
+                }))
             end
 			if context.consumeable.ability.set == "Tarot" then
                 card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.add_mult
@@ -278,6 +280,7 @@ SMODS.Joker({
                                 x = card.ability.extra.monk_level + 1,
                                 y = 2
                             })
+                            card.juice_up()
                         end
                         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex'), colour = G.C.MULT})
                         return true
@@ -309,21 +312,95 @@ SMODS.Joker({
             
             return
         end
-        if 
-            context.cardarea == G.jokers
-            and not context.before
-            and not context.after
-        then
+        if context.joker_main then
+            if
+            card.ability.extra.x_mult ~= 1.0 or 
+            card.ability.extra.mult ~= 0 or 
+            card.ability.extra.chips ~= 0
+            then 
+                return {
+                    message = localize({ type = "variable", key = "a_mmoonk", vars = {
+                        card.ability.extra.chips,
+                        card.ability.extra.mult,
+                        card.ability.extra.x_mult 
+                    }}),
+                    Xmult_mod = card.ability.extra.x_mult,
+                    chip_mod = card.ability.extra.chips,
+                    mult_mod = card.ability.extra.mult,
+                }
+            end
+        end
+    end
+})
+
+-- Double Sided (common)
+SMODS.Joker({
+    key = "lockstep",
+    loc_txt = {
+        name = 'Double Sided',
+        text = {
+            "Played cards with #1# rank gives",
+            "{C:chips}+#2#{} chips, {C:mult}+#3#{} mult when scored,",
+            "parity changes",
+            "at end of round",
+        },
+    },
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.message,
+                card.ability.extra.chips,
+                card.ability.extra.mult
+            }
+        }
+    end,
+    cost = 4,
+    rarity = 1,
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'jokers',
+    pos = {
+        x = 2,
+        y = 0
+    },
+	config = { extra = { parity = 0, chips = 20, mult = 2, message = localize("rh_even") }},
+
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            if (context.other_card:get_id() <= 10 and
+            context.other_card:get_id() >= 0 and
+            context.other_card:get_id()%2 == card.ability.extra.parity)
+            then
+                return {
+                    chips = card.ability.extra.chips,
+                    mult = card.ability.extra.mult
+                }
+            end
+            -- I can't be bothered to write it better right now...
+            if context.other_card:get_id() == 14 and card.ability.extra.parity == 1 then
+                return {
+                    chips = card.ability.extra.chips,
+                    mult = card.ability.extra.mult
+                }
+            end
+        end
+        if context.end_of_round and context.cardarea == G.jokers then
+            if card.ability.extra.parity == 1 then
+                card.ability.extra.parity = 0
+                card.ability.extra.message = localize("rh_even")
+            else 
+                card.ability.extra.parity = 1
+                card.ability.extra.message = localize("rh_odd")
+            end
             return {
-                message = localize({ type = "variable", key = "a_mmoonk", vars = {
-                    card.ability.extra.chips,
-                    card.ability.extra.mult,
-                    card.ability.extra.x_mult 
-                }}),
-				Xmult_mod = card.ability.extra.x_mult,
-				chip_mod = card.ability.extra.mult,
-				mult_mod = card.ability.extra.x_mult,
+                message = localize('k_reset')
             }
         end
+    end,
+
+    set_ability = function(self, card, initial, delay_sprites)
+        card.ability.extra.message = localize("rh_even")
     end
 })

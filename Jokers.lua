@@ -33,7 +33,11 @@ SMODS.Joker({
         x = 0,
         y = 0
     },
-	config = { extra = { retriggers = 2 }},
+	config = {
+        extra = {
+            retriggers = 2
+        }
+    },
 
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play and context.other_card == context.scoring_hand[5] then
@@ -402,5 +406,66 @@ SMODS.Joker({
 
     set_ability = function(self, card, initial, delay_sprites)
         card.ability.extra.message = localize("rh_even")
+    end
+})
+
+-- Hairy Onion
+SMODS.Joker({
+    key = "onion",
+
+    loc_vars = function(self, info_queue, card)
+                return {
+                    vars = {
+                        card.ability.extra.n_draw,
+                        card.ability.extra.can_draw
+                    }
+                }
+    end,
+    cost = 4,
+    rarity = 1,
+    blueprint_compat = false,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'jokers',
+    pos = {
+        x = 2,
+        y = 1
+    },
+	config = {
+        extra = {
+            n_draw = 1,
+            can_draw = false
+        }
+    },
+
+    calculate = function(self, card, context)
+        -- When discarding, check if we're gonna be below max hand size after discard, if so, we can draw afterwards
+        if context.pre_discard and not card.ability.extra.can_draw
+        then
+            if #G.hand.cards - #G.hand.highlighted < G.hand.config.card_limit then
+                card.ability.extra.can_draw = true
+            end
+            return true
+        end
+
+        -- After drawing next hand after discard, draw an extra card
+        if context.hand_drawn and card.ability.extra.can_draw
+        then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    -- play_sound("rh_pluck", math.random(0.5,1.5) , 0.5)
+                    G.FUNCS.draw_from_deck_to_hand(card.ability.extra.n_draw)
+                    return true
+            end}))
+
+            card.ability.extra.can_draw = not card.ability.extra.can_draw
+
+            return {
+                message = "Pluck!",
+                sound = "rh_pluck",
+                pitch = math.random(0.5,1.5)
+            }
+        end
     end
 })

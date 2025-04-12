@@ -7,7 +7,16 @@ return {
             j_rh_onion = {
                 name = 'Hairy Onion',
                 text = {
-                    "On discard, draw {C:attention}#1#{} extra card(s)."
+                    "On discard, draw {C:attention}#1#{} extra card(s)"
+                }
+            },
+            j_rh_sneaky_spirit = {
+                name = "Sneaky Spirit",
+                text = {
+                    "After {C:attention}2{} rounds,",
+                    "sell this card to add {C:dark_edition}Negative{}",
+                    "to a random Joker",
+                    "{C:inactive}#1#/2{}"
                 }
             }
         },

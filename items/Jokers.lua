@@ -5,6 +5,42 @@ SMODS.Atlas({
     py = 95
 })
 
+-- TEMPLATE JOKER CODE --
+-- To copy and paste when adding a new Joker
+
+-- SMODS.Joker({
+--     key = "KEY",
+
+--     loc_vars = function(self, info_queue, card)
+--                 return {
+--                     vars = {
+--                     }
+--                 }
+--     end,
+--     cost = 1,
+--     rarity = 1,
+--     blueprint_compat = false,
+--     eternal_compat = true,
+--     unlocked = true,
+--     discovered = true,
+--     atlas = 'jokers',
+--     pos = {
+--         x = 4,
+--         y = 0
+--     },
+-- 	config = {
+--         extra = {
+--         }
+--     },
+
+--     calculate = function(self, card, context)
+--         return true
+--     end
+-- })
+
+
+-- ======================
+
 -- Widget (uncommon)
 SMODS.Joker({
     key = "widget",
@@ -442,6 +478,11 @@ SMODS.Joker({
     },
 
     calculate = function(self, card, context)
+        -- Not blueprint compatible
+        if context.blueprint then
+            return
+        end
+
         -- When discarding, check if we're gonna be below max hand size after discard, if so, we can draw afterwards
         if context.pre_discard and not card.ability.extra.can_draw
         then
@@ -466,8 +507,90 @@ SMODS.Joker({
             return {
                 message = "Pluck!",
                 sound = "rh_pluck",
-                pitch = math.random(0.5,1.5)
+                pitch = math.random(0.1,1.5)
             }
+        end
+    end
+})
+
+-- Sneaky Spirits
+SMODS.Joker({
+    key = "sneaky_spirit",
+
+    loc_vars = function(self, info_queue, card)
+                return {
+                    vars = {
+                        card.ability.extra.rounds
+                    }
+                }
+    end,
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = false,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'jokers',
+    pos = {
+        x = 4,
+        y = 0
+    },
+	config = {
+        extra = {
+            rounds = 0
+        }
+    },
+
+    calculate = function(self, card, context)
+
+        if context.blueprint and context.retrigger_joker then
+            return
+        end
+
+        local round_max = 2 -- variable for easy value change. Does not show up in description.
+
+        -- At the end of each round, tick one if it's still inactive
+        if context.end_of_round and context.cardarea == G.jokers
+        then
+            if card.ability.extra.rounds >= round_max then return true end -- Don't do anything if we already reached the goal
+
+            card.ability.extra.rounds = card.ability.extra.rounds + 1
+
+            local display_message = (round_max-card.ability.extra.rounds) .. " Left!"
+            if card.ability.extra.rounds >= round_max then
+                display_message = "Ready!"
+            end
+
+            return {
+                message = display_message
+            }
+        end
+
+        -- When card is sold and waited enough rounds, trigger effect
+        if context.selling_self and card.ability.extra.rounds >= round_max
+        then
+                -- Inspired by Invis. Joker.
+                -- Set up the joker pool that excludes itself and does not already have an edition
+                local jokers = {}
+                for i=1, #G.jokers.cards do 
+
+                    local c = G.jokers.cards[i]
+
+                    if c ~= card and c.edition == nil then
+                        sendDebugMessage("Adding card " .. G.jokers.cards[i].ability.name)
+                        jokers[#jokers+1] = c
+                    end
+                    
+                end
+
+                if #jokers > 0
+                then
+                    local to_add_neg = pseudorandom_element(jokers, pseudoseed('sneaky_spirit'))
+
+                    to_add_neg:set_edition({negative = true}, true)
+                end
+
+                return true
         end
     end
 })

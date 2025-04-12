@@ -615,7 +615,7 @@ SMODS.Joker({
     discovered = true,
     atlas = 'jokers',
     pos = {
-        x = 4,
+        x = 1,
         y = 0
     },
 	config = {
@@ -645,6 +645,62 @@ SMODS.Joker({
                 end
             end
         end
+
+    end
+})
+
+-- Goat
+SMODS.Joker({
+    key = "goat",
+
+    loc_vars = function(self, info_queue, card)
+                return {
+                    vars = {
+                        card.ability.extra.small_payout,
+                        card.ability.extra.medium_payout,
+                        card.ability.extra.big_payout,
+                    }
+                }
+    end,
+    cost = 1,
+    rarity = 1,
+    blueprint_compat = false,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'jokers',
+    pos = {
+        x = 4,
+        y = 1
+    },
+	config = {
+        extra = {
+            small_payout = 5,
+            medium_payout = 15,
+            big_payout = 50
+        }
+    },
+
+    calc_dollar_bonus = function(self, card, context)
+        local d100 = pseudorandom(pseudoseed('goat'), 1, 100)
+        
+        sendDebugMessage("Rolled a ".. d100)
+
+        -- Payouts
+        if d100 <= 60 then
+            return card.ability.extra.small_payout
+        end
+
+        if d100 > 60 and d100 <= 95 then
+            return card.ability.extra.medium_payout
+        end
+
+        if d100 > 95 then
+            return card.ability.extra.big_payout
+        end
+
+        -- How did you even reach here??
+        return 1
 
     end
 })

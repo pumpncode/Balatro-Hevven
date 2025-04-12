@@ -23,8 +23,17 @@ return {
                 name = "Samurai Drummer",
                 text = {
                     "This Joker gains {C:blue}+#1#{} Chips every time a",
-                    "{C:rh_flow}Flow{} card is used.",
+                    "{C:rh_flow}Flow{} card is used",
                     "{C:inactive}(Currently {C:blue}+#2#{C:inactive} Chips)"
+                }
+            },
+            j_rh_goat = {
+                name = "Goat",
+                text = {
+                    "Earn a random payout at end of round",
+                    "{C:inactive} 60% => {C:money}$#1#",
+                    "{C:inactive} 35% => {C:money}$#2#",
+                    "{C:inactive} 5% => {C:money}$#3#",
                 }
             }
         },

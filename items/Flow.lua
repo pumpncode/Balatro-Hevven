@@ -28,6 +28,14 @@ SMODS.ConsumableType({
 
     }
 })
+SMODS.UndiscoveredSprite({
+	key = "Flow",
+	atlas = "flow",
+	path = "flow.png",
+	pos = { x = 4, y = 2 },
+	px = 71,
+	py = 95,
+})
 
 SMODS.Booster({
     key='flow_pack_1',

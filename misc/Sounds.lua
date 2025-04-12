@@ -28,3 +28,8 @@ SMODS.Sound({
     key="pluck",
     path="pluck.ogg"
 })
+
+SMODS.Sound({
+    key="monkey",
+    path="monkey_pass.ogg"
+})

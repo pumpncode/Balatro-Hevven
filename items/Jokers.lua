@@ -607,7 +607,7 @@ SMODS.Joker({
                     }
                 }
     end,
-    cost = 1,
+    cost = 3,
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = true,
@@ -662,8 +662,8 @@ SMODS.Joker({
                     }
                 }
     end,
-    cost = 1,
-    rarity = 1,
+    cost = 5,
+    rarity = 2,
     blueprint_compat = false,
     eternal_compat = true,
     unlocked = true,
@@ -702,5 +702,43 @@ SMODS.Joker({
         -- How did you even reach here??
         return 1
 
+    end
+})
+
+-- Monkey
+SMODS.Joker({
+    key = "monkey",
+
+    loc_vars = function(self, info_queue, card)
+                return {
+                    vars = {
+                    }
+                }
+    end,
+    cost = 8,
+    rarity = 3,
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'jokers',
+    pos = {
+        x = 0,
+        y = 3
+    },
+	config = {
+        extra = {
+        }
+    },
+
+    calculate = function(self, card, context)
+        if context.repetition and context.cardarea == G.play then
+            return {
+                message = localize('k_again_ex'),
+                repetitions = 1,
+                card = card,
+                sound = "rh_monkey"
+            }
+        end
     end
 })

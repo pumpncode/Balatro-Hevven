@@ -35,6 +35,12 @@ return {
                     "{C:inactive} 35% => {C:money}$#2#",
                     "{C:inactive} 5% => {C:money}$#3#",
                 }
+            },
+            j_rh_monkey = {
+                name = "Monkey",
+                text = {
+                    "Retrigger each played card"
+                }
             }
         },
         Flow = {

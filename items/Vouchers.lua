@@ -10,8 +10,8 @@ SMODS.Voucher({
     loc_txt = {
         name = 'Flow Gauge',
         text = {
-            "Flow Cards appear",
-            "#1#x more frequently",
+            "{C:rh_flow}Flow{} cards appear",
+            "{C:attention}#1#X{} more frequently",
             "in the shop ",
         },
     },
@@ -38,8 +38,8 @@ SMODS.Voucher({
     loc_txt = {
         name = 'Flow Master',
         text = {
-            "Flow Cards appear",
-            "#1#x more frequently",
+            "{C:rh_flow}Flow{} cards appear",
+            "{C:attention}#1#X{} more frequently",
             "in the shop ",
         },
     },
@@ -60,4 +60,74 @@ SMODS.Voucher({
     redeem = function(self, card)
         G.GAME.flow_rate = G.GAME.flow_rate * card.ability.extra.multiplier
     end
+})
+
+SMODS.Voucher({
+    key = "shopkeeper_deal",
+    loc_txt = {
+        name = "Shopkeeper's Deals",
+        text = {
+            "{C:rh_flow}Flow{} cards may",
+            "appear in any of",
+            "the {C:attention}Arcana Packs",
+        },
+    },
+    atlas = 'vouchers',
+    pos = {
+        x = 1,
+        y = 0
+    },
+})
+-- I'm gonna be real I don't really know how else I can do that so I take ownership
+SMODS.Booster:take_ownership_by_kind('Arcana', {
+    group_key = "k_arcana_pack",
+    draw_hand = true,
+    update_pack = SMODS.Booster.update_pack,
+    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.TAROT_PACK) end,
+    create_UIBox = SMODS.Booster.create_UIBox,
+    particles = function(self)
+        G.booster_pack_sparkles = Particles(1, 1, 0,0, {
+            timer = 0.015,
+            scale = 0.2,
+            initialize = true,
+            lifespan = 1,
+            speed = 1.1,
+            padding = -1,
+            attach = G.ROOM_ATTACH,
+            colours = {G.C.WHITE, lighten(G.C.PURPLE, 0.4), lighten(G.C.PURPLE, 0.2), lighten(G.C.GOLD, 0.2)},
+            fill = true
+        })
+        G.booster_pack_sparkles.fade_alpha = 1
+        G.booster_pack_sparkles:fade(1, 0)
+    end,
+    create_card = function(self, card, i)
+        local _card
+        if G.GAME.used_vouchers.v_omen_globe and pseudorandom('omen_globe') > 0.8 then
+            _card = {set = "Spectral", area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "ar2"}
+        elseif G.GAME.used_vouchers.v_rh_shopkeeper_deal and pseudorandom('rh_shopkeeper_deal') > 0.8 then
+            _card = {set = "Flow", area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "ar3"}
+        else
+            _card = {set = "Tarot", area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "ar1"}
+        end
+        return _card
+    end,
+    loc_vars = pack_loc_vars,
+})
+
+SMODS.Voucher({
+    key = "gatekeeper_deal",
+    loc_txt = {
+        name = "Gatekeeper's Deals",
+        text = {
+            "{C:rh_flow}Flow{} Packs",
+            "can appear",
+            "in the shop ",
+        },
+    },
+    atlas = 'vouchers',
+    requires = {"v_rh_shopkeeper_deal"},
+    pos = {
+        x = 1,
+        y = 1
+    },
 })

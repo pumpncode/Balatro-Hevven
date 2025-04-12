@@ -24,7 +24,7 @@ return {
                 text = {
                     "This Joker gains {C:blue}+#1#{} Chips every time a",
                     "{C:rh_flow}Flow{} card is used.",
-                    "{C:inactive}(Currently {C:blue}+#2#{} Chips)"
+                    "{C:inactive}(Currently {C:blue}+#2#{C:inactive} Chips)"
                 }
             }
         },

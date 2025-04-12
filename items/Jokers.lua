@@ -532,8 +532,8 @@ SMODS.Joker({
     discovered = true,
     atlas = 'jokers',
     pos = {
-        x = 4,
-        y = 0
+        x = 3,
+        y = 1
     },
 	config = {
         extra = {

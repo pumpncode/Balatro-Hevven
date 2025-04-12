@@ -7,14 +7,6 @@ SMODS.Atlas({
 
 SMODS.Voucher({
     key = "flow_gauge",
-    loc_txt = {
-        name = 'Flow Gauge',
-        text = {
-            "{C:rh_flow}Flow{} cards appear",
-            "{C:attention}#1#X{} more frequently",
-            "in the shop ",
-        },
-    },
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -35,14 +27,6 @@ SMODS.Voucher({
 
 SMODS.Voucher({
     key = "flow_master",
-    loc_txt = {
-        name = 'Flow Master',
-        text = {
-            "{C:rh_flow}Flow{} cards appear",
-            "{C:attention}#1#X{} more frequently",
-            "in the shop ",
-        },
-    },
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -64,14 +48,6 @@ SMODS.Voucher({
 
 SMODS.Voucher({
     key = "shopkeeper_deal",
-    loc_txt = {
-        name = "Shopkeeper's Deals",
-        text = {
-            "{C:rh_flow}Flow{} cards may",
-            "appear in any of",
-            "the {C:attention}Arcana Packs",
-        },
-    },
     atlas = 'vouchers',
     pos = {
         x = 1,
@@ -116,14 +92,6 @@ SMODS.Booster:take_ownership_by_kind('Arcana', {
 
 SMODS.Voucher({
     key = "gatekeeper_deal",
-    loc_txt = {
-        name = "Gatekeeper's Deals",
-        text = {
-            "{C:rh_flow}Flow{} Packs",
-            "can appear",
-            "in the shop ",
-        },
-    },
     atlas = 'vouchers',
     requires = {"v_rh_shopkeeper_deal"},
     pos = {

@@ -176,13 +176,6 @@ return {
             }
         },
         Tarot = {
-            c_rh_translator = {
-                name = 'The Translator',
-                text = {
-                    "Add {C:dark_edition}Negative{} to a random",
-                    "card in your hand"
-                }
-            },
             c_rh_castle = {
                 name = 'The Castle',
                 text = {
@@ -199,6 +192,40 @@ return {
                 }
             },
         },
+        Voucher = {
+            v_rh_flow_gauge = {
+                name = 'Flow Gauge',
+                text = {
+                    "{C:rh_flow}Flow{} cards appear",
+                    "{C:attention}#1#X{} more frequently",
+                    "in the shop ",
+                },
+            },
+            v_rh_flow_master = {
+                name = 'Flow Master',
+                text = {
+                    "{C:rh_flow}Flow{} cards appear",
+                    "{C:attention}#1#X{} more frequently",
+                    "in the shop ",
+                },
+            },
+            v_rh_shopkeeper_deal = {
+                name = "Shopkeeper's Deals",
+                text = {
+                    "{C:rh_flow}Flow{} cards may",
+                    "appear in any of",
+                    "the {C:attention}Arcana Packs",
+                },
+            },
+            v_rh_gatekeeper_deal = {
+                name = "Gatekeeper's Deals",
+                text = {
+                    "{C:rh_flow}Flow Packs{}",
+                    "can appear",
+                    "in the shop ",
+                },
+            },
+        },
         Other = {
             rh_you_sticker = {
                 name = 'You',
@@ -206,7 +233,6 @@ return {
                     "This card will always be selected",
                     "and played in every hand"
                 },
-                label = 'YOU',
             },
             active_flow = {
                 name="Flow Card (Active)",
@@ -231,6 +257,9 @@ return {
         },
         v_dictionary = {
             a_mmoonk = {"+#1# Chips,+#2# Mult,X#3# Mult"},
+        },
+        labels = {
+            rh_you_sticker = 'YOU'
         }
     }
 }

@@ -25,7 +25,7 @@ SMODS.load_file("items/Vouchers.lua")()
 SMODS.load_file("items/Jokers.lua")()
 SMODS.load_file("misc/Sounds.lua")()
 
-SMODS.load_file("Debug.lua")()
+-- SMODS.load_file("Debug.lua")()
 
 -- Icon!
 SMODS.Atlas({

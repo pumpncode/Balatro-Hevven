@@ -20,7 +20,6 @@ end
 if SMODS and SMODS.calculate_individual_effect then
     local scie = SMODS.calculate_individual_effect
     function SMODS.calculate_individual_effect(effect, scored_card, key, amount, from_edition)
-        sendDebugMessage("KEY:"..key, "rhCalc")
         if (key == 'chips' or key == 'h_chips' or key == 'chip_mod') and
             amount and
             G.GAME.current_round.rh_flow_simple_tap then

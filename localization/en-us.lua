@@ -31,9 +31,7 @@ return {
                 name = "Goat",
                 text = {
                     "Earn a random payout at end of round",
-                    "{C:inactive} 60% => {C:money}$#1#",
-                    "{C:inactive} 35% => {C:money}$#2#",
-                    "{C:inactive} 5% => {C:money}$#3#",
+                    "{C:inactive}({C:money}$#1# {C:inactive}/ {C:money}$#2# {C:inactive}/ {C:money}$#3#{C:inactive})",
                 }
             },
             j_rh_monkey = {

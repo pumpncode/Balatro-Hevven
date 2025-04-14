@@ -103,42 +103,6 @@ SMODS.Consumable({
     end
 })
 
--- Translator
-SMODS.Consumable({
-    key = "translator",
-    set = 'Spectral',
-    cost=3,
-    atlas = 'consumables',
-    pos = {
-        x = 2,
-        y = 0
-    },
-
-    use = function(self, card, area, copier)
-        local card_index = math.ceil((pseudorandom(pseudoseed("translator")) * 100) % #G.hand.cards)
-        sendDebugMessage(card_index, "rhTranslator")
-        local CARD = G.hand.cards[card_index]
-        local percent = 0.85 + (card_index - 0.999) / (#G.hand.cards - 0.998) * 0.3
-        G.E_MANAGER:add_event(Event({
-            trigger = "after",
-            delay = 0.15,
-            func = function()
-                CARD:set_edition({
-                    negative = true,
-                })
-                play_sound("tarot2", percent)
-                CARD:juice_up(0.3, 0.3)
-                return true
-            end,
-        }))
-    end,
-
-    can_use = function (self, card)
-		return #G.hand.cards > 0
-	end,
-})
-
-
 -- Hevven World
 SMODS.Consumable({
     key = "hevven_world",

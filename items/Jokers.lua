@@ -58,8 +58,8 @@ SMODS.Joker({
                     }
                 }
     end,
-    cost = 4,
-    rarity = 2,
+    cost = 5,
+    rarity = 1,
     blueprint_compat = true,
     eternal_compat = true,
     unlocked = true,
@@ -119,8 +119,8 @@ SMODS.Joker({
                     }
                 }
     end,
-    cost = 4,
-    rarity = 1,
+    cost = 6,
+    rarity = 2,
     blueprint_compat = true,
     eternal_compat = true,
     unlocked = true,
@@ -181,8 +181,8 @@ SMODS.Joker({
                     }
                 }
     end,
-    cost = 4,
-    rarity = 1,
+    cost = 6,
+    rarity = 2,
     blueprint_compat = true,
     eternal_compat = true,
     unlocked = true,
@@ -254,7 +254,7 @@ SMODS.Joker({
             }
         }
     end,
-    cost = 4,
+    cost = 20,
     rarity = 4,
     blueprint_compat = true,
     eternal_compat = true,
@@ -524,7 +524,7 @@ SMODS.Joker({
                     }
                 }
     end,
-    cost = 5,
+    cost = 6,
     rarity = 2,
     blueprint_compat = false,
     eternal_compat = true,
@@ -607,7 +607,7 @@ SMODS.Joker({
                     }
                 }
     end,
-    cost = 3,
+    cost = 6,
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = true,
@@ -662,7 +662,7 @@ SMODS.Joker({
                     }
                 }
     end,
-    cost = 5,
+    cost = 8,
     rarity = 2,
     blueprint_compat = false,
     eternal_compat = true,

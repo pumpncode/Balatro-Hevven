@@ -44,13 +44,6 @@ SMODS.Atlas({
 -- Widget (uncommon)
 SMODS.Joker({
     key = "widget",
-    loc_txt = {
-        name = 'Widget',
-        text = {
-            "Retriggers {C:attention}5th {}played",
-            "card of hand {C:attention}#1#{} times"
-        }
-    },
     loc_vars = function(self, info_queue, card)
                 return {
                     vars = {
@@ -101,15 +94,6 @@ SMODS.Joker({
 -- Space Gramps (common)
 SMODS.Joker({
     key = "space_gramp",
-    loc_txt = {
-        name = 'Space Gramp',
-        text = {
-            "This Joker gains {C:mult}+#1#{} Mult",
-            "if played hand contains",
-            "a {C:attention}Black #2#",
-            "{C:inactive}(Currently {C:red}+#3#{C:inactive} Mult)",
-        },
-    },
     loc_vars = function(self, info_queue, card)
                 return {
                     vars = {
@@ -163,15 +147,6 @@ SMODS.Joker({
 -- Cosmic Girl (common)
 SMODS.Joker({
     key = "cosmic_girl",
-    loc_txt = {
-        name = 'Cosmic Girl',
-        text = {
-            "This Joker gains {C:mult}+#1#{} Mult",
-            "if played hand contains",
-            "a {C:attention}Red #2#",
-            "{C:inactive}(Currently {C:red}+#3#{C:inactive} Mult)",
-        },
-    },
     loc_vars = function(self, info_queue, card)
                 return {
                     vars = {
@@ -232,16 +207,6 @@ SMODS.Joker({
 -- Munchy Monk
 SMODS.Joker({
     key = "munchy_monk",
-    loc_txt = {
-        name = 'Munchy Monk',
-        text = {
-            "This Joker gains {C:blue}+#1#{} Chips per",
-            "{C:rh_flow}Flow{} card used this run,  {C:red}+#2#{} Mult ",
-            "per {C:tarot}Tarot{} card used this run, and",
-            "{X:mult,C:white} X#3# {} Mult every time a {C:planet}Planet{} card is used",
-            "{C:inactive}(Currently {C:blue}+#4#{} Chips, {C:red}+#5#{} Mult, {X:mult,C:white} X#6# {C:inactive} Mult)",
-        }
-    },
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -384,15 +349,6 @@ SMODS.Joker({
 -- Double Sided (common)
 SMODS.Joker({
     key = "lockstep",
-    loc_txt = {
-        name = 'Double Sided',
-        text = {
-            "Played cards with #1# rank gives",
-            "{C:chips}+#2#{} chips, {C:mult}+#3#{} mult when scored,",
-            "parity changes",
-            "at end of round",
-        },
-    },
     loc_vars = function(self, info_queue, card)
         return {
             vars = {

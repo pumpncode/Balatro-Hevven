@@ -7,7 +7,39 @@ return {
             j_rh_onion = {
                 name = 'Hairy Onion',
                 text = {
-                    "On discard, draw {C:attention}#1#{} extra card(s)."
+                    "On discard, draw {C:attention}#1#{} extra card(s)"
+                }
+            },
+            j_rh_sneaky_spirit = {
+                name = "Sneaky Spirit",
+                text = {
+                    "After {C:attention}2{} rounds,",
+                    "sell this card to add {C:dark_edition}Negative{}",
+                    "to a random Joker",
+                    "{C:inactive}#1#/2{}"
+                }
+            },
+            j_rh_samurai_drummer = {
+                name = "Samurai Drummer",
+                text = {
+                    "This Joker gains {C:blue}+#1#{} Chips every time a",
+                    "{C:rh_flow}Flow{} card is used",
+                    "{C:inactive}(Currently {C:blue}+#2#{C:inactive} Chips)"
+                }
+            },
+            j_rh_goat = {
+                name = "Goat",
+                text = {
+                    "Earn a random payout at end of round",
+                    "{C:inactive} 60% => {C:money}$#1#",
+                    "{C:inactive} 35% => {C:money}$#2#",
+                    "{C:inactive} 5% => {C:money}$#3#",
+                }
+            },
+            j_rh_monkey = {
+                name = "Monkey",
+                text = {
+                    "Retrigger each played card"
                 }
             }
         },

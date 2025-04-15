@@ -353,7 +353,9 @@ return {
             rh_pity_skip_host_rupert = "Rupert",
             rh_even = "even", 
             rh_odd = "odd", 
-            k_rh_flow_pack = "Flow Pack"
+            k_rh_flow_pack = "Flow Pack",
+            k_flow = "Flow",
+            b_flow_cards = "Flow Cards",
         },
         v_dictionary = {
             a_mmoonk = {"+#1# Chips,+#2# Mult,X#3# Mult"},

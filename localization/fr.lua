@@ -356,7 +356,9 @@ return {
             rh_pity_skip_host_rupert = "Naja",
             rh_even = "paire", 
             rh_odd = "impaire", 
-            k_rh_flow_pack = "Paquet Rythmé"
+            k_rh_flow_pack = "Paquet Rythmé",
+            k_flow = "Rythme",
+            b_flow_cards = "Cartes Rythme",
         },
         v_dictionary = {
             a_mmoonk = {"+#1# Jetons,+#2# Mult,X#3# Mult"},

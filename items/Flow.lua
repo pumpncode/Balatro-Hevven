@@ -21,12 +21,7 @@ SMODS.ConsumableType({
     key='Flow',
     primary_colour=HEX('FFFFFF'),
     secondary_colour=HEX('FFAFFB'),
-    shop_rate=1,
-    loc_txt = {
-        name = 'Flow',
-        collection = 'Flow Cards',
-
-    }
+    shop_rate=1
 })
 SMODS.UndiscoveredSprite({
 	key = "Flow",
@@ -896,7 +891,18 @@ SMODS.Sticker({
     badge_colour=G.C.BLACK,
     atlas='stickers',
     default_compat=true,
-    rate=0
+    rate=0,
+    calculate = function(self, card, context)
+        if context.end_of_round then
+            for k, v in pairs(G.playing_cards) do
+                if v.ability["rh_you_sticker"] then 
+                    sendDebugMessage("Removing sticker["..k.."]", "rhFlowSticker")
+                    v:remove_sticker("rh_you_sticker")
+                end
+            end
+        end
+        
+    end
 })
 
 -- Extra Life

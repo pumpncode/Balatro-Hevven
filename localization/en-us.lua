@@ -306,6 +306,34 @@ return {
                     "and played in every hand"
                 },
             },
+            p_rh_flow_pack_1 = {
+                name = "Flow Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of",
+                    "up to {C:rh_flow}#2# Flow Cards{}",
+                },
+            },
+            p_rh_flow_pack_2 = {
+                name = "Flow Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of",
+                    "up to {C:rh_flow}#2# Flow Cards{}",
+                },
+            },
+            p_rh_flow_jumbo = {
+                name = "Jumbo Flow Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of",
+                    "up to {C:rh_flow}#2# Flow Cards{}",
+                },
+            },
+            p_rh_flow_mega = {
+                name = "Mega Flow Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of",
+                    "up to {C:rh_flow}#2# Flow Cards{}",
+                },
+            },
             active_flow = {
                 name="Flow Card (Active)",
                 text={

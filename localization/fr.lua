@@ -309,6 +309,34 @@ return {
                     "et jouée dans toutes les mains"
                 },
             },
+            p_rh_flow_pack_1 = {
+                name = "Paquet Rythmé",
+                text = {
+                    "Choisissez {C:attention}#1#{} parmi",
+                    "{C:attention}#2# cartes {C:rh_flow}Rythme{}",
+                },
+            },
+            p_rh_flow_pack_2 = {
+                name = "Paquet Rythmé",
+                text = {
+                    "Choisissez {C:attention}#1#{} parmi",
+                    "{C:attention}#2# cartes {C:rh_flow}Rythme{}",
+                },
+            },
+            p_rh_flow_jumbo = {
+                name = "Paquet Jumbo Rythmé",
+                text = {
+                    "Choisissez {C:attention}#1#{} parmi",
+                    "{C:attention}#2# cartes {C:rh_flow}Rythme{}",
+                },
+            },
+            p_rh_flow_mega = {
+                name = "Paquet Méga-Rythmé",
+                text = {
+                    "Choisissez {C:attention}#1#{} parmi",
+                    "{C:attention}#2# cartes {C:rh_flow}Rythme{}",
+                },
+            },
             active_flow = {
                 name="Carte Rythme (Active)",
                 text={
@@ -328,7 +356,7 @@ return {
             rh_pity_skip_host_rupert = "Naja",
             rh_even = "paire", 
             rh_odd = "impaire", 
-            k_rh_flow_pack = "Paquet Rythme"
+            k_rh_flow_pack = "Paquet Rythmé"
         },
         v_dictionary = {
             a_mmoonk = {"+#1# Jetons,+#2# Mult,X#3# Mult"},

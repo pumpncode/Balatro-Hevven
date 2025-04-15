@@ -39,13 +39,6 @@ SMODS.UndiscoveredSprite({
 
 SMODS.Booster({
     key='flow_pack_1',
-    loc_txt = {
-		name = "Flow Pack",
-		text = {
-			"Choose {C:attention}#1#{} of",
-			"up to {C:rh_flow}#2# Flow Cards{}",
-		},
-    },
     kind = "Flow",
     atlas = "boosters",
     config = { extra = 2, choose = 1 },
@@ -68,13 +61,6 @@ SMODS.Booster({
 
 SMODS.Booster({
     key='flow_pack_2',
-    loc_txt = {
-		name = "Flow Pack",
-		text = {
-			"Choose {C:attention}#1#{} of",
-			"up to {C:rh_flow}#2# Flow Cards{}",
-		},
-    },
     kind = "Flow",
     atlas = "boosters",
     pos = {
@@ -101,13 +87,6 @@ SMODS.Booster({
 
 SMODS.Booster({
     key='flow_jumbo',
-    loc_txt = {
-		name = "Jumbo Flow Pack",
-		text = {
-			"Choose {C:attention}#1#{} of",
-			"up to {C:rh_flow}#2# Flow Cards{}",
-		},
-    },
     kind = "Flow",
     atlas = "boosters",
     pos = {
@@ -134,13 +113,6 @@ SMODS.Booster({
 
 SMODS.Booster({
     key='flow_mega',
-    loc_txt = {
-		name = "Mega Flow Pack",
-		text = {
-			"Choose {C:attention}#1#{} of",
-			"up to {C:rh_flow}#2# Flow Cards{}",
-		},
-    },
     kind = "Flow",
     atlas = "boosters",
     pos = {

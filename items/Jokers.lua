@@ -5,16 +5,45 @@ SMODS.Atlas({
     py = 95
 })
 
+-- TEMPLATE JOKER CODE --
+-- To copy and paste when adding a new Joker
+
+-- SMODS.Joker({
+--     key = "KEY",
+
+--     loc_vars = function(self, info_queue, card)
+--                 return {
+--                     vars = {
+--                     }
+--                 }
+--     end,
+--     cost = 1,
+--     rarity = 1,
+--     blueprint_compat = false,
+--     eternal_compat = true,
+--     unlocked = true,
+--     discovered = true,
+--     atlas = 'jokers',
+--     pos = {
+--         x = 4,
+--         y = 0
+--     },
+-- 	config = {
+--         extra = {
+--         }
+--     },
+
+--     calculate = function(self, card, context)
+--         return true
+--     end
+-- })
+
+
+-- ======================
+
 -- Widget (uncommon)
 SMODS.Joker({
     key = "widget",
-    loc_txt = {
-        name = 'Widget',
-        text = {
-            "Retriggers {C:attention}5th {}played",
-            "card of hand {C:attention}#1#{} times"
-        }
-    },
     loc_vars = function(self, info_queue, card)
                 return {
                     vars = {
@@ -22,8 +51,8 @@ SMODS.Joker({
                     }
                 }
     end,
-    cost = 4,
-    rarity = 2,
+    cost = 5,
+    rarity = 1,
     blueprint_compat = true,
     eternal_compat = true,
     unlocked = true,
@@ -65,15 +94,6 @@ SMODS.Joker({
 -- Space Gramps (common)
 SMODS.Joker({
     key = "space_gramp",
-    loc_txt = {
-        name = 'Space Gramp',
-        text = {
-            "This Joker gains {C:mult}+#1#{} Mult",
-            "if played hand contains",
-            "a {C:attention}Black #2#",
-            "{C:inactive}(Currently {C:red}+#3#{C:inactive} Mult)",
-        },
-    },
     loc_vars = function(self, info_queue, card)
                 return {
                     vars = {
@@ -83,8 +103,8 @@ SMODS.Joker({
                     }
                 }
     end,
-    cost = 4,
-    rarity = 1,
+    cost = 6,
+    rarity = 2,
     blueprint_compat = true,
     eternal_compat = true,
     unlocked = true,
@@ -127,15 +147,6 @@ SMODS.Joker({
 -- Cosmic Girl (common)
 SMODS.Joker({
     key = "cosmic_girl",
-    loc_txt = {
-        name = 'Cosmic Girl',
-        text = {
-            "This Joker gains {C:mult}+#1#{} Mult",
-            "if played hand contains",
-            "a {C:attention}Red #2#",
-            "{C:inactive}(Currently {C:red}+#3#{C:inactive} Mult)",
-        },
-    },
     loc_vars = function(self, info_queue, card)
                 return {
                     vars = {
@@ -145,8 +156,8 @@ SMODS.Joker({
                     }
                 }
     end,
-    cost = 4,
-    rarity = 1,
+    cost = 6,
+    rarity = 2,
     blueprint_compat = true,
     eternal_compat = true,
     unlocked = true,
@@ -196,16 +207,6 @@ SMODS.Joker({
 -- Munchy Monk
 SMODS.Joker({
     key = "munchy_monk",
-    loc_txt = {
-        name = 'Munchy Monk',
-        text = {
-            "This Joker gains {C:blue}+#1#{} Chips per",
-            "{C:rh_flow}Flow{} card used this run,  {C:red}+#2#{} Mult ",
-            "per {C:tarot}Tarot{} card used this run, and",
-            "{X:mult,C:white} X#3# {} Mult every time a {C:planet}Planet{} card is used",
-            "{C:inactive}(Currently {C:blue}+#4#{} Chips, {C:red}+#5#{} Mult, {X:mult,C:white} X#6# {C:inactive} Mult)",
-        }
-    },
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -218,7 +219,7 @@ SMODS.Joker({
             }
         }
     end,
-    cost = 4,
+    cost = 20,
     rarity = 4,
     blueprint_compat = true,
     eternal_compat = true,
@@ -259,11 +260,14 @@ SMODS.Joker({
                             (card.ability.extra.monk_level < card.ability.extra.used_tarots) and
                             (card.ability.extra.monk_level < card.ability.extra.used_flows)
                         then
-                            card.ability.extra.monk_level = card.ability.extra.monk_level + 1
-                            card.children.floating_sprite:set_sprite_pos({
-                                x = card.ability.extra.monk_level + 1,
-                                y = 2
-                            })
+                            if card.ability.extra.monk_level < 4 then
+                                card.ability.extra.monk_level = card.ability.extra.monk_level + 1
+                                card.children.floating_sprite:set_sprite_pos({
+                                    x = card.ability.extra.monk_level + 1,
+                                    y = 2
+                                })
+                                card.juice_up()
+                            end
                         end
                         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult}}})
                         return true
@@ -301,11 +305,14 @@ SMODS.Joker({
                             (card.ability.extra.monk_level < card.ability.extra.used_tarots) and
                             (card.ability.extra.monk_level < card.ability.extra.used_flows)
                         then
-                            card.ability.extra.monk_level = card.ability.extra.monk_level + 1
-                            card.children.floating_sprite:set_sprite_pos({
-                                x = card.ability.extra.monk_level + 1,
-                                y = 2
-                            })
+                            if card.ability.extra.monk_level < 4 then
+                                card.ability.extra.monk_level = card.ability.extra.monk_level + 1
+                                card.children.floating_sprite:set_sprite_pos({
+                                    x = card.ability.extra.monk_level + 1,
+                                    y = 2
+                                })
+                                card.juice_up()
+                            end
                         end
                         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex'), colour = G.C.CHIPS})
                         return true
@@ -342,15 +349,6 @@ SMODS.Joker({
 -- Double Sided (common)
 SMODS.Joker({
     key = "lockstep",
-    loc_txt = {
-        name = 'Double Sided',
-        text = {
-            "Played cards with #1# rank gives",
-            "{C:chips}+#2#{} chips, {C:mult}+#3#{} mult when scored,",
-            "parity changes",
-            "at end of round",
-        },
-    },
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -442,6 +440,11 @@ SMODS.Joker({
     },
 
     calculate = function(self, card, context)
+        -- Not blueprint compatible
+        if context.blueprint then
+            return
+        end
+
         -- When discarding, check if we're gonna be below max hand size after discard, if so, we can draw afterwards
         if context.pre_discard and not card.ability.extra.can_draw
         then
@@ -466,7 +469,237 @@ SMODS.Joker({
             return {
                 message = "Pluck!",
                 sound = "rh_pluck",
-                pitch = math.random(0.5,1.5)
+                pitch = math.random(0.1,1.5)
+            }
+        end
+    end
+})
+
+-- Sneaky Spirit
+SMODS.Joker({
+    key = "sneaky_spirit",
+
+    loc_vars = function(self, info_queue, card)
+                return {
+                    vars = {
+                        card.ability.extra.rounds
+                    }
+                }
+    end,
+    cost = 6,
+    rarity = 2,
+    blueprint_compat = false,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'jokers',
+    pos = {
+        x = 3,
+        y = 1
+    },
+	config = {
+        extra = {
+            rounds = 0
+        }
+    },
+
+    calculate = function(self, card, context)
+
+        -- Not compatible with blueprint, can't be retriggered
+        if context.blueprint and context.retrigger_joker then return end
+
+        local round_max = 2 -- variable for easy value change. Does not show up in description.
+
+        -- At the end of each round, tick one if it's still inactive
+        if context.end_of_round and context.cardarea == G.jokers
+        then
+            if card.ability.extra.rounds >= round_max then return end -- Don't do anything if we already reached the goal
+
+            card.ability.extra.rounds = card.ability.extra.rounds + 1
+
+            local display_message = (round_max-card.ability.extra.rounds) .. " Left!"
+            if card.ability.extra.rounds >= round_max then
+                display_message = "Ready!"
+            end
+
+            return {
+                message = display_message
+            }
+        end
+
+        -- When card is sold and waited enough rounds, trigger effect
+        if context.selling_self and card.ability.extra.rounds >= round_max
+        then
+                -- Inspired by Invis. Joker.
+                -- Set up the joker pool that excludes itself and does not already have an edition
+                local jokers = {}
+                for i=1, #G.jokers.cards do 
+
+                    local c = G.jokers.cards[i]
+
+                    if c ~= card and c.edition == nil then
+                        sendDebugMessage("Adding card " .. G.jokers.cards[i].ability.name)
+                        jokers[#jokers+1] = c
+                    end
+                    
+                end
+
+                if #jokers > 0
+                then
+                    local to_add_neg = pseudorandom_element(jokers, pseudoseed('sneaky_spirit'))
+
+                    to_add_neg:set_edition({negative = true}, true)
+                end
+
+                return true
+        end
+    end
+})
+
+-- Samurai Drummer
+
+SMODS.Joker({
+    key = "samurai_drummer",
+
+    loc_vars = function(self, info_queue, card)
+                return {
+                    vars = {
+                        card.ability.extra.bonus_chips,
+                        card.ability.extra.chips,
+                    }
+                }
+    end,
+    cost = 6,
+    rarity = 1,
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'jokers',
+    pos = {
+        x = 1,
+        y = 0
+    },
+	config = {
+        extra = {
+            chips = 0,
+            bonus_chips = 25
+        }
+    },
+
+    calculate = function(self, card, context)
+        
+        if context.joker_main and context.cardarea == G.jokers then
+            return {
+                chips = card.ability.extra.chips
+            }
+        end
+
+        if not context.blueprint then
+            -- Check if flow card has been used
+            if context.using_consumeable then
+                if context.consumeable.ability.set == "Flow" then
+                    card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.bonus_chips
+                    return {
+                        message = "+" .. card.ability.extra.bonus_chips,
+                        colour = G.C.BLUE,
+                    }
+                end
+            end
+        end
+
+    end
+})
+
+-- Goat
+SMODS.Joker({
+    key = "goat",
+
+    loc_vars = function(self, info_queue, card)
+                return {
+                    vars = {
+                        card.ability.extra.small_payout,
+                        card.ability.extra.medium_payout,
+                        card.ability.extra.big_payout,
+                    }
+                }
+    end,
+    cost = 8,
+    rarity = 2,
+    blueprint_compat = false,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'jokers',
+    pos = {
+        x = 4,
+        y = 1
+    },
+	config = {
+        extra = {
+            small_payout = 5,
+            medium_payout = 15,
+            big_payout = 50
+        }
+    },
+
+    calc_dollar_bonus = function(self, card, context)
+        local d100 = pseudorandom(pseudoseed('goat'), 1, 100)
+        
+        sendDebugMessage("Rolled a ".. d100)
+
+        -- Payouts
+        if d100 <= 60 then
+            return card.ability.extra.small_payout
+        end
+
+        if d100 > 60 and d100 <= 95 then
+            return card.ability.extra.medium_payout
+        end
+
+        if d100 > 95 then
+            return card.ability.extra.big_payout
+        end
+
+        -- How did you even reach here??
+        return 1
+
+    end
+})
+
+-- Monkey
+SMODS.Joker({
+    key = "monkey",
+
+    loc_vars = function(self, info_queue, card)
+                return {
+                    vars = {
+                    }
+                }
+    end,
+    cost = 8,
+    rarity = 3,
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'jokers',
+    pos = {
+        x = 3,
+        y = 0
+    },
+	config = {
+        extra = {
+        }
+    },
+
+    calculate = function(self, card, context)
+        if context.repetition and context.cardarea == G.play then
+            return {
+                message = localize('k_again_ex'),
+                repetitions = 1,
+                card = card,
+                sound = "rh_monkey"
             }
         end
     end

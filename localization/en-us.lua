@@ -2,12 +2,85 @@ return {
     descriptions = {
         Joker = {
             j_rh_widget = {
-                
+                name = 'Widget',
+                text = {
+                    "Retrigger {C:attention}5th{} played",
+                    "card used in scoring",
+                    "{C:attention}#1#{} additional times",
+                }
             },
             j_rh_onion = {
                 name = 'Hairy Onion',
                 text = {
-                    "On discard, draw {C:attention}#1#{} extra card(s)."
+                    "On discard, draw {C:attention}#1#{} extra card(s)"
+                }
+            },
+            j_rh_sneaky_spirit = {
+                name = "Sneaky Spirit",
+                text = {
+                    "After {C:attention}2{} rounds,",
+                    "sell this card to",
+                    "add {C:dark_edition}Negative{} to a random Joker",
+                    "{C:inactive}(Currently {C:attention}#1#/{C:inactive}2){}"
+                }
+            },
+            j_rh_samurai_drummer = {
+                name = "Samurai Drummer",
+                text = {
+                    "{C:blue}+#1#{} Chips per {C:rh_flow}Flow{}",
+                    "card used this run",
+                    "{C:inactive}(Currently {C:chips}+#2#{C:inactive})",
+                }
+            },
+            j_rh_goat = {
+                name = "Goat",
+                text = {
+                    "Earn a random payout at end of round",
+                    "{C:inactive}({C:money}$#1# {C:inactive}/ {C:money}$#2# {C:inactive}/ {C:money}$#3#{C:inactive})",
+                }
+            },
+            j_rh_monkey = {
+                name = "Monkey",
+                text = {
+                    "Retrigger {C:attention}each{} played card"
+                }
+            },
+            j_rh_lockstep = {
+                name = 'Double Sided',
+                text = {
+                    "Played cards with",
+                    "{C:attention}#1#{} rank give",
+                    "{C:chips}+#2#{} chips, {C:mult}+#3#{} mult when scored,",
+                    "parity changes",
+                    "at end of round",
+                }
+            },
+            j_rh_munchy_monk = {
+                name = 'Munchy Monk',
+                text = {
+                    "This Joker gains {C:blue}+#1#{} Chips per",
+                    "{C:rh_flow}Flow{} card used this run,  {C:red}+#2#{} Mult ",
+                    "per {C:tarot}Tarot{} card used this run, and",
+                    "{X:mult,C:white} X#3# {} Mult every time a {C:planet}Planet{} card is used",
+                    "{C:inactive}(Currently {C:blue}+#4#{} Chips, {C:red}+#5#{} Mult, {X:mult,C:white} X#6# {C:inactive} Mult)",
+                }
+            },
+            j_rh_cosmic_girl = {
+                name = 'Cosmic Girl',
+                text = {
+                    "This Joker gains {C:mult}+#1#{} Mult",
+                    "if played hand contains",
+                    "a {C:hearts}Hearts{} or {C:diamonds}Diamonds{} {C:attention}#2#{}",
+                    "{C:inactive}(Currently {C:red}+#3#{C:inactive} Mult)",
+                }
+            },
+            j_rh_space_gramp = {
+                name = 'Space Gramps',
+                text = {
+                    "This Joker gains {C:mult}+#1#{} Mult",
+                    "if played hand contains",
+                    "a {C:spades}Spades{} or {C:clubs}Clubs{} {C:attention}#2#{}",
+                    "{C:inactive}(Currently {C:red}+#3#{C:inactive} Mult)",
                 }
             }
         },
@@ -168,10 +241,9 @@ return {
             c_rh_remix = {
                 name = 'Remix',
                 text = {
-                    "All suits transform into an",
-                    "{C:dark_edition}enhancement, {C:dark_edition}seal{} or {C:dark_edition}edition{},",
-                    "destroys all jokers,",
-                    "{C:red}-1{} Joker slot"
+                    "All cards in hand gets overwritten",
+                    "into an {C:dark_edition}enhancement{}, {C:dark_edition}seal{} and {C:dark_edition}edition{},",
+                    "then plays them all"
                 }
             }
         },
@@ -186,7 +258,7 @@ return {
             c_rh_trio = {
                 name = 'The Trio',
                 text = {
-                    "Creates a random {C:planet}Planet{}, {C:tarot}Tarot{}",
+                    "Creates a random {C:tarot}Tarot{}, {C:planet}Planet{}",
                     "and {C:rh_flow}Flow{} card",
                     "{C:inactive}(Must have room)",
                 }
@@ -234,6 +306,34 @@ return {
                     "and played in every hand"
                 },
             },
+            p_rh_flow_pack_1 = {
+                name = "Flow Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of",
+                    "up to {C:rh_flow}#2# Flow Cards{}",
+                },
+            },
+            p_rh_flow_pack_2 = {
+                name = "Flow Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of",
+                    "up to {C:rh_flow}#2# Flow Cards{}",
+                },
+            },
+            p_rh_flow_jumbo = {
+                name = "Jumbo Flow Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of",
+                    "up to {C:rh_flow}#2# Flow Cards{}",
+                },
+            },
+            p_rh_flow_mega = {
+                name = "Mega Flow Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of",
+                    "up to {C:rh_flow}#2# Flow Cards{}",
+                },
+            },
             active_flow = {
                 name="Flow Card (Active)",
                 text={
@@ -253,7 +353,9 @@ return {
             rh_pity_skip_host_rupert = "Rupert",
             rh_even = "even", 
             rh_odd = "odd", 
-            k_rh_flow_pack = "Flow Pack"
+            k_rh_flow_pack = "Flow Pack",
+            k_flow = "Flow",
+            b_flow_cards = "Flow Cards",
         },
         v_dictionary = {
             a_mmoonk = {"+#1# Chips,+#2# Mult,X#3# Mult"},

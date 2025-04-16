@@ -163,3 +163,35 @@ for k, v in ipairs(G.hand.highlighted) do
 end
 '''
 match_indent = true
+
+# You - highlights the You card again after play
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''to:emplace(card, nil, stay_flipped)'''
+position = "after"
+payload = '''
+if card.ability["rh_you_sticker"] and to == G.hand then
+    to:add_to_highlighted(card,false)
+    card.ability.forced_selection = true
+end
+'''
+match_indent = true
+
+# You - highlights the You card again after discard
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''-- TARGET: effects after cards destroyed in discard'''
+position = "before"
+payload = '''
+for k, v in pairs(G.playing_cards) do
+    if v.ability["rh_you_sticker"] then 
+        G.hand.highlighted[#G.hand.highlighted+1] = v
+        v:highlight(true)
+        v.ability.forced_selection = true
+    end
+end
+
+'''
+match_indent = true

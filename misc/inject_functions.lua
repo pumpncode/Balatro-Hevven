@@ -20,7 +20,6 @@ end
 if SMODS and SMODS.calculate_individual_effect then
     local scie = SMODS.calculate_individual_effect
     function SMODS.calculate_individual_effect(effect, scored_card, key, amount, from_edition)
-        sendDebugMessage("KEY:"..key, "rhCalc")
         if (key == 'chips' or key == 'h_chips' or key == 'chip_mod') and
             amount and
             G.GAME.current_round.rh_flow_simple_tap then
@@ -46,23 +45,32 @@ if SMODS and SMODS.calculate_individual_effect then
     end
 end
 
+-- Making a dummy to_big if it doesn't exist, Talisman compat
+if not to_big then
+    function to_big(number)
+        return number
+    end
+end
+
 -- Adding function to patch for New Record
 function rh_flow_check_for_new_record(amt)
     if not G.GAME.current_round.rh_flow_new_record then return end
-    if not amt or type(amt) ~= 'number' then return end
-    sendDebugMessage("Checking for score, "..G.GAME.round_scores['hand'].amt.." vs "..amt, "rhFlowNewRecord")
-    if G.GAME.round_scores['hand'] and math.floor(amt) > G.GAME.round_scores['hand'].amt then
-        G.GAME.current_round.rh_flow_new_record_tag = true
-        sendDebugMessage("Delivering Rare Tag", "rhFlowNewRecord")
+    sendDebugMessage(type(amt)..".", "rhNewRecord")
+    if not amt then return end
+    if type(amt) == 'number' or type(amt) == 'table' then
+        if to_big(G.GAME.round_scores['hand']) and to_big(math.floor(amt)) > to_big(G.GAME.round_scores['hand'].amt) then
+            G.GAME.current_round.rh_flow_new_record_tag = true
+            sendDebugMessage("Delivering Rare Tag", "rhFlowNewRecord")
+        end
     end
 end
 
 function rh_flow_good_parts_save()
     if G.GAME.current_round.rh_flow_good_parts then
-        if G.GAME.chips - G.GAME.blind.chips >= 0 then
+        if to_big(G.GAME.chips) - to_big(G.GAME.blind.chips) >= to_big(0) then
             G.GAME.current_round.rh_flow_good_parts_saved = false
             return false
-        elseif G.GAME.chips/G.GAME.blind.chips >= (G.GAME.current_round.rh_flow_good_parts_percentage/100) then
+        elseif to_big(G.GAME.chips)/to_big(G.GAME.blind.chips) >= to_big(G.GAME.current_round.rh_flow_good_parts_percentage/100) then
             local some_good_parts = pseudorandom(pseudoseed("some_good_parts"))
             if some_good_parts > G.GAME.probabilities.normal/G.GAME.current_round.rh_flow_good_parts_chances then
                 G.GAME.current_round.rh_flow_good_parts_saved = true

@@ -54,23 +54,8 @@ SMODS.Tag({
 		return false
 	end,
     apply = function(self, tag, context)
-        sendDebugMessage("Tag calculating..."..inspect(context), "RhFlowYou")
-        if context.type == "round_start_bonus" then
-            sendDebugMessage(#G.playing_cards, "rhFlowYou")
-            for k, v in pairs(G.playing_cards) do
-                if v.ability["rh_you_sticker"] then 
-                    G.hand.highlighted[#G.hand.highlighted+1] = v
-                    v:highlight(true)
-                    v.ability.forced_selection = true
-                end
-            end
-        elseif context.type == "shop_start" then
+        if context.type == "shop_start" then
             sendDebugMessage("Deleting tag!", "RhFlowYou")
-            for k, v in pairs(G.playing_cards) do
-                if v.ability["rh_you_sticker"]  then 
-                    v:remove_sticker("rh_you_sticker")
-                end
-            end
             tag:yep("", G.C.SECONDARY_SET.FLOW, function() return true end)
 			tag.triggered = true
             return true
@@ -103,9 +88,9 @@ SMODS.Tag({
     apply = function(self, tag, context)
         sendDebugMessage("Tag calculating..."..inspect(context), "RhFlowSkillStar")
         if context.type == "eval" then
-            local percentage = ((G.GAME.chips/G.GAME.blind.chips)-1)*100
-            local base_dollar = math.floor(percentage/G.GAME.current_round.skill_star.percentage*G.GAME.current_round.skill_star.base_money)
-            if base_dollar > G.GAME.current_round.skill_star.max_money then
+            local percentage = ((to_big(G.GAME.chips)/to_big(G.GAME.blind.chips))-1)*100
+            local base_dollar = to_big(math.floor(percentage/G.GAME.current_round.skill_star.percentage*G.GAME.current_round.skill_star.base_money))
+            if base_dollar > to_big(G.GAME.current_round.skill_star.max_money) then
                 base_dollar = G.GAME.current_round.skill_star.max_money
             end
             sendDebugMessage("Deleting tag!", "RhFlowSkillStar")

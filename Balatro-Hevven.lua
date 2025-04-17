@@ -18,12 +18,15 @@ BHevven = SMODS.current_mod
 
 SMODS.load_file("misc/Functions.lua")()
 
+SMODS.load_file("misc/Atlases.lua")()
+SMODS.load_file("misc/Sounds.lua")()
+
 SMODS.load_file("items/Consumables.lua")()
 SMODS.load_file("items/Flow.lua")()
 SMODS.load_file("items/Tags.lua")()
 SMODS.load_file("items/Vouchers.lua")()
+SMODS.load_file("items/Boosters.lua")()
 SMODS.load_file("items/Jokers.lua")()
-SMODS.load_file("misc/Sounds.lua")()
 
 -- SMODS.load_file("Debug.lua")()
 

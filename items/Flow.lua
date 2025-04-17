@@ -1,22 +1,3 @@
-SMODS.Atlas({
-    key = "flow", 
-    path = "flow.png", 
-    px = 71,
-    py = 95
-})
-SMODS.Atlas({
-    key = "stickers", 
-    path = "stickers.png", 
-    px = 71,
-    py = 95
-})
-SMODS.Atlas({
-    key = "boosters", 
-    path = "boosters.png", 
-    px = 71,
-    py = 95
-})
-
 SMODS.ConsumableType({
     key='Flow',
     primary_colour=HEX('FFFFFF'),
@@ -30,106 +11,6 @@ SMODS.UndiscoveredSprite({
 	pos = { x = 4, y = 2 },
 	px = 71,
 	py = 95,
-})
-
-SMODS.Booster({
-    key='flow_pack_1',
-    kind = "Flow",
-    atlas = "boosters",
-    config = { extra = 2, choose = 1 },
-	loc_vars = function(self, info_queue, card)
-		return { vars = { card.config.center.config.choose, card.ability.extra } }
-	end,
-    select_card = "consumeables",
-    create_card = function(self, card)
-		return create_card("Flow", G.pack_cards, nil, nil, true, true, nil, "rh_flow")
-	end,
-	ease_background_colour = function(self)
-		ease_colour(G.C.DYN_UI.MAIN, G.C.SECONDARY_SET.Flow)
-		ease_background_colour({ new_colour = G.C.SECONDARY_SET.Flow, special_colour = G.C.BLACK, contrast = 2 })
-	end,
-    in_pool = function()
-		return G.GAME.used_vouchers.v_rh_gatekeeper_deal
-	end,
-	group_key = "k_rh_flow_pack",
-})
-
-SMODS.Booster({
-    key='flow_pack_2',
-    kind = "Flow",
-    atlas = "boosters",
-    pos = {
-        x = 1,
-        y = 0
-    },
-    config = { extra = 2, choose = 1 },
-	loc_vars = function(self, info_queue, card)
-		return { vars = { card.config.center.config.choose, card.ability.extra } }
-	end,
-    select_card = "consumeables",
-    create_card = function(self, card)
-		return create_card("Flow", G.pack_cards, nil, nil, true, true, nil, "rh_flow")
-	end,
-	ease_background_colour = function(self)
-		ease_colour(G.C.DYN_UI.MAIN, G.C.SECONDARY_SET.Flow)
-		ease_background_colour({ new_colour = G.C.SECONDARY_SET.Flow, special_colour = G.C.BLACK, contrast = 2 })
-	end,
-    in_pool = function()
-		return G.GAME.used_vouchers.v_rh_gatekeeper_deal
-	end,
-	group_key = "k_rh_flow_pack",
-})
-
-SMODS.Booster({
-    key='flow_jumbo',
-    kind = "Flow",
-    atlas = "boosters",
-    pos = {
-        x = 2,
-        y = 0
-    },
-    config = { extra = 4, choose = 1 },
-	loc_vars = function(self, info_queue, card)
-		return { vars = { card.config.center.config.choose, card.ability.extra } }
-	end,
-    select_card = "consumeables",
-    create_card = function(self, card)
-		return create_card("Flow", G.pack_cards, nil, nil, true, true, nil, "rh_flow")
-	end,
-	ease_background_colour = function(self)
-		ease_colour(G.C.DYN_UI.MAIN, G.C.SECONDARY_SET.Flow)
-		ease_background_colour({ new_colour = G.C.SECONDARY_SET.Flow, special_colour = G.C.BLACK, contrast = 2 })
-	end,
-    in_pool = function()
-		return G.GAME.used_vouchers.v_rh_gatekeeper_deal
-	end,
-	group_key = "k_rh_flow_pack",
-})
-
-SMODS.Booster({
-    key='flow_mega',
-    kind = "Flow",
-    atlas = "boosters",
-    pos = {
-        x = 3,
-        y = 0
-    },
-    config = { extra = 4, choose = 2 },
-	loc_vars = function(self, info_queue, card)
-		return { vars = { card.config.center.config.choose, card.ability.extra } }
-	end,
-    select_card = "consumeables",
-    create_card = function(self, card)
-		return create_card("Flow", G.pack_cards, nil, nil, true, true, nil, "rh_flow")
-	end,
-	ease_background_colour = function(self)
-		ease_colour(G.C.DYN_UI.MAIN, G.C.SECONDARY_SET.Flow)
-		ease_background_colour({ new_colour = G.C.SECONDARY_SET.Flow, special_colour = G.C.BLACK, contrast = 2 })
-	end,
-    in_pool = function()
-		return G.GAME.used_vouchers.v_rh_gatekeeper_deal
-	end,
-	group_key = "k_rh_flow_pack",
 })
 
 -- Try Again
@@ -428,7 +309,7 @@ SMODS.Consumable({
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                card.ability.extra.base_chance,
+                card.ability.extra.base_chance* G.GAME.probabilities.normal,
                 card.ability.extra.max_chance,
             }
         }

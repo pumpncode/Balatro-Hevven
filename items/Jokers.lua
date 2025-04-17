@@ -1,10 +1,3 @@
-SMODS.Atlas({
-    key = "jokers", 
-    path = "jokers.png", 
-    px = 71,
-    py = 95
-})
-
 -- TEMPLATE JOKER CODE --
 -- To copy and paste when adding a new Joker
 
@@ -520,6 +513,7 @@ SMODS.Joker({
             local display_message = (round_max-card.ability.extra.rounds) .. " Left!"
             if card.ability.extra.rounds >= round_max then
                 display_message = "Ready!"
+                juice_card_until(card, (not G.RESET_JIGGLES), true)
             end
 
             return {
@@ -646,7 +640,7 @@ SMODS.Joker({
     calc_dollar_bonus = function(self, card, context)
         local d100 = pseudorandom(pseudoseed('goat'), 1, 100)
         
-        sendDebugMessage("Rolled a ".. d100)
+        sendDebugMessage("Rolled a ".. d100,"rhGoat")
 
         -- Payouts
         if d100 <= 60 then

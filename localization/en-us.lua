@@ -227,6 +227,13 @@ return {
                     "{C:inactive}(Current record: {C:red}#1#{C:inactive})"
                 }
             },
+            tag_rh_random = {
+                name = 'Random Pack',
+                text = {
+                    "Gives a free",
+                    "{C:attention}random Pack",
+                }
+            },
         },
         Planet = {
             c_rh_hevven_world = {
@@ -245,7 +252,33 @@ return {
                     "into an {C:dark_edition}enhancement{}, {C:dark_edition}seal{} and {C:dark_edition}edition{},",
                     "then plays them all"
                 }
-            }
+            },
+            c_rh_ascension = {
+                name = 'Ascension',
+                text = {
+                    "{C:green}#1# in #2#{} chance to",
+                    "add {C:dark_edition}Polychrome{} to a",
+                    "random {C:attention}Joker{},",
+                    "otherwise destroys it"
+                }
+            },
+            c_rh_anguish = {
+                name = 'Anguish',
+                text = {
+                    "Convert the rightmost",
+                    "{C:attention}Joker{} into",
+                    "the leftmost {C:attention}Joker{},",
+                    "+#1# ante"
+                }
+            },
+            c_rh_endless = {
+                name = 'Endless',
+                text = {
+                    "{C:attention}Duplicate{} a random Joker,",
+                    "but makes it {C:attention}eternal",
+                    "{C:inactive,s:0.9}(Removes {C:dark_edition,s:0.9}Negative{C:inactive,s:0.9} from copy)",
+                }
+            },
         },
         Tarot = {
             c_rh_castle = {
@@ -261,6 +294,13 @@ return {
                     "Creates a random {C:tarot}Tarot{}, {C:planet}Planet{}",
                     "and {C:rh_flow}Flow{} card",
                     "{C:inactive}(Must have room)",
+                }
+            },
+            c_rh_performer = {
+                name = 'The Performer',
+                text = {
+                    "Opens a random",
+                    "card pack",
                 }
             },
         },
@@ -334,6 +374,13 @@ return {
                     "up to {C:rh_flow}#2# Flow Cards{}",
                 },
             },
+            p_rh_legendary = {
+                name = "Legendary Buffoon Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:joker} Legendary Joker{} cards",
+                },
+            },
             active_flow = {
                 name="Flow Card (Active)",
                 text={
@@ -354,6 +401,7 @@ return {
             rh_even = "even", 
             rh_odd = "odd", 
             k_rh_flow_pack = "Flow Pack",
+            k_rh_legendary = "Legendary Buffoon Pack",
             k_flow = "Flow",
             b_flow_cards = "Flow Cards",
         },

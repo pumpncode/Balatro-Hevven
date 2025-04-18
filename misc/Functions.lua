@@ -6,28 +6,6 @@ function inc_flow_count()
     end
 end
 
-function poll_everything(seed)
-    local upgrade_type = {
-        is_enhancement = false,
-        is_seal = false,
-        is_edition = false,
-        upgrade
-    }
-    local upgrade_chance = pseudorandom(pseudoseed(seed))
-    if upgrade_chance > 0.50 then -- Add enhancement
-        upgrade_type.is_enhancement = true
-        -- upgrade_type.upgrade = poll_enhancements(seed)
-        upgrade_type.upgrade = SMODS.poll_enhancement({guaranteed = true, type_key = seed})
-    elseif upgrade_chance > 0.15 then -- Add seal
-        upgrade_type.is_seal = true
-        upgrade_type.upgrade = SMODS.poll_seal({guaranteed = true, type_key = seed})
-    else -- Add Edition
-        upgrade_type.is_edition = true
-        upgrade_type.upgrade = poll_edition(seed, nil, true, true)
-    end
-    return upgrade_type
-end
-
 function Card:remove_edition()
     self.edition.chips = 0
     self.edition.holo = false

@@ -1,11 +1,3 @@
-SMODS.Atlas({
-	key = "tags_flow",
-	path = "tags.png",
-	px = 34,
-	py = 34,
-})
-
-
 -- Some Good Parts
 SMODS.Tag({
     key = "some_good_parts",
@@ -158,6 +150,51 @@ SMODS.Tag({
                 end)
 			tag.triggered = true
             -- return true
+		end
+	end,
+})
+
+-- The Performer (random pack)
+SMODS.Tag({
+    key = "random",
+    no_collection = false,
+    discovered = true,
+    atlas = "tags_flow",
+    pos = {
+        x = 1,
+        y = 0
+    },
+	in_pool = function()
+		return false
+	end,
+    apply = function(self, tag, context)
+		if context.type == "new_blind_choice" then
+            tag:yep('+', G.C.PURPLE,function() 
+                local d100 = pseudorandom(pseudoseed('performer'), 1, 100)
+                local key = "p_arcana_normal_1"
+                if d100 > 5 then
+                    local pool = {}
+                    for _, v in ipairs(get_current_pool("Booster")) do
+                        if v ~= "UNAVAILABLE" then
+                            pool[#pool+1] = v
+                        end
+                    end
+                    sendDebugMessage("pool: "..inspect(pool), "rhTagRandom")
+                    key = pseudorandom_element(pool, pseudoseed("performer"))
+                else
+                    key = 'p_rh_legendary'
+                end
+                sendDebugMessage("Spawning booster "..key, "rhTagRandom")
+                local card = Card(G.play.T.x + G.play.T.w/2 - G.CARD_W*1.27/2,
+                G.play.T.y + G.play.T.h/2-G.CARD_H*1.27/2, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, G.P_CENTERS[key], {bypass_discovery_center = true, bypass_discovery_ui = true})
+                card.cost = 0
+                card.from_tag = true
+                G.FUNCS.use_card({config = {ref_table = card}})
+                card:start_materialize()
+                return true
+            end)
+            tag.triggered = true
+            return true
 		end
 	end,
 })

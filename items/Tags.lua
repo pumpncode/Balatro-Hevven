@@ -175,7 +175,7 @@ SMODS.Tag({
                 if d100 > 5 then
                     local pool = {}
                     for _, v in ipairs(get_current_pool("Booster")) do
-                        if v ~= "UNAVAILABLE" then
+                        if v ~= "UNAVAILABLE" and v:sub(1, 2) == "p_" then -- Also checking if it starts with p_ and thus is a booster, to go around Equilibrium in Cryptid
                             pool[#pool+1] = v
                         end
                     end

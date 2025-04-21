@@ -82,7 +82,16 @@ return {
                     "a {C:spades}Spades{} or {C:clubs}Clubs{} {C:attention}#2#{}",
                     "{C:inactive}(Currently {C:red}+#3#{C:inactive} Mult)",
                 }
-            }
+            },
+            j_rh_tall_tapper = {
+                name = 'Tall Tapper',
+                text = {
+                    "This Joker gains {C:mult}+#1#{} Mult",
+                    "if played hand contains",
+                    "a {C:spades}Spades{} or {C:clubs}Clubs{} {C:attention}#2#{}",
+                    "{C:inactive}(Currently {C:red}+#3#{C:inactive} Mult)",
+                }
+            },
         },
         Flow = {
             c_rh_you = {
@@ -228,11 +237,18 @@ return {
                 }
             },
             tag_rh_random = {
-                name = 'Random Pack',
+                name = 'Random Pack Tag',
                 text = {
                     "Gives a free",
                     "{C:attention}random Pack",
                 }
+            },
+            tag_rh_mega_flow = {
+                name="Rhythm Tag",
+                text={
+                    "Gives a free",
+                    "{C:rh_flow}Mega Flow Pack",
+                },
             },
         },
         Planet = {
@@ -299,8 +315,8 @@ return {
             c_rh_performer = {
                 name = 'The Performer',
                 text = {
-                    "Opens a random",
-                    "card pack",
+                    "Gives a",
+                    "{C:attention}Random Pack Tag",
                 }
             },
         },

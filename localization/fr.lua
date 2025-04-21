@@ -229,6 +229,20 @@ return {
                     "{C:inactive}(Record actuel: {C:red}#1#{C:inactive})"
                 }
             },
+            tag_rh_random = {
+                name = 'Badge Paquet Aléatoire',
+                text = {
+                    "Octroie un",
+                    "{C:attention}Paquet Aléatoire",
+                }
+            },
+            tag_rh_mega_flow = {
+                name="Badge de rythme",
+                text={
+                    "Octroie un",
+                    "{C:rh_flow}Paquet Méga-Rythme",
+                },
+            },
         },
         Planet = {
             c_rh_hevven_world = {
@@ -248,7 +262,32 @@ return {
                     "avec une {C:dark_edition}amélioration{}, {C:dark_edition}Sceau{} et {C:dark_edition}édition{},",
                     "puis les joue toutes"
                 }
-            }
+            },
+            c_rh_ascension = {
+                name = 'Ascension',
+                text = {
+                    "{C:green}#1# chance sur #2#{}",
+                    "d'ajouter {C:dark_edition}Polychrome{} à un",
+                    "{C:attention}Joker{} aléatoire,",
+                    "sinon le détruit"
+                }
+            },
+            c_rh_anguish = {
+                name = 'Angoisse',
+                text = {
+                    "Le {C:attention}Joker{} le plus à droite ",
+                    "devient le {C:attention}Joker{} le plus à gauche ",
+                    "+#1# à la mise initiale"
+                }
+            },
+            c_rh_endless = {
+                name = 'Infini',
+                text = {
+                    "{C:attention}Duplique{} un Joker aléatoire,",
+                    "mais le rends {C:attention}éternel",
+                    "{C:inactive,s:0.9}(Supprime le {C:dark_edition,s:0.9}Negatif{C:inactive,s:0.9} de la copie)",
+                }
+            },
         },
         Tarot = {
             c_rh_castle = {
@@ -264,6 +303,13 @@ return {
                     "Créé une carte de {C:tarot}Tarot{} , {C:planet}Planète{}",
                     "et {C:rh_flow}Rythme{} aléatoire",
                     "{C:inactive}(Selon la place disponible)",
+                }
+            },
+            c_rh_performer = {
+                name = "L'artiste",
+                text = {
+                    "Donne un {C:attention}badge",
+                    "paquet aléatoire",
                 }
             },
         },
@@ -337,6 +383,13 @@ return {
                     "{C:attention}#2# cartes {C:rh_flow}Rythme{}",
                 },
             },
+            p_rh_legendary = {
+                name = "Paquet Bouffon Légendaire",
+                text = {
+                    "Choisissez {C:attention}#1#{} parmi",
+                    "{C:attention}#2# cartes {C:joker}Joker Légendaire{}",
+                },
+            },
             active_flow = {
                 name="Carte Rythme (Active)",
                 text={
@@ -357,6 +410,7 @@ return {
             rh_even = "paire", 
             rh_odd = "impaire", 
             k_rh_flow_pack = "Paquet Rythmé",
+            k_rh_legendary = "Paquet Bouffon",
             k_flow = "Rythme",
             b_flow_cards = "Cartes Rythme",
         },

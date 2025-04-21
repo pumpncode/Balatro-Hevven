@@ -3,7 +3,7 @@ SMODS.Tag({
     key = "some_good_parts",
     no_collection = false,
     discovered = true,
-    atlas = "tags_flow",
+    atlas = "tags",
     pos = {
         x = 4,
         y = 0
@@ -37,7 +37,7 @@ SMODS.Tag({
     key = "you",
     no_collection = false,
     discovered = true,
-    atlas = "tags_flow",
+    atlas = "tags",
     pos = {
         x = 5,
         y = 0
@@ -69,7 +69,7 @@ SMODS.Tag({
     end,
     no_collection = false,
     discovered = true,
-    atlas = "tags_flow",
+    atlas = "tags",
     pos = {
         x = 3,
         y = 0
@@ -103,7 +103,7 @@ SMODS.Tag({
     key = "simple_tap",
     no_collection = false,
     discovered = true,
-    atlas = "tags_flow",
+    atlas = "tags",
     pos = {
         x = 2,
         y = 0
@@ -125,7 +125,7 @@ SMODS.Tag({
     key = "new_record",
     no_collection = false,
     discovered = true,
-    atlas = "tags_flow",
+    atlas = "tags",
     pos = {
         x = 1,
         y = 0
@@ -159,10 +159,10 @@ SMODS.Tag({
     key = "random",
     no_collection = false,
     discovered = true,
-    atlas = "tags_flow",
+    atlas = "tags",
     pos = {
         x = 1,
-        y = 0
+        y = 1
     },
 	in_pool = function()
 		return false
@@ -187,6 +187,36 @@ SMODS.Tag({
                 sendDebugMessage("Spawning booster "..key, "rhTagRandom")
                 local card = Card(G.play.T.x + G.play.T.w/2 - G.CARD_W*1.27/2,
                 G.play.T.y + G.play.T.h/2-G.CARD_H*1.27/2, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, G.P_CENTERS[key], {bypass_discovery_center = true, bypass_discovery_ui = true})
+                card.cost = 0
+                card.from_tag = true
+                G.FUNCS.use_card({config = {ref_table = card}})
+                card:start_materialize()
+                return true
+            end)
+            tag.triggered = true
+            return true
+		end
+	end,
+})
+
+-- Mega Flow Pack
+SMODS.Tag({
+    key = "mega_flow",
+    no_collection = false,
+    discovered = true,
+    atlas = "tags",
+    pos = {
+        x = 0,
+        y = 1
+    },
+	in_pool = function()
+		return false
+	end,
+    apply = function(self, tag, context)
+		if context.type == "new_blind_choice" then
+            tag:yep('+', G.C.PURPLE,function() 
+                local card = Card(G.play.T.x + G.play.T.w/2 - G.CARD_W*1.27/2,
+                G.play.T.y + G.play.T.h/2-G.CARD_H*1.27/2, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, G.P_CENTERS['p_rh_flow_mega'], {bypass_discovery_center = true, bypass_discovery_ui = true})
                 card.cost = 0
                 card.from_tag = true
                 G.FUNCS.use_card({config = {ref_table = card}})

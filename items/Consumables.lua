@@ -119,21 +119,14 @@ SMODS.Consumable({
     use = function(self, card, area, copier)
         for i = 1, card.ability.extra.hands do
             local hand = poll_poker_hand({}, "hevven", false)
-            update_hand_text(
-                { sound = "button", volume = 0.7, pitch = 0.8, delay = 0.3 },
-                {
-                    handname = localize(hand, "poker_hands"),
-                    chips = G.GAME.hands[hand].chips*card.ability.extra.times,
-                    mult = G.GAME.hands[hand].mult*card.ability.extra.times,
-                    level = G.GAME.hands[hand].level+card.ability.extra.times,
-                }
-            )
+            update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {
+                handname= localize(hand, "poker_hands"),
+                chips = G.GAME.hands[hand].chips,
+                mult = G.GAME.hands[hand].mult,
+                level= G.GAME.hands[hand].level})
             level_up_hand(card, hand, nil, card.ability.extra.times)
+            update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
         end
-        update_hand_text(
-			{ sound = "button", volume = 0.7, pitch = 1.1, delay = 0 },
-			{ mult = 0, chips = 0, handname = "", level = "" }
-		)
 	end,
 
     can_use = function (self, card)

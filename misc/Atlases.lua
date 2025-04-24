@@ -41,8 +41,8 @@ SMODS.Atlas({
     py = 95
 })
 SMODS.Atlas({
-    key = "talltap", 
-    path = "talltap_exact.png", 
+    key = "enhancements", 
+    path = "call_and_response.png", 
     px = 71,
-    py = 475
+    py = 95
 })

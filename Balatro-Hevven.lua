@@ -27,6 +27,7 @@ SMODS.load_file("items/Tags.lua")()
 SMODS.load_file("items/Vouchers.lua")()
 SMODS.load_file("items/Boosters.lua")()
 SMODS.load_file("items/Jokers.lua")()
+SMODS.load_file("items/Misc.lua")()
 
 -- SMODS.load_file("Debug.lua")()
 

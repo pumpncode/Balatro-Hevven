@@ -319,6 +319,15 @@ return {
                     "{C:attention}Random Pack Tag",
                 }
             },
+            c_rh_translator = {
+                name = 'The Translator',
+                text={
+                    "Enhances {C:attention}#1#{} selected",
+                    "card into a",
+                    "{C:attention}Call & Response",
+                    "Card",
+                },
+            },
         },
         Voucher = {
             v_rh_flow_gauge = {
@@ -353,6 +362,17 @@ return {
                     "in the shop ",
                 },
             },
+        },
+        Enhanced = {
+            m_rh_call_response = {
+                name = 'Call & Response',
+                text = {
+                    'Copies the {C:attention}rank{},',
+                    '{C:attention}suit{} and {C:attention}enhancement',
+                    'of the card',
+                    'on the left' 
+                }
+            }
         },
         Other = {
             rh_you_sticker = {

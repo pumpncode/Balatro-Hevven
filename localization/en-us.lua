@@ -83,24 +83,17 @@ return {
                     "{C:inactive}(Currently {C:red}+#3#{C:inactive} Mult)",
                 }
             },
-            j_rh_tall_tapper = {
-                name = 'Tall Tapper',
-                text = {
-                    "This Joker gains {C:mult}+#1#{} Mult",
-                    "if played hand contains",
-                    "a {C:spades}Spades{} or {C:clubs}Clubs{} {C:attention}#2#{}",
-                    "{C:inactive}(Currently {C:red}+#3#{C:inactive} Mult)",
-                }
-            },
         },
         Flow = {
             c_rh_you = {
                 name = 'You',
                 text = {
-                    "Marks a selected card as {C:dark_edition}You{}",
+                    "Marks a selected card as {C:dark_edition}You{}.",
                     "For the round, this card will",
-                    "always be selected and played",
-                    "in every hand"
+                    "always be {C:attention}selected{} and {C:attention}played{}",
+                    "in {C:attention}every{} hand",
+                    "{C:inactive,s:0.9}({C:attention,s:0.9}Sticker{C:inactive,s:0.9} is removed at",
+                    "{C:inactive,s:0.9}the end of the round)"
                 }
             },
             c_rh_try_again = {
@@ -202,10 +195,12 @@ return {
             tag_rh_you = {
                 name = 'You',
                 text = {
-                    "Marks a selected card as {C:dark_edition}You{}.",
+                    "Selected card has been marked as {C:dark_edition}You{}.",
                     "For the round, this card will",
-                    "always be selected and played",
-                    "in every hand"
+                    "always be {C:attention}selected and {C:attention}played{}",
+                    "in {C:attention}every{} hand",
+                    "{C:inactive,s:0.9}({C:attention,s:0.9}Sticker{C:inactive,s:0.9} is removed at",
+                    "{C:inactive,s:0.9}the end of the round)"
                 }
             },
             tag_rh_skill_star = {
@@ -378,8 +373,10 @@ return {
             rh_you_sticker = {
                 name = 'You',
                 text = {
-                    "This card will always be selected",
-                    "and played in every hand"
+                    "This card will always be {C:attention}selected",
+                    "and {C:attention}played{} in {C:attention}every{} hand",
+                    "{C:inactive,s:0.9}({C:attention,s:0.9}Sticker{C:inactive,s:0.9} is removed at",
+                    "{C:inactive,s:0.9}the end of the round)"
                 },
             },
             p_rh_flow_pack_1 = {

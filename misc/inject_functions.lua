@@ -94,14 +94,16 @@ if SMODS and SMODS.calculate_end_of_round_effects then
             if card.ability.name == 'm_rh_call_response' then
                 -- Setting abilities to the other card's
                 local copiable = rh_seek_copiable(card.highlighted or false, card, context.cardarea.cards)
-                call_cards_abilities[#call_cards_abilities+1] = card.ability
-                call_cards_base[#call_cards_base+1] = card.base
-                call_cards_config[#call_cards_config+1] = card.config
-                indexes[#indexes+1] = i
-                -- Setting it to the other card's
-                context.cardarea.cards[i].ability = copiable.ability
-                context.cardarea.cards[i].base = copiable.base
-                context.cardarea.cards[i].config = copiable.config
+                if copiable then
+                    call_cards_abilities[#call_cards_abilities+1] = card.ability
+                    call_cards_base[#call_cards_base+1] = card.base
+                    call_cards_config[#call_cards_config+1] = card.config
+                    indexes[#indexes+1] = i
+                    -- Setting it to the other card's
+                    context.cardarea.cards[i].ability = copiable.ability
+                    context.cardarea.cards[i].base = copiable.base
+                    context.cardarea.cards[i].config = copiable.config
+                end
             end
         end
         sendDebugMessage(inspect(call_cards), "rhScoreEoR")

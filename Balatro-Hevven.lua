@@ -1,20 +1,38 @@
 
 BHevven = SMODS.current_mod
 
---config
--- SMODS.current_mod.config_tab = function()
---     return {n = G.UIT.ROOT, config = {align = "cm"}, nodes = {
---         create_option_cycle({
---             label = "Language",
---             scale = 0.8,
---             w = 6,
---             options = {"English", "Japanese", "French"},
---             ref_value = 'language',
---             ref_table = BHevven.config,
---             })
-    
---     }}
--- end
+G.FUNCS.cycle_options = function(args)
+    -- G.FUNCS.cycle_update from Galdur
+    args = args or {}
+    if args.cycle_config and args.cycle_config.ref_table and args.cycle_config.ref_value then
+        args.cycle_config.ref_table[args.cycle_config.ref_value] = args.to_key
+    end
+end
+
+BHevven.config_tab = function()
+    local scale = 5/6
+    return {n=G.UIT.ROOT, config = {align = "cl", minh = G.ROOM.T.h*0.25, padding = 0.0, r = 0.1, colour = G.C.PURPLE}, nodes = {
+        {n = G.UIT.R, config = { padding = 0.05 }, nodes = {
+            {n = G.UIT.C, config = { minw = G.ROOM.T.w*0.25, padding = 0.05 }, nodes = {
+                create_option_cycle{
+                    label = localize("rh_language"),
+                    info = localize("rh_language_desc"),
+                    options = localize("rh_language_options"),
+                    current_option = BHevven.config.rh_language,
+                    colour = G.C.SECONDARY_SET.Flow,
+                    w = 4.5,
+                    text_scale = 0.4,
+                    scale = scale,
+                    ref_table = BHevven.config,
+                    ref_value = "rh_language",
+                    opt_callback = 'cycle_options',
+                },
+                {n=G.UIT.R, config={minh=0.25}},
+                create_toggle{ label = localize("rh_beat_anim"), info = localize("rh_beat_anim_desc"), active_colour = G.C.SECONDARY_SET.Flow, ref_table = BHevven.config, ref_value = "rh_beat_anim" },
+            }},
+        }}
+    }}
+end
 
 SMODS.load_file("misc/Functions.lua")()
 
@@ -48,14 +66,3 @@ function loc_colour(_c, _default)
 	G.ARGS.LOC_COLOURS.rh_flow = G.C.SECONDARY_SET.Flow
 	return lc(_c, _default)
 end
-
--- function BHevven.rh_update_language(args)
-    -- if args.to_val == "English" then
-    --     BHevven.language = "en"
-    -- elseif args.to_val == "French" then
-    --     BHevven.language = "fr"
-    -- elseif args.to_val == "Japanese" then
-    --     BHevven.language = "jp"
-    -- end
-    -- SMODS.save_mod_config(args)
--- end

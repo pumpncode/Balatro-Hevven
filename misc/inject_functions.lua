@@ -1,19 +1,20 @@
 -- Adding a beat anim to the main menu (juices up the card)
 function rh_beat_anim(card)
-    -- love.timer.sleep(0)
-    local start_time = love.timer.getTime()
-    local actual_time = love.timer.getTime()
-    G.E_MANAGER:add_event(Event({
-        blocking = false,
-        blockable = false,
-        func = function()
-            if (love.timer.getTime() - start_time) / 0.556 > 1 then
-                start_time = love.timer.getTime()
-                card:juice_up(0.05, 0.05)
+    if BHevven.config.rh_beat_anim then
+        local start_time = love.timer.getTime()
+        local actual_time = love.timer.getTime()
+        G.E_MANAGER:add_event(Event({
+            blocking = false,
+            blockable = false,
+            func = function()
+                if (love.timer.getTime() - start_time) / 0.556 > 1 then
+                    start_time = love.timer.getTime()
+                    card:juice_up(0.05, 0.05)
+                end
+                return false
             end
-            return false
-        end
-    }))
+        }))
+    end
 end
 
 -- Editing SMODS calculation method to account for simple tap

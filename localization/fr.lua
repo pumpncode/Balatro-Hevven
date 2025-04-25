@@ -444,6 +444,25 @@ return {
             k_rh_legendary = "Paquet Bouffon",
             k_flow = "Rythme",
             b_flow_cards = "Cartes Rythme",
+            rh_language = "Langue",
+            rh_language_desc = {
+                "Langue dans laquelle",
+                "les sons seront joués",
+                "Note: Si le son n'a pas été",
+                "doublé dans cette langue,",
+                "il sera par défaut en Anglais."
+            },
+            rh_language_options = {
+                "Anglais",
+                "Japonais",
+                "Français (incomplet)"
+            },
+            rh_beat_anim = "Animation de rythme",
+            rh_beat_anim_desc = {
+                "Active l'animation de rythme",
+                "pour la carte sur le menu principal",
+                "(Requiert un redémarrage)"
+            },
         },
         v_dictionary = {
             a_mmoonk = {"+#1# Jetons,+#2# Mult,X#3# Mult"},

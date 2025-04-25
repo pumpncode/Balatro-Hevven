@@ -63,22 +63,12 @@ SMODS.Joker({
 
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play and context.other_card == context.scoring_hand[5] then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 4.10+(0.5*G.SETTINGS.GAMESPEED),
-                blocking = false,
-                blockable = false,
-                func = function() 
-                    play_sound("rh_widget_piano", 2.0, 0.5)
-                    play_sound("rh_widget_piano", 1.0, 0.5)
-                    play_sound("rh_widget_launch", 1.0, 0.5)
-                    return true 
-                end 
-            }))  
             return {
                 message = localize('k_again_ex'),
                 repetitions = card.ability.extra.retriggers,
-                card = card
+                card = card,
+                sound = "rh_widget",
+                pitch = 1
             }
         end
     end
@@ -168,11 +158,11 @@ SMODS.Joker({
                 if  context.scoring_hand[1].base.suit == "Hearts" or context.scoring_hand[1].base.suit == "Diamonds" and
                     context.scoring_hand[2].base.suit == "Hearts"  or context.scoring_hand[2].base.suit == "Diamonds"  then
                     card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
-                    local sound = 'rh_cosmic_girl_pose_jp'
-                    if BHevven.config.language == "en" then
-                        local sound = 'rh_cosmic_girl_pose_en'
-                    elseif BHevven.config.language == "fr" then
-                        local sound = 'rh_cosmic_girl_pose_en'
+                    local sound = 'rh_cosmic_girl_pose_en'
+                    if BHevven.config.rh_language == 2 then
+                        sound = 'rh_cosmic_girl_pose_jp'
+                    elseif BHevven.config.rh_language == 3 then
+                        sound = 'rh_cosmic_girl_pose_en'
                     end
                     return {
                         sound = sound,

@@ -200,32 +200,7 @@ SMODS.Consumable({
                     trigger = 'after',
                     delay = 0.1,
                     func = function() 
-                        local enhancement_type = pseudorandom(pseudoseed("superb"))
-                        if enhancement_type > 0.66 then
-                            if enhancement_type > 0.82 then -- stone
-                                G.hand.highlighted[i]:set_ability(G.P_CENTERS['m_stone'])
-                            else -- wild
-                                G.hand.highlighted[i]:set_ability(G.P_CENTERS['m_wild'])
-                            end
-                        elseif enhancement_type > 0.40 then
-                            if enhancement_type > 0.53 then -- bonus
-                                G.hand.highlighted[i]:set_ability(G.P_CENTERS['m_bonus'])
-                            else -- gold
-                                G.hand.highlighted[i]:set_ability(G.P_CENTERS['m_gold'])
-                            end
-                        elseif enhancement_type > 0.15 then
-                            if enhancement_type > 0.27 then -- mult
-                                G.hand.highlighted[i]:set_ability(G.P_CENTERS['m_mult'])
-                            else -- lucky
-                                G.hand.highlighted[i]:set_ability(G.P_CENTERS['m_lucky'])
-                            end
-                        else
-                            if enhancement_type > 0.7 then -- steel
-                                G.hand.highlighted[i]:set_ability(G.P_CENTERS['m_steel'])
-                            else -- glass
-                                G.hand.highlighted[i]:set_ability(G.P_CENTERS['m_glass'])
-                            end
-                        end
+                        G.hand.highlighted[i]:set_ability(SMODS.poll_enhancement({guaranteed = true, type_key = "superb"}))
                         return true 
                     end 
                 }))        

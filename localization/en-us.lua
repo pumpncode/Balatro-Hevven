@@ -82,16 +82,18 @@ return {
                     "a {C:spades}Spades{} or {C:clubs}Clubs{} {C:attention}#2#{}",
                     "{C:inactive}(Currently {C:red}+#3#{C:inactive} Mult)",
                 }
-            }
+            },
         },
         Flow = {
             c_rh_you = {
                 name = 'You',
                 text = {
-                    "Marks a selected card as {C:dark_edition}You{}",
+                    "Marks a selected card as {C:dark_edition}You{}.",
                     "For the round, this card will",
-                    "always be selected and played",
-                    "in every hand"
+                    "always be {C:attention}selected{} and {C:attention}played{}",
+                    "in {C:attention}every{} hand",
+                    "{C:inactive,s:0.9}({C:attention,s:0.9}Sticker{C:inactive,s:0.9} is removed at",
+                    "{C:inactive,s:0.9}the end of the round)"
                 }
             },
             c_rh_try_again = {
@@ -193,10 +195,12 @@ return {
             tag_rh_you = {
                 name = 'You',
                 text = {
-                    "Marks a selected card as {C:dark_edition}You{}.",
+                    "Selected card has been marked as {C:dark_edition}You{}.",
                     "For the round, this card will",
-                    "always be selected and played",
-                    "in every hand"
+                    "always be {C:attention}selected and {C:attention}played{}",
+                    "in {C:attention}every{} hand",
+                    "{C:inactive,s:0.9}({C:attention,s:0.9}Sticker{C:inactive,s:0.9} is removed at",
+                    "{C:inactive,s:0.9}the end of the round)"
                 }
             },
             tag_rh_skill_star = {
@@ -228,11 +232,18 @@ return {
                 }
             },
             tag_rh_random = {
-                name = 'Random Pack',
+                name = 'Random Pack Tag',
                 text = {
                     "Gives a free",
                     "{C:attention}random Pack",
                 }
+            },
+            tag_rh_mega_flow = {
+                name="Rhythm Tag",
+                text={
+                    "Gives a free",
+                    "{C:rh_flow}Mega Flow Pack",
+                },
             },
         },
         Planet = {
@@ -299,9 +310,18 @@ return {
             c_rh_performer = {
                 name = 'The Performer',
                 text = {
-                    "Opens a random",
-                    "card pack",
+                    "Gives a",
+                    "{C:attention}Random Pack Tag",
                 }
+            },
+            c_rh_translator = {
+                name = 'The Translator',
+                text={
+                    "Enhances {C:attention}#1#{} selected",
+                    "card into a",
+                    "{C:attention}Call & Response",
+                    "Card",
+                },
             },
         },
         Voucher = {
@@ -338,12 +358,25 @@ return {
                 },
             },
         },
+        Enhanced = {
+            m_rh_call_response = {
+                name = 'Call & Response',
+                text = {
+                    'Copies the {C:attention}rank{},',
+                    '{C:attention}suit{} and {C:attention}enhancement',
+                    'of the card',
+                    'on the left' 
+                }
+            }
+        },
         Other = {
             rh_you_sticker = {
                 name = 'You',
                 text = {
-                    "This card will always be selected",
-                    "and played in every hand"
+                    "This card will always be {C:attention}selected",
+                    "and {C:attention}played{} in {C:attention}every{} hand",
+                    "{C:inactive,s:0.9}({C:attention,s:0.9}Sticker{C:inactive,s:0.9} is removed at",
+                    "{C:inactive,s:0.9}the end of the round)"
                 },
             },
             p_rh_flow_pack_1 = {

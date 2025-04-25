@@ -45,6 +45,82 @@ if SMODS and SMODS.calculate_individual_effect then
     end
 end
 
+-- Editing SMODS score_card method to account for Call & Response
+if SMODS and SMODS.score_card then
+    local scc = SMODS.score_card
+    function SMODS.score_card(card, context)
+        if card.ability.name == 'm_rh_call_response' then
+            sendDebugMessage("Calculating a Call & Response!".. type(context.cardarea), "rhScoreCard")
+            local copiable = rh_seek_copiable(card.highlighted or false, card, context.cardarea.cards)
+            if copiable then
+                -- Keeping old values
+                local old_ability = card.ability
+                local old_base = card.base
+                local old_config = card.config
+                -- Setting it to the other card's
+                card.ability = copiable.ability
+                card.base = copiable.base
+                card.config = copiable.config
+                -- We calculate!
+                local ret = scc(card, context)
+                -- We set back 
+                card.ability = old_ability
+                card.base = old_base
+                card.config = old_config
+            else
+                local ret = scc(card, context)
+            end
+            if ret then
+                return ret
+            end
+        else
+            local ret = scc(card, context)
+            if ret then
+                return ret
+            end
+        end
+    end
+end
+-- Editing SMODS calculate_end_of_round_effects method to account for Call & Response
+if SMODS and SMODS.calculate_end_of_round_effects then
+    local sceore = SMODS.calculate_end_of_round_effects
+    function SMODS.calculate_end_of_round_effects(context)
+        local call_cards_abilities = {}
+        local call_cards_base = {}
+        local call_cards_config = {}
+        local indexes = {}
+        local replacement_cards = {}
+        for i, card in ipairs(context.cardarea.cards) do
+            if card.ability.name == 'm_rh_call_response' then
+                -- Setting abilities to the other card's
+                local copiable = rh_seek_copiable(card.highlighted or false, card, context.cardarea.cards)
+                if copiable then
+                    call_cards_abilities[#call_cards_abilities+1] = card.ability
+                    call_cards_base[#call_cards_base+1] = card.base
+                    call_cards_config[#call_cards_config+1] = card.config
+                    indexes[#indexes+1] = i
+                    -- Setting it to the other card's
+                    context.cardarea.cards[i].ability = copiable.ability
+                    context.cardarea.cards[i].base = copiable.base
+                    context.cardarea.cards[i].config = copiable.config
+                end
+            end
+        end
+        sendDebugMessage(inspect(call_cards), "rhScoreEoR")
+        -- We calculate...
+        local ret = sceore(context)
+        -- We reassign the right abilities
+        for i, index in ipairs(indexes) do
+            context.cardarea.cards[index].ability = call_cards_abilities[i]
+            context.cardarea.cards[index].base = call_cards_base[i]
+            context.cardarea.cards[index].config = call_cards_config[i]
+        end
+        if ret then
+            return ret
+        end
+    end
+end
+
 -- Making a dummy to_big if it doesn't exist, Talisman compat
 if not to_big then
     function to_big(number)
@@ -111,4 +187,17 @@ function rh_saved_run_round_text()
     else
         return localize('b_cash_out')..": "
     end
+end
+
+-- So that C&R works
+function rh_sort_highlighted(cardarea)
+    local sorted = {}
+    for k, v in pairs(cardarea.cards) do
+        for ki, vi in pairs(cardarea.highlighted) do
+            if vi == v then
+                table.insert(sorted, v)
+            end
+        end
+    end
+    return sorted
 end

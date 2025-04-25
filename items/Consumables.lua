@@ -96,6 +96,24 @@ SMODS.Consumable({
     end
 })
 
+-- Translator
+SMODS.Consumable({
+    key = "translator",
+    set = 'Tarot',
+    cost=3,
+    atlas = 'consumables',
+    pos = {
+        x = 2,
+        y = 0
+    },
+    config = { mod_conv = "m_rh_call_response", max_highlighted = 1 },
+    loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = G.P_CENTERS.m_rh_call_response
+
+		return { vars = { card and card.ability.max_highlighted or self.config.max_highlighted } }
+	end,
+})
+
 -- Hevven World
 SMODS.Consumable({
     key = "hevven_world",

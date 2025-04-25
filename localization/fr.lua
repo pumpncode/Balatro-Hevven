@@ -21,7 +21,8 @@ return {
                 text = {
                     "Après {C:attention}2{} manches,",
                     "vendez cette carte pour",
-                    "ajouter {C:dark_edition}Négatif{} à un Joker aléatoire",
+                    "ajouter {C:dark_edition}Négatif{} à",
+                    "un Joker aléatoire",
                     "{C:inactive}(Actuellement {C:attention}#1#{C:inactive}/2)",
                 }
             },
@@ -36,14 +37,16 @@ return {
             j_rh_goat = {
                 name = "Chèvre",
                 text = {
-                    "Gagnez une somme aléatoire à la fin de la manche",
+                    "Gagnez une somme aléatoire",
+                    "à la fin de la manche",
                     "{C:inactive}({C:money}#1# $ {C:inactive}/ {C:money}#2# $ {C:inactive}/ {C:money}#3# ${C:inactive})",
                 }
             },
             j_rh_monkey = {
                 name = "Singe",
                 text = {
-                    "Déclenche à nouveau {C:attention}toutes{} les cartes"
+                    "Déclenche à nouveau",
+                    "{C:attention}toutes{} les cartes"
                 }
             },
             j_rh_lockstep = {
@@ -51,7 +54,9 @@ return {
                 text = {
                     "Les cartes jouées",
                     "de valeur {C:attention}#1#{} octroient",
-                    "{C:chips}+#2#{} jetons, {C:mult}+#3#{} Multi. lorsque ces cartes marquent des points,",
+                    "{C:chips}+#2#{} jetons, {C:mult}+#3#{} Multi.",
+                    "lorsque ces cartes",
+                    "marquent des points,",
                     "la parité change",
                     "à la fin de la manche",
                 }
@@ -60,7 +65,7 @@ return {
                 name = 'Avide ascète',
                 text = {
                     "{C:blue}+#1#{} Jetons par",
-                    "carte {C:rh_flow}Rythme{} utilisée,  {C:red}+#2#{} Multi. ",
+                    "carte {C:rh_flow}Rythme{} utilisée, {C:red}+#2#{} Multi. ",
                     "par carte de {C:tarot}Tarot{} utilisée, et",
                     "{X:mult,C:white} X#3# {} Multi. chaque fois",
                     "qu'une carte {C:planet}Planète{} est utilisée",
@@ -92,8 +97,10 @@ return {
                 text = {
                     "Marque la carte sélectionnée avec {C:dark_edition}Vous{}",
                     "Pour la manche, cette carte sera",
-                    "toujours sélectionnée et jouée",
-                    "à chaque main"
+                    "toujours {C:attention}sélectionnée{} et {C:attention}jouée{}",
+                    "à {C:attention}chaque{} main",
+                    "{C:inactive,s:0.9}(Cet {C:attention,s:0.9}Autocollant{C:inactive,s:0.9} est retiré",
+                    "{C:inactive,s:0.9}à la fin de la manche)"
                 }
             },
             c_rh_try_again = {
@@ -195,10 +202,12 @@ return {
             tag_rh_you = {
                 name = 'Vous',
                 text = {
-                    "Marque la carte sélectionnée avec {C:dark_edition}Vous{}",
+                    "La carte sélectionnée a été marqué avec {C:dark_edition}Vous{}",
                     "Pour la manche, cette carte sera",
-                    "toujours sélectionnée et jouée",
-                    "à chaque main"
+                    "toujours {C:attention}sélectionnée{} et {C:attention}jouée{}",
+                    "à {C:attention}chaque{} main",
+                    "{C:inactive,s:0.9}(Cet {C:attention,s:0.9}Autocollant{C:inactive,s:0.9} est retiré",
+                    "{C:inactive,s:0.9}à la fin de la manche)"
                 }
             },
             tag_rh_skill_star = {
@@ -229,6 +238,20 @@ return {
                     "{C:inactive}(Record actuel: {C:red}#1#{C:inactive})"
                 }
             },
+            tag_rh_random = {
+                name = 'Badge Paquet Aléatoire',
+                text = {
+                    "Octroie un",
+                    "{C:attention}Paquet Aléatoire",
+                }
+            },
+            tag_rh_mega_flow = {
+                name="Badge de rythme",
+                text={
+                    "Octroie un",
+                    "{C:rh_flow}Paquet Méga-Rythme",
+                },
+            },
         },
         Planet = {
             c_rh_hevven_world = {
@@ -248,7 +271,32 @@ return {
                     "avec une {C:dark_edition}amélioration{}, {C:dark_edition}Sceau{} et {C:dark_edition}édition{},",
                     "puis les joue toutes"
                 }
-            }
+            },
+            c_rh_ascension = {
+                name = 'Ascension',
+                text = {
+                    "{C:green}#1# chance sur #2#{}",
+                    "d'ajouter {C:dark_edition}Polychrome{} à un",
+                    "{C:attention}Joker{} aléatoire,",
+                    "sinon le détruit"
+                }
+            },
+            c_rh_anguish = {
+                name = 'Angoisse',
+                text = {
+                    "Le {C:attention}Joker{} le plus à droite ",
+                    "devient le {C:attention}Joker{} le plus à gauche ",
+                    "+#1# à la mise initiale"
+                }
+            },
+            c_rh_endless = {
+                name = 'Infini',
+                text = {
+                    "{C:attention}Duplique{} un Joker aléatoire,",
+                    "mais le rends {C:attention}éternel",
+                    "{C:inactive,s:0.9}(Supprime le {C:dark_edition,s:0.9}Negatif{C:inactive,s:0.9} de la copie)",
+                }
+            },
         },
         Tarot = {
             c_rh_castle = {
@@ -261,10 +309,25 @@ return {
             c_rh_trio = {
                 name = 'Le Trio',
                 text = {
-                    "Créé une carte de {C:tarot}Tarot{} , {C:planet}Planète{}",
+                    "Créé une carte de {C:tarot}Tarot{}, {C:planet}Planète{}",
                     "et {C:rh_flow}Rythme{} aléatoire",
                     "{C:inactive}(Selon la place disponible)",
                 }
+            },
+            c_rh_performer = {
+                name = "L'Artiste",
+                text = {
+                    "Donne un {C:attention}badge",
+                    "paquet aléatoire",
+                }
+            },
+            c_rh_translator = {
+                name = 'Le Traducteur',
+                text={
+                    "Améliore {C:attention}#1#{} carte",
+                    "sélectionnée en",
+                    "{C:attention}carte Appel et Réponse",
+                },
             },
         },
         Voucher = {
@@ -301,12 +364,26 @@ return {
                 },
             },
         },
+        Enhanced = {
+            m_rh_call_response = {
+                name = 'Appel et Réponse',
+                text = {
+                    'Copie la {C:attention}Valeur{},',
+                    'la {C:attention}Couleur{} et l\'{C:attention}Amélioration',
+                    'de la carte',
+                    'à sa gauche' 
+                }
+            }
+        },
         Other = {
             rh_you_sticker = {
                 name = 'Vous',
                 text = {
-                    "Cette carte sera toujours sélectionnée",
-                    "et jouée dans toutes les mains"
+                    "Cette carte sera",
+                    "toujours {C:attention}sélectionnée{} et {C:attention}jouée{}",
+                    "à {C:attention}chaque{} main",
+                    "{C:inactive,s:0.9}(Cet {C:attention,s:0.9}Autocollant{C:inactive,s:0.9} est retiré",
+                    "{C:inactive,s:0.9}à la fin de la manche)"
                 },
             },
             p_rh_flow_pack_1 = {
@@ -337,6 +414,13 @@ return {
                     "{C:attention}#2# cartes {C:rh_flow}Rythme{}",
                 },
             },
+            p_rh_legendary = {
+                name = "Paquet Bouffon Légendaire",
+                text = {
+                    "Choisissez {C:attention}#1#{} parmi",
+                    "{C:attention}#2# cartes {C:joker}Joker Légendaire{}",
+                },
+            },
             active_flow = {
                 name="Carte Rythme (Active)",
                 text={
@@ -357,6 +441,7 @@ return {
             rh_even = "paire", 
             rh_odd = "impaire", 
             k_rh_flow_pack = "Paquet Rythmé",
+            k_rh_legendary = "Paquet Bouffon",
             k_flow = "Rythme",
             b_flow_cards = "Cartes Rythme",
         },

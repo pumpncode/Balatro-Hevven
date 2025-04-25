@@ -192,6 +192,83 @@ for k, v in pairs(G.playing_cards) do
         v.ability.forced_selection = true
     end
 end
+'''
+match_indent = true
 
+# Call & Response - sort highlighted
+[[patches]]
+[patches.pattern]
+target = "cardarea.lua"
+pattern = '''G.boss_throw_hand = nil'''
+position = "after"
+payload = '''
+self.highlighted = rh_sort_highlighted(self)
+'''
+match_indent = true
+
+# Call & Response - sort highlighted after drag
+[[patches]]
+[patches.pattern]
+target = "cardarea.lua"
+pattern = '''
+--Set sliding up/down for the hand area
+    if self == G.hand then '''
+position = "after"
+payload = '''
+if G.STATE == G.STATES.SELECTING_HAND then
+    self.highlighted = rh_sort_highlighted(self)
+    self:parse_highlighted()
+end
+'''
+match_indent = true
+
+# Call & Response - get_X_same override kind of
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = '''
+if hand[i]:get_id() == hand[j]:get_id() and i ~= j then
+  table.insert(curr, hand[j])
+end'''
+position = "at"
+payload = '''
+if hand[i]:get_id() == hand[j]:get_id() and i ~= j then
+    table.insert(curr, hand[j])
+elseif hand[j].ability.name == 'm_rh_call_response' and i~=j and j~=1 then
+    local added = false
+    for k=j, 1, -1 do
+        if hand[k].ability.name ~= 'm_rh_call_response' and not added then
+            added = true
+            if hand[i]:get_id() == hand[k]:get_id()then
+                table.insert(curr, hand[k])
+            end
+        end
+    end
+end
+'''
+match_indent = true
+
+# Call & Response - get_flush override kind of
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = '''if hand[i]:is_suit(suit, nil, true) then flush_count = flush_count + 1;  t[#t+1] = hand[i] end '''
+position = "at"
+payload = '''
+if hand[i]:is_suit(suit, nil, true) then
+    flush_count = flush_count + 1
+    t[#t+1] = hand[i]
+elseif hand[i].ability.name == 'm_rh_call_response' then
+    local added = false
+    for j=i, 1, -1 do
+        if hand[j].ability.name ~= 'm_rh_call_response' and not added then
+            added = true
+            if hand[j]:is_suit(suit, nil, true) then
+                flush_count = flush_count + 1
+                t[#t+1] = hand[j]
+            end
+        end
+    end
+end
 '''
 match_indent = true

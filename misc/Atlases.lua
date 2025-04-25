@@ -29,7 +29,7 @@ SMODS.Atlas({
     py = 95
 })
 SMODS.Atlas({
-	key = "tags_flow",
+	key = "tags",
 	path = "tags.png",
 	px = 34,
 	py = 34,
@@ -37,6 +37,12 @@ SMODS.Atlas({
 SMODS.Atlas({
     key = "vouchers", 
     path = "vouchers.png", 
+    px = 71,
+    py = 95
+})
+SMODS.Atlas({
+    key = "enhancements", 
+    path = "call_and_response.png", 
     px = 71,
     py = 95
 })

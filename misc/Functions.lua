@@ -57,3 +57,26 @@ function poll_poker_hand(ignore, seed, allowhidden)
 	end
 	return chosen_hand
 end
+
+function rh_seek_copiable(highlighted, card, hand)
+    local pos = -1
+    local copiable = nil
+    for k, v in pairs(hand) do
+        if v == card then
+            pos = k
+        end
+    end
+    sendDebugMessage("Found C&R at pos "..pos, "rhC&Rseek")
+    local added = false
+    for j=pos, 1, -1 do
+        sendDebugMessage("Checking "..hand[j].base.value.." of "..hand[j].base.suit,"rhC&Rseek")
+        if hand[j].ability.name ~= 'm_rh_call_response' and not added then
+            if (hand[j].highlighted or false) == highlighted then
+                added = true
+                copiable = hand[j]
+                sendDebugMessage("Found "..copiable.base.value.." of "..copiable.base.suit, "rhC&Rseek")
+            end
+        end
+    end
+    return copiable
+end

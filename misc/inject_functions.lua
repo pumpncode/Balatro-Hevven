@@ -151,6 +151,7 @@ function rh_flow_good_parts_save()
             local some_good_parts = pseudorandom(pseudoseed("some_good_parts"))
             if some_good_parts > G.GAME.probabilities.normal/G.GAME.current_round.rh_flow_good_parts_chances then
                 G.GAME.current_round.rh_flow_good_parts_saved = true
+                SMODS.saved = rh_saved_run_text()
                 return false        
             else
                 return true
@@ -162,11 +163,9 @@ end
 
 function rh_saved_run_text()
     if G.GAME.current_round.rh_flow_pity_skip then
-        return localize('rh_skip_save')..G.GAME.current_round.rh_flow_pity_skip_host
+        return 'rh_skip_save'..G.GAME.current_round.rh_flow_pity_skip_host
     elseif G.GAME.current_round.rh_flow_good_parts_saved then
-        return localize('rh_good_parts_save')
-    else
-        return localize('ph_mr_bones')
+        return 'rh_good_parts_save'
     end
 end
 

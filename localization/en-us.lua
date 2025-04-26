@@ -425,12 +425,11 @@ return {
     },
     misc = {
         dictionary = {
-            rh_skip_save = "Skipped by ",
+            rh_skip_save_barista = "Skipped by Barista",
+            rh_skip_save_rupert = "Skipped by Rupert",
             rh_skip_cash_out = "Round cleared!",
             rh_good_parts_save = "There were some good parts!",
             rh_good_parts_cash_out = "Round cleared!",
-            rh_pity_skip_host_barista = "Barista", 
-            rh_pity_skip_host_rupert = "Rupert",
             rh_even = "even", 
             rh_odd = "odd", 
             k_rh_flow_pack = "Flow Pack",

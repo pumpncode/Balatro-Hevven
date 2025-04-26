@@ -19,11 +19,11 @@ return {
             j_rh_sneaky_spirit = {
                 name = "Esprit espiègle",
                 text = {
-                    "Après {C:attention}2{} manches,",
+                    "Après {C:attention}#2#{} manches,",
                     "vendez cette carte pour",
                     "ajouter {C:dark_edition}Négatif{} à",
                     "un Joker aléatoire",
-                    "{C:inactive}(Actuellement {C:attention}#1#{C:inactive}/2)",
+                    "{C:inactive}(Actuellement {C:attention}#1#{C:inactive}/#2#)",
                 }
             },
             j_rh_samurai_drummer = {
@@ -249,7 +249,7 @@ return {
                 name="Badge de rythme",
                 text={
                     "Octroie un",
-                    "{C:rh_flow}Paquet Méga-Rythme",
+                    "{C:rh_flow}Paquet Jumbo Rythmé",
                 },
             },
         },

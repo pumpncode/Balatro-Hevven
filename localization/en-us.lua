@@ -18,10 +18,10 @@ return {
             j_rh_sneaky_spirit = {
                 name = "Sneaky Spirit",
                 text = {
-                    "After {C:attention}2{} rounds,",
+                    "After {C:attention}#2#{} rounds,",
                     "sell this card to",
                     "add {C:dark_edition}Negative{} to a random Joker",
-                    "{C:inactive}(Currently {C:attention}#1#/{C:inactive}2){}"
+                    "{C:inactive}(Currently {C:attention}#1#/{C:inactive}#2#)"
                 }
             },
             j_rh_samurai_drummer = {
@@ -242,7 +242,7 @@ return {
                 name="Rhythm Tag",
                 text={
                     "Gives a free",
-                    "{C:rh_flow}Mega Flow Pack",
+                    "{C:rh_flow}Jumbo Flow Pack",
                 },
             },
         },
@@ -411,7 +411,7 @@ return {
                 name = "Legendary Buffoon Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:joker} Legendary Joker{} cards",
+                    "{C:attention}#2# {C:legendary,E:1}Legendary{} Joker cards",
                 },
             },
             active_flow = {

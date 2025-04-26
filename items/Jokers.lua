@@ -563,7 +563,7 @@ SMODS.Joker({
                 return {
                     vars = {
                         card.ability.extra.bonus_chips,
-                        card.ability.extra.chips,
+                        (G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.flow or 0)*card.ability.extra.bonus_chips
                     }
                 }
     end,
@@ -580,7 +580,6 @@ SMODS.Joker({
     },
 	config = {
         extra = {
-            chips = 0,
             bonus_chips = 25
         }
     },
@@ -589,9 +588,7 @@ SMODS.Joker({
         
         if context.joker_main and context.cardarea == G.jokers then
             return {
-                chips = card.ability.extra.chips,
-                message = "+" .. card.ability.extra.chips,
-                colour = G.C.BLUE,
+                chips = (G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.flow or 0) * card.ability.extra.bonus_chips,
                 sound = "rh_text_gba",
                 pitch = 1
             }
@@ -601,7 +598,6 @@ SMODS.Joker({
             -- Check if flow card has been used
             if context.using_consumeable then
                 if context.consumeable.ability.set == "Flow" then
-                    card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.bonus_chips
                     return {
                         message = "+" .. card.ability.extra.bonus_chips,
                         colour = G.C.BLUE,

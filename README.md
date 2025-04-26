@@ -1,6 +1,8 @@
 # Balatro-Hevven
 A mod for Balatro that adds Rhythm Heaven themed cards!
 
+Read on the mod's contents on [the Balatro Mods wiki](https://balatromods.miraheze.org/wiki/Balatro_Hevven)!
+
 ## Credits
 - Code: TheAlternateDoctor
 - Art: missingnumber, Nate Candles

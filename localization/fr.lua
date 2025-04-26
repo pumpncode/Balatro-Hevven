@@ -455,7 +455,8 @@ return {
             rh_language_options = {
                 "Anglais",
                 "Japonais",
-                "Français (incomplet)"
+                "Français (incomplet)",
+                "Espagnol (incomplet)"
             },
             rh_beat_anim = "Animation de rythme",
             rh_beat_anim_desc = {

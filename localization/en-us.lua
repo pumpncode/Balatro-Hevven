@@ -448,7 +448,8 @@ return {
             rh_language_options = {
                 "English",
                 "Japanese",
-                "French (incomplete)"
+                "French (incomplete)",
+                "Spanish (incomplete)"
             },
             rh_beat_anim = "Main Menu Beat Anim",
             rh_beat_anim_desc = {

@@ -34,11 +34,21 @@ BHevven.config_tab = function()
     }}
 end
 
+-- Misc functions
 SMODS.load_file("misc/Functions.lua")()
 
+-- File loading
 SMODS.load_file("misc/Atlases.lua")()
-SMODS.load_file("misc/Sounds.lua")()
+-- Audio files loading, dynamically for moar languages in the future
+for k, v in ipairs(NFS.getDirectoryItems(BHevven.path.."/sounds")) do
+    sendDebugMessage("Got file \""..v.."\", extension \""..v:match("^.+(%..+)$").."\"", "rhLoadSounds")
+    if v:match("^.+(%..+)$") == ".lua" then
+        sendDebugMessage("Loading "..v, "rhLoadSounds")
+        SMODS.load_file("sounds/"..v)()
+    end
+end
 
+-- Items
 SMODS.load_file("items/Consumables.lua")()
 SMODS.load_file("items/Flow.lua")()
 SMODS.load_file("items/Tags.lua")()

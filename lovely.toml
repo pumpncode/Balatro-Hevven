@@ -71,7 +71,7 @@ end
 
 # Pity Skip - end screen text
 [[patches]]
-[patches.pattern]
+[patches.regex]
 target = "functions/common_events.lua"
 pattern = '''or 'ph_mr_bones'\)..' '}, colours = \{G.C.FILTER'''
 position = 'at'

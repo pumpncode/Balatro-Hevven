@@ -56,6 +56,9 @@ SMODS.load_file("items/Vouchers.lua")()
 SMODS.load_file("items/Boosters.lua")()
 SMODS.load_file("items/Jokers.lua")()
 SMODS.load_file("items/Misc.lua")()
+SMODS.load_file("items/Stickers.lua")()
+
+SMODS.load_file("misc/Challenges.lua")()
 
 -- SMODS.load_file("Debug.lua")()
 

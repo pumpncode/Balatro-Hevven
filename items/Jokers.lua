@@ -63,22 +63,12 @@ SMODS.Joker({
 
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play and context.other_card == context.scoring_hand[5] then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 4.10+(0.5*G.SETTINGS.GAMESPEED),
-                blocking = false,
-                blockable = false,
-                func = function() 
-                    play_sound("rh_widget_piano", 2.0, 0.5)
-                    play_sound("rh_widget_piano", 1.0, 0.5)
-                    play_sound("rh_widget_launch", 1.0, 0.5)
-                    return true 
-                end 
-            }))  
             return {
                 message = localize('k_again_ex'),
                 repetitions = card.ability.extra.retriggers,
-                card = card
+                card = card,
+                sound = "rh_widget",
+                pitch = 1
             }
         end
     end
@@ -117,6 +107,8 @@ SMODS.Joker({
                     (context.scoring_hand[2].base.suit == "Spades" or context.scoring_hand[2].base.suit == "Clubs") then
                     card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
                     return {
+                        sound = rh_localize_sfx('rh_space_gramp_pose'),
+                        pitch = 1.0,
                         message = localize('k_upgrade_ex'),
                         colour = G.C.MULT
                     }
@@ -168,14 +160,8 @@ SMODS.Joker({
                 if  context.scoring_hand[1].base.suit == "Hearts" or context.scoring_hand[1].base.suit == "Diamonds" and
                     context.scoring_hand[2].base.suit == "Hearts"  or context.scoring_hand[2].base.suit == "Diamonds"  then
                     card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
-                    local sound = 'rh_cosmic_girl_pose_jp'
-                    if BHevven.config.language == "en" then
-                        local sound = 'rh_cosmic_girl_pose_en'
-                    elseif BHevven.config.language == "fr" then
-                        local sound = 'rh_cosmic_girl_pose_en'
-                    end
                     return {
-                        sound = sound,
+                        sound = rh_localize_sfx('rh_cosmic_girl_pose'),
                         pitch = 1.0,
                         message = localize('k_upgrade_ex'),
                         colour = G.C.MULT
@@ -259,7 +245,6 @@ SMODS.Joker({
                                     x = card.ability.extra.monk_level + 1,
                                     y = 2
                                 })
-                                card.juice_up()
                             end
                         end
                         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult}}})
@@ -282,7 +267,6 @@ SMODS.Joker({
                                     x = card.ability.extra.monk_level + 1,
                                     y = 2
                                 })
-                                card.juice_up()
                             end
                         end
                         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex'), colour = G.C.MULT})
@@ -304,7 +288,6 @@ SMODS.Joker({
                                     x = card.ability.extra.monk_level + 1,
                                     y = 2
                                 })
-                                card.juice_up()
                             end
                         end
                         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex'), colour = G.C.CHIPS})
@@ -324,6 +307,12 @@ SMODS.Joker({
             card.ability.extra.mult ~= 0 or 
             card.ability.extra.chips ~= 0
             then 
+                local sound = rh_localize_sfx("rh_monk_one")
+                if card.ability.extra.monk_level > 2 then
+                    sound = rh_localize_sfx("rh_monk_three")
+                elseif card.ability.extra.monk_level > 0 then
+                    sound = rh_localize_sfx("rh_monk_two")
+                end
                 return {
                     message = localize({ type = "variable", key = "a_mmoonk", vars = {
                         card.ability.extra.chips,
@@ -333,6 +322,8 @@ SMODS.Joker({
                     Xmult_mod = card.ability.extra.x_mult,
                     chip_mod = card.ability.extra.chips,
                     mult_mod = card.ability.extra.mult,
+                    sound = sound,
+                    pitch = 1
                 }
             end
         end
@@ -370,28 +361,34 @@ SMODS.Joker({
             context.other_card:get_id() >= 0 and
             context.other_card:get_id()%2 == card.ability.extra.parity)
             then
+                sendDebugMessage(sound, "rhDoubleSided")
                 return {
                     chips = card.ability.extra.chips,
-                    mult = card.ability.extra.mult
+                    mult = card.ability.extra.mult,
                 }
             end
             -- I can't be bothered to write it better right now...
             if context.other_card:get_id() == 14 and card.ability.extra.parity == 1 then
                 return {
                     chips = card.ability.extra.chips,
-                    mult = card.ability.extra.mult
+                    mult = card.ability.extra.mult,
                 }
             end
         end
         if context.end_of_round and context.cardarea == G.jokers then
+            local sound = ""
             if card.ability.extra.parity == 1 then
                 card.ability.extra.parity = 0
                 card.ability.extra.message = localize("rh_even")
+                sound = "rh_lockstep_to_on"
             else 
                 card.ability.extra.parity = 1
                 card.ability.extra.message = localize("rh_odd")
+                sound = "rh_lockstep_to_off"
             end
             return {
+                sound = sound,
+                pitch = 1,
                 message = localize('k_reset')
             }
         end
@@ -475,7 +472,8 @@ SMODS.Joker({
     loc_vars = function(self, info_queue, card)
                 return {
                     vars = {
-                        card.ability.extra.rounds
+                        card.ability.extra.rounds,
+                        card.ability.extra.max_rounds
                     }
                 }
     end,
@@ -492,7 +490,8 @@ SMODS.Joker({
     },
 	config = {
         extra = {
-            rounds = 0
+            rounds = 0,
+            max_rounds = 2
         }
     },
 
@@ -501,28 +500,27 @@ SMODS.Joker({
         -- Not compatible with blueprint, can't be retriggered
         if context.blueprint and context.retrigger_joker then return end
 
-        local round_max = 2 -- variable for easy value change. Does not show up in description.
 
         -- At the end of each round, tick one if it's still inactive
         if context.end_of_round and context.cardarea == G.jokers
         then
-            if card.ability.extra.rounds >= round_max then return end -- Don't do anything if we already reached the goal
+            if card.ability.extra.rounds >= card.ability.extra.max_rounds then return end -- Don't do anything if we already reached the goal
 
             card.ability.extra.rounds = card.ability.extra.rounds + 1
 
-            local display_message = (round_max-card.ability.extra.rounds) .. " Left!"
-            if card.ability.extra.rounds >= round_max then
-                display_message = "Ready!"
-                juice_card_until(card, (not G.RESET_JIGGLES), true)
+            local display_message = card.ability.extra.rounds .. "/"..card.ability.extra.max_rounds
+            if card.ability.extra.rounds >= card.ability.extra.max_rounds then
+                display_message = localize("k_active_ex")
             end
 
             return {
+                sound = "rh_spirit_move",
                 message = display_message
             }
         end
 
         -- When card is sold and waited enough rounds, trigger effect
-        if context.selling_self and card.ability.extra.rounds >= round_max
+        if context.selling_self and card.ability.extra.rounds >= card.ability.extra.max_rounds
         then
                 -- Inspired by Invis. Joker.
                 -- Set up the joker pool that excludes itself and does not already have an edition
@@ -532,7 +530,7 @@ SMODS.Joker({
                     local c = G.jokers.cards[i]
 
                     if c ~= card and c.edition == nil then
-                        sendDebugMessage("Adding card " .. G.jokers.cards[i].ability.name)
+                        sendDebugMessage("Adding negative to " .. G.jokers.cards[i].ability.name, "rhSneakySpirit")
                         jokers[#jokers+1] = c
                     end
                     
@@ -545,7 +543,13 @@ SMODS.Joker({
                     to_add_neg:set_edition({negative = true}, true)
                 end
 
-                return true
+                play_sound("rh_spirit_hit")
+        end
+        
+        -- Setting up the juice
+        if card.ability.extra.rounds >= card.ability.extra.max_rounds then
+            local eval = function(card) return card.ability.extra.rounds >= card.ability.extra.max_rounds and not G.RESET_JIGGLES end
+            juice_card_until(card, eval, true)
         end
     end
 })
@@ -559,7 +563,7 @@ SMODS.Joker({
                 return {
                     vars = {
                         card.ability.extra.bonus_chips,
-                        card.ability.extra.chips,
+                        (G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.flow or 0)*card.ability.extra.bonus_chips
                     }
                 }
     end,
@@ -576,7 +580,6 @@ SMODS.Joker({
     },
 	config = {
         extra = {
-            chips = 0,
             bonus_chips = 25
         }
     },
@@ -585,7 +588,9 @@ SMODS.Joker({
         
         if context.joker_main and context.cardarea == G.jokers then
             return {
-                chips = card.ability.extra.chips
+                chips = (G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.flow or 0) * card.ability.extra.bonus_chips,
+                sound = "rh_text_gba",
+                pitch = 1
             }
         end
 
@@ -593,7 +598,6 @@ SMODS.Joker({
             -- Check if flow card has been used
             if context.using_consumeable then
                 if context.consumeable.ability.set == "Flow" then
-                    card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.bonus_chips
                     return {
                         message = "+" .. card.ability.extra.bonus_chips,
                         colour = G.C.BLUE,
@@ -641,17 +645,22 @@ SMODS.Joker({
         local d100 = pseudorandom(pseudoseed('goat'), 1, 100)
         
         sendDebugMessage("Rolled a ".. d100,"rhGoat")
-
         -- Payouts
         if d100 <= 60 then
+            play_sound("rh_goat_one", 1, 0.5)
+            card:juice_up(0.1, 0.5)
             return card.ability.extra.small_payout
         end
 
         if d100 > 60 and d100 <= 95 then
+            play_sound("rh_goat_two", 1, 0.5)
+            card:juice_up(0.3, 0.5)
             return card.ability.extra.medium_payout
         end
 
         if d100 > 95 then
+            play_sound("rh_goat_three", 1, 0.5)
+            card:juice_up(0.5, 0.5)
             return card.ability.extra.big_payout
         end
 

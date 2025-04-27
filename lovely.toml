@@ -73,11 +73,11 @@ end
 [[patches]]
 [patches.regex]
 target = "functions/common_events.lua"
-pattern = '''localize\('ph_mr_bones'\)..' '\}, colours = \{G.C.FILTER'''
+pattern = '''or 'ph_mr_bones'\)..' '}, colours = \{G.C.FILTER'''
 position = 'at'
 # match_indent = true
 line_prepend = ''
-payload = '''rh_saved_run_text()..' '}, colours = {G.C.FILTER'''
+payload = '''or rh_saved_run_text() or 'ph_mr_bones')..' '}, colours = {G.C.FILTER'''
 
 # Pity Skip - polished UI
 [[patches]]

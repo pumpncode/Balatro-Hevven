@@ -18,10 +18,10 @@ return {
             j_rh_sneaky_spirit = {
                 name = "Sneaky Spirit",
                 text = {
-                    "After {C:attention}2{} rounds,",
+                    "After {C:attention}#2#{} rounds,",
                     "sell this card to",
                     "add {C:dark_edition}Negative{} to a random Joker",
-                    "{C:inactive}(Currently {C:attention}#1#/{C:inactive}2){}"
+                    "{C:inactive}(Currently {C:attention}#1#/{C:inactive}#2#)"
                 }
             },
             j_rh_samurai_drummer = {
@@ -242,7 +242,7 @@ return {
                 name="Rhythm Tag",
                 text={
                     "Gives a free",
-                    "{C:rh_flow}Mega Flow Pack",
+                    "{C:rh_flow}Jumbo Flow Pack",
                 },
             },
         },
@@ -411,7 +411,7 @@ return {
                 name = "Legendary Buffoon Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:joker} Legendary Joker{} cards",
+                    "{C:attention}#2# {C:legendary,E:1}Legendary{} Joker cards",
                 },
             },
             active_flow = {
@@ -425,18 +425,37 @@ return {
     },
     misc = {
         dictionary = {
-            rh_skip_save = "Skipped by ",
+            rh_skip_save_barista = "Skipped by Barista",
+            rh_skip_save_rupert = "Skipped by Rupert",
             rh_skip_cash_out = "Round cleared!",
             rh_good_parts_save = "There were some good parts!",
             rh_good_parts_cash_out = "Round cleared!",
-            rh_pity_skip_host_barista = "Barista", 
-            rh_pity_skip_host_rupert = "Rupert",
             rh_even = "even", 
             rh_odd = "odd", 
             k_rh_flow_pack = "Flow Pack",
             k_rh_legendary = "Legendary Buffoon Pack",
             k_flow = "Flow",
             b_flow_cards = "Flow Cards",
+            rh_language = "Language",
+            rh_language_desc = {
+                "In which language will",
+                "the sfx be played",
+                "Note: If the sfx didn't",
+                "get translated in that language,",
+                "it will default to English."
+            },
+            rh_language_options = {
+                "English",
+                "Japanese",
+                "French (incomplete)",
+                "Spanish (incomplete)"
+            },
+            rh_beat_anim = "Main Menu Beat Anim",
+            rh_beat_anim_desc = {
+                "Enables the beat animation",
+                "for the card on the title screen",
+                "(Requires a restart)"
+            },
         },
         v_dictionary = {
             a_mmoonk = {"+#1# Chips,+#2# Mult,X#3# Mult"},

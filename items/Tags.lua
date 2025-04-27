@@ -209,14 +209,11 @@ SMODS.Tag({
         x = 0,
         y = 1
     },
-	in_pool = function()
-		return false
-	end,
     apply = function(self, tag, context)
 		if context.type == "new_blind_choice" then
             tag:yep('+', G.C.PURPLE,function() 
                 local card = Card(G.play.T.x + G.play.T.w/2 - G.CARD_W*1.27/2,
-                G.play.T.y + G.play.T.h/2-G.CARD_H*1.27/2, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, G.P_CENTERS['p_rh_flow_mega'], {bypass_discovery_center = true, bypass_discovery_ui = true})
+                G.play.T.y + G.play.T.h/2-G.CARD_H*1.27/2, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, G.P_CENTERS['p_rh_flow_jumbo'], {bypass_discovery_center = true, bypass_discovery_ui = true})
                 card.cost = 0
                 card.from_tag = true
                 G.FUNCS.use_card({config = {ref_table = card}})

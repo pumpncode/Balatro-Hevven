@@ -558,9 +558,9 @@ SMODS.Consumable({
                     G.GAME.current_round.rh_flow_pity_skip = true
                     local host = pseudorandom(pseudoseed("pity_skip"))
                     if host > 0.25 then 
-                        G.GAME.current_round.rh_flow_pity_skip_host = localize("rh_pity_skip_host_barista")
+                        G.GAME.current_round.rh_flow_pity_skip_host = "_barista"
                     else
-                        G.GAME.current_round.rh_flow_pity_skip_host = localize("rh_pity_skip_host_rupert")
+                        G.GAME.current_round.rh_flow_pity_skip_host = "_rupert"
                     end
                     G.STATE = G.STATES.HAND_PLAYED
                     G.STATE_COMPLETE = true

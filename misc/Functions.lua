@@ -80,3 +80,15 @@ function rh_seek_copiable(highlighted, card, hand)
     end
     return copiable
 end
+
+function rh_localize_sfx(key)
+    local sound = key..'_en'
+    if BHevven.config.rh_language == 2 and SMODS.Sounds[key..'_jp'] then
+        sound = key..'_jp'
+    elseif BHevven.config.rh_language == 3 and SMODS.Sounds[key..'_fr'] then
+        sound = key..'_fr'
+    elseif BHevven.config.rh_language == 4 and SMODS.Sounds[key..'_sp'] then
+        sound = key..'_sp'
+    end
+    return sound
+end

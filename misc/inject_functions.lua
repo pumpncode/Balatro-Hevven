@@ -1,19 +1,20 @@
 -- Adding a beat anim to the main menu (juices up the card)
 function rh_beat_anim(card)
-    -- love.timer.sleep(0)
-    local start_time = love.timer.getTime()
-    local actual_time = love.timer.getTime()
-    G.E_MANAGER:add_event(Event({
-        blocking = false,
-        blockable = false,
-        func = function()
-            if (love.timer.getTime() - start_time) / 0.556 > 1 then
-                start_time = love.timer.getTime()
-                card:juice_up(0.05, 0.05)
+    if BHevven.config.rh_beat_anim then
+        local start_time = love.timer.getTime()
+        local actual_time = love.timer.getTime()
+        G.E_MANAGER:add_event(Event({
+            blocking = false,
+            blockable = false,
+            func = function()
+                if (love.timer.getTime() - start_time) / 0.556 > 1 then
+                    start_time = love.timer.getTime()
+                    card:juice_up(0.05, 0.05)
+                end
+                return false
             end
-            return false
-        end
-    }))
+        }))
+    end
 end
 
 -- Editing SMODS calculation method to account for simple tap
@@ -150,6 +151,7 @@ function rh_flow_good_parts_save()
             local some_good_parts = pseudorandom(pseudoseed("some_good_parts"))
             if some_good_parts > G.GAME.probabilities.normal/G.GAME.current_round.rh_flow_good_parts_chances then
                 G.GAME.current_round.rh_flow_good_parts_saved = true
+                SMODS.saved = rh_saved_run_text()
                 return false        
             else
                 return true
@@ -161,11 +163,9 @@ end
 
 function rh_saved_run_text()
     if G.GAME.current_round.rh_flow_pity_skip then
-        return localize('rh_skip_save')..G.GAME.current_round.rh_flow_pity_skip_host
+        return 'rh_skip_save'..G.GAME.current_round.rh_flow_pity_skip_host
     elseif G.GAME.current_round.rh_flow_good_parts_saved then
-        return localize('rh_good_parts_save')
-    else
-        return localize('ph_mr_bones')
+        return 'rh_good_parts_save'
     end
 end
 

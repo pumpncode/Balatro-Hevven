@@ -71,7 +71,7 @@ end
 
 # Pity Skip - end screen text
 [[patches]]
-[patches.pattern]
+[patches.regex]
 target = "functions/common_events.lua"
 pattern = '''or 'ph_mr_bones'\)..' '}, colours = \{G.C.FILTER'''
 position = 'at'
@@ -271,4 +271,39 @@ elseif hand[i].ability.name == 'm_rh_call_response' then
     end
 end
 '''
+match_indent = true
+
+# Saffron's Trial - All rental
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+if G.GAME.modifiers.all_eternal then
+    card:set_eternal(true)
+end
+'''
+position = "after"
+payload = '''
+if G.GAME.modifiers.all_rental then
+    card:set_rental(true)
+end
+'''
+match_indent = true
+
+# Saffron's Trial - Start as rental
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''if v.eternal then _joker:set_eternal(true) end'''
+position = "after"
+payload = '''if v.rental then _joker:set_rental(true) end'''
+match_indent = true
+
+# Saffron's Trial - Start as rental
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''if v.eternal then card:set_eternal(true) end'''
+position = "after"
+payload = '''if v.rental then card:set_rental(true) end'''
 match_indent = true

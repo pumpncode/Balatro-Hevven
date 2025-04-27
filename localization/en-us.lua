@@ -460,6 +460,15 @@ return {
         v_dictionary = {
             a_mmoonk = {"+#1# Chips,+#2# Mult,X#3# Mult"},
         },
+        v_text={
+            ch_c_all_rental={
+                "All Jokers are {C:eternal}Rental{}",
+            },
+        },
+		challenge_names = {
+			c_rh_second_contact = "Second Contact",
+			c_rh_saffron_trial = "Saffron's Trial",
+		},
         labels = {
             rh_you_sticker = 'YOU'
         }

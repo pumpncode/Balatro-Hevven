@@ -468,6 +468,15 @@ return {
         v_dictionary = {
             a_mmoonk = {"+#1# Jetons,+#2# Mult,X#3# Mult"},
         },
+        v_text={
+            ch_c_all_rental={
+                "Tout les Jokers sont {C:eternal}Location{}",
+            },
+        },
+		challenge_names = {
+			c_rh_second_contact = "Interprète terrien-martien",
+			c_rh_saffron_trial = "L'épreuve d'Adagio",
+		},
         labels = {
             rh_you_sticker = 'VOUS'
         }

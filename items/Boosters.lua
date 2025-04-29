@@ -112,6 +112,7 @@ SMODS.Booster({
     },
     config = { extra = 2, choose = 1 },
     weight = 0,
+	cost = 1000,
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.config.center.config.choose, card.ability.extra } }
 	end,

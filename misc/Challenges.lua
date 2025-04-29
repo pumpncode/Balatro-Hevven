@@ -24,7 +24,6 @@ SMODS.Challenge{
 			{ id = "c_familiar" },
 			{ id = "c_grim" },
 			{ id = "c_incantation" },
-			{ id = "c_rh_incantation" },
             {id = 'p_standard_normal_1', ids = {
                 'p_standard_normal_1','p_standard_normal_2','p_standard_normal_3','p_standard_normal_4','p_standard_jumbo_1','p_standard_jumbo_2','p_standard_mega_1','p_standard_mega_2',
             }},

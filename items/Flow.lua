@@ -313,12 +313,13 @@ SMODS.Consumable({
             local to_discard = {}
             local highlighted_cards = {}
             for k, v in ipairs(G.hand.cards) do
-                if v.highlighted ==false then
+                if (v.highlighted or false) == false then
                     to_discard[#to_discard+1] = v
                 else 
                     highlighted_cards[#highlighted_cards+1] = v
                 end
             end
+            sendDebugMessage(#to_discard, "rhFlowPerfect")
             for i=1, #G.hand.highlighted do
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                     local enhancement_type = pseudorandom(pseudoseed("perfect"))
@@ -367,15 +368,21 @@ SMODS.Consumable({
                 blocking = false,
                 func = function() 
                     if G.GAME.hands_played > hands_played_before then
+                        local perfected = {}
                         for k, v in ipairs(to_discard) do
+                            table.insert(perfected, v)
                             if v.ability.name == 'Glass Card' then 
                                 v:shatter()
                             else
                                 v:start_dissolve(nil, false)
                             end
                         end
+                        if #perfected > 0 then
+                            SMODS.calculate_context({remove_playing_cards = true, removed = perfected})
+                        end
                         return true 
                     end
+                    
                     return false
                 end 
             })) 

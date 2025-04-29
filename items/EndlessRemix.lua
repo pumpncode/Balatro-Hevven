@@ -22,7 +22,7 @@ local loc_txt = {
 -- Endless Remix (Common)
 SMODS.Joker({
     key = "endless_common",
-    cost = 6,
+    cost = 2,
     rarity = 1,
     loc_txt = loc_txt,
     blueprint_compat = false,
@@ -100,7 +100,7 @@ SMODS.Joker({
 -- Endless Remix (Uncommon)
 SMODS.Joker({
     key = "endless_uncommon",
-    cost = 6,
+    cost = 4,
     rarity = 2,
     loc_txt = loc_txt,
     blueprint_compat = false,
@@ -256,7 +256,7 @@ SMODS.Joker({
 -- Endless Remix (Legendary)
 SMODS.Joker({
     key = "endless_legendary",
-    cost = 6,
+    cost = 20,
     rarity = 4,
     loc_txt = loc_txt,
     blueprint_compat = false,
@@ -278,7 +278,6 @@ SMODS.Joker({
     },
     calculate = function(self, card, context)
         if context.end_of_round and context.main_eval then
-            local old_ability = card.ability
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.15,
@@ -309,6 +308,20 @@ SMODS.Joker({
                     remixed.T = pos
                     remixed.CT = pos
                     remixed.VT = pos
+                    while G.GAME.blind.boss and remixed.ability.name == "Chicot" do
+                        sendDebugMessage("Rolled into Chicot during a boss blind!", "rhRemixSticker")
+                        remixed:start_dissolve(nil,true)
+                        remixed = SMODS.create_card(remixed_config)
+                        sendDebugMessage("Rolled "..remixed.ability.name, "rhRemixSticker")
+                        pos = remixed.T
+                        pos.x = 1000
+                        pos.y = 1000
+                        pos.w = 0
+                        pos.h = 0
+                        remixed.T = pos
+                        remixed.CT = pos
+                        remixed.VT = pos
+                    end
                     remixed:add_sticker('rh_remix_sticker', true)
                     rh_copy_card(remixed, card)
                     remixed:start_dissolve(nil,true)

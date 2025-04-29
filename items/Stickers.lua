@@ -48,7 +48,6 @@ SMODS.Sticker({
     end,
     calculate = function(self, card, context)
         if context.end_of_round and context.main_eval then
-            local old_ability = card.ability
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.15,
@@ -92,6 +91,20 @@ SMODS.Sticker({
                     remixed.T = pos
                     remixed.CT = pos
                     remixed.VT = pos
+                    while G.GAME.blind.boss and remixed.ability.name == "Chicot" do
+                        sendDebugMessage("Rolled into Chicot during a boss blind!", "rhRemixSticker")
+                        remixed:start_dissolve(nil,true)
+                        remixed = SMODS.create_card(remixed_config)
+                        sendDebugMessage("Rolled "..remixed.ability.name, "rhRemixSticker")
+                        pos = remixed.T
+                        pos.x = 1000
+                        pos.y = 1000
+                        pos.w = 0
+                        pos.h = 0
+                        remixed.T = pos
+                        remixed.CT = pos
+                        remixed.VT = pos
+                    end
                     rh_copy_card(remixed, card)
                     remixed:start_dissolve(nil,true)
                     return true 

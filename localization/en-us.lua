@@ -83,6 +83,15 @@ return {
                     "{C:inactive}(Currently {C:red}+#3#{C:inactive} Mult)",
                 }
             },
+            j_rh_space_gramp = {
+                name = 'Space Gramps',
+                text = {
+                    "This Joker gains {C:mult}+#1#{} Mult",
+                    "if played hand contains",
+                    "a {C:spades}Spades{} or {C:clubs}Clubs{} {C:attention}#2#{}",
+                    "{C:inactive}(Currently {C:red}+#3#{C:inactive} Mult)",
+                }
+            },
         },
         Flow = {
             c_rh_you = {
@@ -379,6 +388,14 @@ return {
                     "{C:inactive,s:0.9}the end of the round)"
                 },
             },
+            rh_remix_sticker = {
+                name = 'Remix',
+                text = {
+                    "At end of round, transform",
+                    "into another {C:attention}#1#",
+                    "#2# {C:attention}#3#",
+                },
+            },
             p_rh_flow_pack_1 = {
                 name = "Flow Pack",
                 text = {
@@ -456,6 +473,13 @@ return {
                 "for the card on the title screen",
                 "(Requires a restart)"
             },
+            rh_remix_sticker_consumeable_word = "consumable",
+            rh_remix_sticker_consumeable_link = "of the same",
+            rh_remix_sticker_consumeable_type = "type",
+            rh_remix_sticker_joker_word = "Joker",
+            rh_remix_sticker_joker_link = "of the same",
+            rh_remix_sticker_joker_rarity = "rarity",
+            k_rh_endless = "Endless Remix"
         },
         v_dictionary = {
             a_mmoonk = {"+#1# Chips,+#2# Mult,X#3# Mult"},
@@ -470,7 +494,8 @@ return {
 			c_rh_saffron_trial = "Saffron's Trial",
 		},
         labels = {
-            rh_you_sticker = 'YOU'
+            rh_you_sticker = 'YOU',
+            rh_remix_sticker = "Remix"
         }
     }
 }

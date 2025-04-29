@@ -92,3 +92,47 @@ function rh_localize_sfx(key)
     end
     return sound
 end
+
+function rh_copy_card(other, new_card, card_scale, playing_card, strip_edition)
+    local old_ability = copy_table(new_card.ability)
+    sendDebugMessage(inspect(old_ability), "rhCopyCard")
+    local other_abilities = copy_table(new_card.old_abilities)
+    local old_name = new_card.ability.name
+    local new_card = new_card or Card(other.T.x, other.T.y, G.CARD_W*(card_scale or 1), G.CARD_H*(card_scale or 1), G.P_CARDS.empty, G.P_CENTERS.c_base, {playing_card = playing_card})
+    new_card:set_ability(other.config.center)
+    new_card.ability.type = other.ability.type
+    new_card:set_base(other.config.card)
+    for k, v in pairs(other.ability) do
+        if type(v) == 'table' then 
+            new_card.ability[k] = copy_table(v)
+        else
+            new_card.ability[k] = v
+        end
+    end
+
+    if other_abilities then
+        for k, v in pairs(other_abilities) do
+            if other.ability.name == k then
+                new_card.ability = copy_table(v)
+            end
+        end
+    end
+
+    if not strip_edition then 
+        new_card:set_edition(other.edition or {}, nil, true)
+    end
+    check_for_unlock({type = 'have_edition'})
+    new_card:set_seal(other.seal, true)
+    if other.params then
+        new_card.params = other.params
+        new_card.params.playing_card = playing_card
+    end
+    new_card.debuff = other.debuff
+    new_card.pinned = other.pinned
+    new_card.old_abilities = copy_table(other_abilities)
+    if not new_card.old_abilities then
+        new_card.old_abilities = {}
+    end
+    new_card.old_abilities[old_name] = copy_table(old_ability)
+    return new_card
+end

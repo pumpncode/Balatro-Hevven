@@ -1,8 +1,5 @@
 SMODS.Challenge{
     key = "second_contact",
-    loc_txt = {
-        name = "Second Contact",
-    },
     jokers = {
         { id = "j_ramen"}
     },
@@ -77,9 +74,6 @@ SMODS.Challenge{
 
 SMODS.Challenge{
     key = "saffron_trial",
-    loc_txt = {
-        name = "Saffron's Trial",
-    },
     rules = {
         custom = {
             {id = 'all_rental'},
@@ -89,6 +83,22 @@ SMODS.Challenge{
     },
     jokers = {
         { id = "j_rh_goat", rental = true}
+    },
+	restrictions = {
+		banned_cards = {
+		},
+    },
+}
+
+SMODS.Challenge{
+    key = "remix_medley",
+    loc_txt = {
+        name = "Remix Medley",
+    },
+    jokers = {
+        { id = "j_rh_endless_common", eternal = true},
+        { id = "j_rh_endless_common", eternal = true},
+        { id = "j_rh_endless_uncommon", eternal = true}
     },
 	restrictions = {
 		banned_cards = {

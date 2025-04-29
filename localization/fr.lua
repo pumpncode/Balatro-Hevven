@@ -386,6 +386,14 @@ return {
                     "{C:inactive,s:0.9}à la fin de la manche)"
                 },
             },
+            rh_remix_sticker = {
+                name = 'Remix',
+                text = {
+                    "A la fin de la manche,",
+                    "transforme en un autre {C:attention}#1#{}",
+                    "#2# {C:attention}#3#",
+                },
+            },
             p_rh_flow_pack_1 = {
                 name = "Paquet Rythmé",
                 text = {
@@ -464,6 +472,12 @@ return {
                 "pour la carte sur le menu principal",
                 "(Requiert un redémarrage)"
             },
+            rh_remix_sticker_consumeable_word = "consommable",
+            rh_remix_sticker_consumeable_link = "du même",
+            rh_remix_sticker_consumeable_type = "type",
+            rh_remix_sticker_joker_word = "Joker",
+            rh_remix_sticker_joker_link = "de la même",
+            rh_remix_sticker_joker_rarity = "rareté",
         },
         v_dictionary = {
             a_mmoonk = {"+#1# Jetons,+#2# Mult,X#3# Mult"},

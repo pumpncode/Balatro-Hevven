@@ -273,6 +273,9 @@ SMODS.Consumable({
         y = 0
     },
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_foil
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_holographic
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
         return {
             vars = {
                 card.ability.extra.base_chance* G.GAME.probabilities.normal,
@@ -461,6 +464,7 @@ SMODS.Consumable({
     cost = 5,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {key = 'active_flow', set = 'Other'}
+        info_queue[#info_queue+1] = {key = 'tag_rare', set = 'Tag'}
         return {
             vars = {G.GAME.round_scores['hand'].amt or 0}
         }
@@ -678,6 +682,7 @@ SMODS.Consumable({
     },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {key = 'active_flow', set = 'Other'}
+        info_queue[#info_queue+1] = {key = 'rh_you_sticker', set = 'Other'}
         return {}
     end,
 

@@ -96,11 +96,6 @@ return {
                 name = 'Vous',
                 text = {
                     "Marque la carte sélectionnée avec {C:dark_edition}Vous{}",
-                    "Pour la manche, cette carte sera",
-                    "toujours {C:attention}sélectionnée{} et {C:attention}jouée{}",
-                    "à {C:attention}chaque{} main",
-                    "{C:inactive,s:0.9}(Cet {C:attention,s:0.9}Autocollant{C:inactive,s:0.9} est retiré",
-                    "{C:inactive,s:0.9}à la fin de la manche)"
                 }
             },
             c_rh_try_again = {
@@ -203,11 +198,6 @@ return {
                 name = 'Vous',
                 text = {
                     "La carte sélectionnée a été marqué avec {C:dark_edition}Vous{}",
-                    "Pour la manche, cette carte sera",
-                    "toujours {C:attention}sélectionnée{} et {C:attention}jouée{}",
-                    "à {C:attention}chaque{} main",
-                    "{C:inactive,s:0.9}(Cet {C:attention,s:0.9}Autocollant{C:inactive,s:0.9} est retiré",
-                    "{C:inactive,s:0.9}à la fin de la manche)"
                 }
             },
             tag_rh_skill_star = {
@@ -296,6 +286,15 @@ return {
                     "rends les deux {C:attention}éternel",
                     "{C:inactive}(Selon la place disponible)",
                     "{C:inactive,s:0.9}(Supprime le {C:dark_edition,s:0.9}Negatif{C:inactive,s:0.9} de la copie)",
+                }
+            },
+            c_rh_imperfection = {
+                name = 'Imperfection',
+                text = {
+                    "Ajoute {C:dark_edition}Négatif{} à",
+                    "{C:attention}#1# carte aléatoire,",
+                    "et l'améliore en",
+                    "{C:attention}Carte Pierre"
                 }
             },
         },

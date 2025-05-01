@@ -184,6 +184,7 @@ SMODS.Consumable({
     },
     config = {extra = {base_chance=1, max_chance=4}},
         loc_vars = function(self, info_queue, card)
+            info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
                     return {
                         vars = {
                             card.ability.extra.base_chance* G.GAME.probabilities.normal,
@@ -317,6 +318,9 @@ SMODS.Consumable({
         x = 2,
         y = 1
     },
+    loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "eternal", set = "Other" }
+	end,
 
     use = function(self, card, area, copier)
         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex')})
@@ -348,6 +352,9 @@ SMODS.Consumable({
         x = 3,
         y = 0
     },
+    loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "tag_rh_random", set = "Tag" }
+	end,
 
     use = function(self, card, area, copier)
         add_tag(Tag('tag_rh_random'))
@@ -362,5 +369,71 @@ SMODS.Consumable({
         art = "missingnumber",
         code = "TheAltDoc",
         concept = "missingnumber"
+    }
+})
+
+-- Imperfection
+SMODS.Consumable({
+    key = "imperfection",
+    set = 'Spectral',
+    cost=4,
+    atlas = 'consumables',
+    pos = {
+        x = 1,
+        y = 2
+    },
+    config = {extra = {max_cards=1}},
+    loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = G.P_CENTERS.e_negative
+		info_queue[#info_queue + 1] = G.P_CENTERS.m_stone
+		return { vars = { card.ability.extra.max_cards } }
+	end,
+
+    use = function(self, card, area, copier)
+        for i=1, card.ability.extra.max_cards do
+            local card_id = pseudorandom(pseudoseed('imperfection'), 1, #G.hand.cards)
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.15,
+                func = function() 
+                    G.hand.cards[card_id]:flip()
+                    play_sound('card1')
+                    G.hand.cards[card_id]:juice_up(0.3, 0.3)
+                    return true 
+                end 
+            }))   
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.1,
+                func = function() 
+                    G.hand.cards[card_id]:set_ability("m_stone")
+                    G.hand.cards[card_id]:set_edition({negative = true}, true)
+                    return true 
+                end 
+            }))        
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.15,
+                func = function() 
+                    G.hand.cards[card_id]:flip()
+                    play_sound('tarot2', 1, 0.6)
+                    G.hand.cards[card_id]:juice_up(0.3, 0.3)
+                    return true 
+                end 
+            }))
+        end
+    end,
+
+    can_use = function (self, card) 
+        return (G.STATE == G.STATES.SPECTRAL_PACK or 
+        G.STATE == G.STATES.TAROT_PACK or
+        G.STATE == G.STATES.PLANET_PACK or
+        G.STATE == G.STATES.SMODS_BOOSTER_OPENED or
+        G.STATE == G.STATES.SELECTING_HAND)
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
     }
 })

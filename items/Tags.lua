@@ -50,6 +50,9 @@ SMODS.Tag({
 	in_pool = function()
 		return false
 	end,
+    loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "rh_you_sticker", set = "Other" }
+	end,
     apply = function(self, tag, context)
         if context.type == "shop_start" then
             sendDebugMessage("Deleting tag!", "RhFlowYou")
@@ -152,6 +155,7 @@ SMODS.Tag({
         y = 0
     },
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = { key = "tag_rare", set = "Other" }
         return {
             vars = {G.GAME.current_round.rh_flow_new_record_to_beat or 0}
         }

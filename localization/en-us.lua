@@ -97,12 +97,7 @@ return {
             c_rh_you = {
                 name = 'You',
                 text = {
-                    "Marks a selected card as {C:dark_edition}You{}.",
-                    "For the round, this card will",
-                    "always be {C:attention}selected{} and {C:attention}played{}",
-                    "in {C:attention}every{} hand",
-                    "{C:inactive,s:0.9}({C:attention,s:0.9}Sticker{C:inactive,s:0.9} is removed at",
-                    "{C:inactive,s:0.9}the end of the round)"
+                    "Marks a selected card as {C:dark_edition}You{}",
                 }
             },
             c_rh_try_again = {
@@ -204,12 +199,7 @@ return {
             tag_rh_you = {
                 name = 'You',
                 text = {
-                    "Selected card has been marked as {C:dark_edition}You{}.",
-                    "For the round, this card will",
-                    "always be {C:attention}selected and {C:attention}played{}",
-                    "in {C:attention}every{} hand",
-                    "{C:inactive,s:0.9}({C:attention,s:0.9}Sticker{C:inactive,s:0.9} is removed at",
-                    "{C:inactive,s:0.9}the end of the round)"
+                    "Selected card has been marked as {C:dark_edition}You{}",
                 }
             },
             tag_rh_skill_star = {
@@ -298,6 +288,15 @@ return {
                     "and make both of them {C:attention}eternal",
                     "{C:inactive}(Must have room)",
                     "{C:inactive,s:0.9}(Removes {C:dark_edition,s:0.9}Negative{C:inactive,s:0.9} from copy)",
+                }
+            },
+            c_rh_imperfection = {
+                name = 'Imperfection',
+                text = {
+                    "Adds {C:dark_edition}Negative{} to",
+                    "{C:attention}#1# random card,",
+                    "and enhances it",
+                    "into a {C:attention}Stone Card"
                 }
             },
         },

@@ -293,7 +293,8 @@ return {
                 name = 'Infini',
                 text = {
                     "{C:attention}Duplique{} un Joker aléatoire,",
-                    "mais le rends {C:attention}éternel",
+                    "rends les deux {C:attention}éternel",
+                    "{C:inactive}(Selon la place disponible)",
                     "{C:inactive,s:0.9}(Supprime le {C:dark_edition,s:0.9}Negatif{C:inactive,s:0.9} de la copie)",
                 }
             },

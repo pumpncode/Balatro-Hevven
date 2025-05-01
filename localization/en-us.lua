@@ -295,7 +295,8 @@ return {
                 name = 'Endless',
                 text = {
                     "{C:attention}Duplicate{} a random Joker,",
-                    "but makes it {C:attention}eternal",
+                    "and make both of them {C:attention}eternal",
+                    "{C:inactive}(Must have room)",
                     "{C:inactive,s:0.9}(Removes {C:dark_edition,s:0.9}Negative{C:inactive,s:0.9} from copy)",
                 }
             },

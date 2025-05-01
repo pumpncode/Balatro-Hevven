@@ -324,11 +324,12 @@ SMODS.Consumable({
         local card = copy_card(chosen_joker, nil, nil, nil, chosen_joker.edition and chosen_joker.edition.negative)
         card:add_sticker("eternal", true)
         card:add_to_deck()
+        chosen_joker:add_sticker("eternal", true)
         G.jokers:emplace(card)
     end,
 
     can_use = function (self, card) 
-        return #G.jokers.cards > 0
+        return #G.jokers.cards > 0 and #G.jokers.cards < G.jokers.config.card_limit
     end,
     credit = {
         art = "missingnumber",

@@ -18,6 +18,12 @@ local loc_txt = {
     },
 }
 
+local credit = {
+    art = "missingnumber",
+    code = "TheAltDoc",
+    concept = "TheAltDoc"
+}
+
 
 -- Endless Remix (Common)
 SMODS.Joker({
@@ -30,6 +36,7 @@ SMODS.Joker({
     unlocked = true,
     discovered = true,
     atlas = 'jokers',
+    credit = credit,
     pos = {
         x = 0,
         y = 4
@@ -43,7 +50,7 @@ SMODS.Joker({
         }
     },
     calculate = function(self, card, context)
-        if context.end_of_round and context.main_eval then
+        if context.end_of_round and context.main_eval and not card.ability.rh_remix_sticker then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.15,
@@ -108,6 +115,7 @@ SMODS.Joker({
     unlocked = true,
     discovered = true,
     atlas = 'jokers',
+    credit = credit,
     pos = {
         x = 0,
         y = 4
@@ -121,7 +129,7 @@ SMODS.Joker({
         }
     },
     calculate = function(self, card, context)
-        if context.end_of_round and context.main_eval then
+        if context.end_of_round and context.main_eval and not card.ability.rh_remix_sticker then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.15,
@@ -186,6 +194,7 @@ SMODS.Joker({
     unlocked = true,
     discovered = true,
     atlas = 'jokers',
+    credit = credit,
     pos = {
         x = 0,
         y = 4
@@ -199,7 +208,7 @@ SMODS.Joker({
         }
     },
     calculate = function(self, card, context)
-        if context.end_of_round and context.main_eval then
+        if context.end_of_round and context.main_eval and not card.ability.rh_remix_sticker then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.15,
@@ -264,6 +273,7 @@ SMODS.Joker({
     unlocked = true,
     discovered = true,
     atlas = 'jokers',
+    credit = credit,
     pos = {
         x = 0,
         y = 4
@@ -277,7 +287,7 @@ SMODS.Joker({
         }
     },
     calculate = function(self, card, context)
-        if context.end_of_round and context.main_eval then
+        if context.end_of_round and context.main_eval and not card.ability.rh_remix_sticker then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.15,
@@ -332,7 +342,6 @@ SMODS.Joker({
                 trigger = 'after',
                 delay = 0.15,
                 func = function() 
-                    card.ability = old_ability
                     card:flip()
                     play_sound('tarot2', 1, 0.6)
                     card:juice_up(0.3, 0.3)
@@ -358,6 +367,7 @@ for k, v in pairs(SMODS.Rarities) do
             unlocked = true,
             discovered = true,
             atlas = 'jokers',
+            credit = credit,
             pos = {
                 x = 0,
                 y = 4
@@ -371,7 +381,7 @@ for k, v in pairs(SMODS.Rarities) do
                 }
             },
             calculate = function(self, card, context)
-                if context.end_of_round and context.main_eval then
+                if context.end_of_round and context.main_eval and not card.ability.rh_remix_sticker then
                     G.E_MANAGER:add_event(Event({
                         trigger = 'after',
                         delay = 0.15,

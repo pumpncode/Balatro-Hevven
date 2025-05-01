@@ -16,7 +16,12 @@ SMODS.Sticker({
             end
         end
         
-    end
+    end,
+	credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+		concept = "TheAltDoc"
+    }
 })
 
 -- Remix
@@ -121,5 +126,10 @@ SMODS.Sticker({
                 end 
             }))
         end
-    end
+    end,
+	credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+		concept = "TheAltDoc"
+    }
 })

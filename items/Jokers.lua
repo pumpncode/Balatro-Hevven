@@ -28,7 +28,13 @@
 
 --     calculate = function(self, card, context)
 --         return true
---     end
+--     end,
+
+    -- credit = {
+    --     art = "",
+    --     code = "",
+    --     concept = ""
+    -- }
 -- })
 
 
@@ -71,7 +77,12 @@ SMODS.Joker({
                 pitch = 1
             }
         end
-    end
+    end,
+    credit = {
+        art = "TheAltDoc",
+        code = "TheAltDoc",
+        concept = "patataofcourse"
+    }
 })
 
 -- Space Gramps (common)
@@ -126,7 +137,12 @@ SMODS.Joker({
                 }
             end
         end
-    end
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
 })
 
 -- Cosmic Girl (common)
@@ -180,7 +196,12 @@ SMODS.Joker({
                 }
             end
         end
-    end
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
 })
 
 -- Munchy Monk
@@ -308,7 +329,12 @@ SMODS.Joker({
                 }
             end
         end
-    end
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
 })
 
 -- Double Sided (common)
@@ -377,7 +403,12 @@ SMODS.Joker({
 
     set_ability = function(self, card, initial, delay_sprites)
         card.ability.extra.message = localize("rh_even")
-    end
+    end,
+    credit = {
+        art = "patataofcourse",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
 })
 
 -- Hairy Onion
@@ -443,7 +474,12 @@ SMODS.Joker({
                 pitch = math.random(0.1,1.5)
             }
         end
-    end
+    end,
+    credit = {
+        art = "Nate Candles",
+        code = "NoahAmp",
+        concept = "Nate Candles"
+    }
 })
 
 -- Sneaky Spirit
@@ -532,7 +568,12 @@ SMODS.Joker({
             local eval = function(card) return card.ability.extra.rounds >= card.ability.extra.max_rounds and not G.RESET_JIGGLES end
             juice_card_until(card, eval, true)
         end
-    end
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "NoahAmp",
+        concept = "Casseddiez"
+    }
 })
 
 -- Samurai Drummer
@@ -586,7 +627,12 @@ SMODS.Joker({
             end
         end
 
-    end
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "NoahAmp",
+        concept = "missingnumber"
+    }
 })
 
 -- Goat
@@ -647,7 +693,12 @@ SMODS.Joker({
         -- How did you even reach here??
         return 1
 
-    end
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "NoahAmp",
+        concept = "NoahAmp"
+    }
 })
 
 -- Monkey
@@ -685,5 +736,10 @@ SMODS.Joker({
                 sound = "rh_monkey"
             }
         end
-    end
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "NoahAmp",
+        concept = "TheAltDoc"
+    }
 })

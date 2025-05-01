@@ -22,6 +22,11 @@ SMODS.Booster({
 		return G.GAME.used_vouchers.v_rh_gatekeeper_deal
 	end,
 	group_key = "k_rh_flow_pack",
+	credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+		concept = "TheAltDoc"
+    }
 })
 
 SMODS.Booster({
@@ -48,6 +53,11 @@ SMODS.Booster({
 		return G.GAME.used_vouchers.v_rh_gatekeeper_deal
 	end,
 	group_key = "k_rh_flow_pack",
+	credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+		concept = "TheAltDoc"
+    }
 })
 
 SMODS.Booster({
@@ -74,6 +84,11 @@ SMODS.Booster({
 		return G.GAME.used_vouchers.v_rh_gatekeeper_deal
 	end,
 	group_key = "k_rh_flow_pack",
+	credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+		concept = "TheAltDoc"
+    }
 })
 
 SMODS.Booster({
@@ -100,6 +115,11 @@ SMODS.Booster({
 		return G.GAME.used_vouchers.v_rh_gatekeeper_deal
 	end,
 	group_key = "k_rh_flow_pack",
+	credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+		concept = "TheAltDoc"
+    }
 })
 
 SMODS.Booster({
@@ -128,4 +148,9 @@ SMODS.Booster({
 		return false
 	end,
 	group_key = "k_rh_legendary",
+	credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "missingnumber"
+    }
 })

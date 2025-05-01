@@ -17,7 +17,13 @@ SMODS.Voucher({
     config = { extra = { multiplier = 2 }},
     redeem = function(self, card)
         G.GAME.flow_rate = G.GAME.flow_rate * card.ability.extra.multiplier
-    end
+    end,
+
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
 })
 
 SMODS.Voucher({
@@ -38,7 +44,13 @@ SMODS.Voucher({
     requires = {"v_rh_flow_gauge"},
     redeem = function(self, card)
         G.GAME.flow_rate = G.GAME.flow_rate * card.ability.extra.multiplier
-    end
+    end,
+
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
 })
 
 SMODS.Voucher({
@@ -48,6 +60,12 @@ SMODS.Voucher({
         x = 1,
         y = 0
     },
+
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
 })
 -- I'm gonna be real I don't really know how else I can do that so I take ownership
 SMODS.Booster:take_ownership_by_kind('Arcana', {
@@ -93,4 +111,10 @@ SMODS.Voucher({
         x = 1,
         y = 1
     },
+
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
 })

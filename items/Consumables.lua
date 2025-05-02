@@ -60,7 +60,12 @@ SMODS.Consumable({
 
     can_use = function (self, card) 
         return G.consumeables.config.card_limit >= #G.consumeables.cards
-    end
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
 })
 
 -- Castle
@@ -93,7 +98,12 @@ SMODS.Consumable({
 
     can_use = function (self, card) 
         return G.consumeables.config.card_limit >= #G.consumeables.cards
-    end
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "patataofcourse"
+    }
 })
 
 -- Translator
@@ -112,6 +122,11 @@ SMODS.Consumable({
 
 		return { vars = { card and card.ability.max_highlighted or self.config.max_highlighted } }
 	end,
+    credit = {
+        art = "Nate Candles",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
 })
 
 -- Hevven World
@@ -150,6 +165,11 @@ SMODS.Consumable({
     can_use = function (self, card)
 		return true
 	end,
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
 })
 
 -- Ascension
@@ -207,7 +227,12 @@ SMODS.Consumable({
             end
         end
         return false
-    end
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "missingnumber"
+    }
 })
 
 -- Anguish
@@ -274,7 +299,12 @@ SMODS.Consumable({
 
     can_use = function (self, card) 
         return #G.jokers.cards > 1
-    end
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
 })
 
 -- Endless
@@ -299,7 +329,12 @@ SMODS.Consumable({
 
     can_use = function (self, card) 
         return #G.jokers.cards > 0
-    end
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
 })
 
 -- Performer
@@ -321,5 +356,10 @@ SMODS.Consumable({
 
     can_use = function (self, card) 
         return true
-    end
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "missingnumber"
+    }
 })

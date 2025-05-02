@@ -61,13 +61,10 @@ SMODS.Consumable({
         end
 	end,
 
-    rh_credits = {
-        idea = {
-            "patataofcourse"
-        },
-        code = {
-            "TheAlternateDoctor"
-        }
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "patataofcourse"
     }
 })
 
@@ -138,13 +135,10 @@ SMODS.Consumable({
         end
 	end,
 
-    rh_credits = {
-        idea = {
-            "patataofcourse"
-        },
-        code = {
-            "TheAlternateDoctor"
-        }
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "patataofcourse"
     }
 })
 
@@ -261,13 +255,10 @@ SMODS.Consumable({
         end
 	end,
 
-    rh_credits = {
-        idea = {
-            "patataofcourse"
-        },
-        code = {
-            "TheAlternateDoctor"
-        }
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "patataofcourse"
     }
 })
 
@@ -400,13 +391,10 @@ SMODS.Consumable({
         end
 	end,
 
-    rh_credits = {
-        idea = {
-            "patataofcourse"
-        },
-        code = {
-            "TheAlternateDoctor"
-        }
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "patataofcourse"
     }
 })
 
@@ -459,13 +447,10 @@ SMODS.Consumable({
         end 
 	end,
 
-    rh_credits = {
-        idea = {
-            "patataofcourse"
-        },
-        code = {
-            "TheAltDoc"
-        }
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "patataofcourse"
     }
 })
 
@@ -520,13 +505,10 @@ SMODS.Consumable({
         end 
 	end,
 
-    rh_credits = {
-        idea = {
-            "patataofcourse"
-        },
-        code = {
-            "TheAltDoc"
-        }
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "patataofcourse"
     }
 })
 
@@ -593,13 +575,10 @@ SMODS.Consumable({
         end 
 	end,
 
-    rh_credits = {
-        idea = {
-            "The Cryptid Mod"
-        },
-        code = {
-            "The Cryptid Mod"
-        }
+    credit = {
+        art = "missingnumber",
+        code = "The Cryptid mod",
+        concept = "The Cryptid mod"
     }
 })
 
@@ -661,13 +640,10 @@ SMODS.Consumable({
         end
 	end,
 
-    rh_credits = {
-        idea = {
-            "The Cryptid Mod"
-        },
-        code = {
-            "The Cryptid Mod"
-        }
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
     }
 })
 -- Rewritting vanilla evaluate_round somewhat to make Pity Skip and Some Good Parts work
@@ -739,13 +715,10 @@ SMODS.Consumable({
         end
 	end,
 
-    rh_credits = {
-        idea = {
-            "TheAlternateDoctor"
-        },
-        code = {
-            "TheAlternateDoctor"
-        }
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
     }
 })
 
@@ -803,13 +776,10 @@ SMODS.Consumable({
         end
 	end,
 
-    rh_credits = {
-        idea = {
-            "patataofcourse"
-        },
-        code = {
-            "TheAlternateDoctor"
-        }
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "missingnumber"
     }
 })
 
@@ -871,13 +841,10 @@ SMODS.Consumable({
         end
 	end,
 
-    rh_credits = {
-        idea = {
-            "patataofcourse"
-        },
-        code = {
-            "TheAlternateDoctor"
-        }
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
     }
 })
 
@@ -992,4 +959,9 @@ SMODS.Consumable({
             G.STATE == G.STATES.SMODS_BOOSTER_OPENED) and G.consumeables.config.card_limit > #G.consumeables.cards
         end
 	end,
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
 })

@@ -30,6 +30,11 @@ SMODS.Tag({
             return true
 		end
 	end,
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
 })
 
 -- You
@@ -53,6 +58,11 @@ SMODS.Tag({
             return true
 		end
 	end,
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
 })
 
 -- Skill Star
@@ -96,6 +106,11 @@ SMODS.Tag({
             }
 		end
 	end,
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "patataofcourse"
+    }
 })
 
 -- Simple Tap
@@ -118,6 +133,12 @@ SMODS.Tag({
             return true
 		end
 	end,
+
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "patataofcourse"
+    }
 })
 
 -- New Record
@@ -152,6 +173,11 @@ SMODS.Tag({
             -- return true
 		end
 	end,
+	credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+		concept = "patataofcourse"
+    }
 })
 
 -- The Performer (random pack)
@@ -197,6 +223,11 @@ SMODS.Tag({
             return true
 		end
 	end,
+	credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+		concept = "missingnumber"
+    }
 })
 
 -- Mega Flow Pack
@@ -224,4 +255,9 @@ SMODS.Tag({
             return true
 		end
 	end,
+	credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+		concept = "missingnumber"
+    }
 })

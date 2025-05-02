@@ -28,7 +28,13 @@
 
 --     calculate = function(self, card, context)
 --         return true
---     end
+--     end,
+
+    -- credit = {
+    --     art = "",
+    --     code = "",
+    --     concept = ""
+    -- }
 -- })
 
 
@@ -71,7 +77,12 @@ SMODS.Joker({
                 pitch = 1
             }
         end
-    end
+    end,
+    credit = {
+        art = "TheAltDoc",
+        code = "TheAltDoc",
+        concept = "patataofcourse"
+    }
 })
 
 -- Space Gramps (common)
@@ -126,7 +137,12 @@ SMODS.Joker({
                 }
             end
         end
-    end
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
 })
 
 -- Cosmic Girl (common)
@@ -180,7 +196,12 @@ SMODS.Joker({
                 }
             end
         end
-    end
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
 })
 
 -- Munchy Monk
@@ -220,10 +241,8 @@ SMODS.Joker({
         chips = 0,
         mult = 0,
         x_mult = 1.0,
-        used_planets = 0,
-        used_tarots = 0,
-        used_flows = 0,
-        monk_level = 0
+        monk_level = 0,
+        soul_level = 0
     }},
     calculate = function(self, card, context)
         if
@@ -232,20 +251,15 @@ SMODS.Joker({
 		then
 			if context.consumeable.ability.set == "Planet" then
                 card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.add_x_mult
-                card.ability.extra.used_planets = card.ability.extra.used_planets +1
+                card.ability.extra.monk_level = card.ability.extra.monk_level +1
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        if (card.ability.extra.monk_level < card.ability.extra.used_planets) and
-                            (card.ability.extra.monk_level < card.ability.extra.used_tarots) and
-                            (card.ability.extra.monk_level < card.ability.extra.used_flows)
-                        then
-                            if card.ability.extra.monk_level < 4 then
-                                card.ability.extra.monk_level = card.ability.extra.monk_level + 1
-                                card.children.floating_sprite:set_sprite_pos({
-                                    x = card.ability.extra.monk_level + 1,
-                                    y = 2
-                                })
-                            end
+                        if card.ability.extra.monk_level % 5 == 0 and card.ability.extra.monk_level < 21 then
+                            card.ability.extra.soul_level = card.ability.extra.soul_level + 1
+                            card.children.floating_sprite:set_sprite_pos({
+                                x = card.ability.extra.soul_level + 1,
+                                y = 2
+                            })
                         end
                         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult}}})
                         return true
@@ -254,50 +268,38 @@ SMODS.Joker({
             end
 			if context.consumeable.ability.set == "Tarot" then
                 card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.add_mult
-                card.ability.extra.used_tarots = card.ability.extra.used_tarots +1
+                card.ability.extra.monk_level = card.ability.extra.monk_level +1
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        if (card.ability.extra.monk_level < card.ability.extra.used_planets) and
-                            (card.ability.extra.monk_level < card.ability.extra.used_tarots) and
-                            (card.ability.extra.monk_level < card.ability.extra.used_flows)
-                        then
-                            if card.ability.extra.monk_level < 4 then
-                                card.ability.extra.monk_level = card.ability.extra.monk_level + 1
-                                card.children.floating_sprite:set_sprite_pos({
-                                    x = card.ability.extra.monk_level + 1,
-                                    y = 2
-                                })
-                            end
+                        if card.ability.extra.monk_level % 5 == 0 and card.ability.extra.monk_level < 21 then
+                            card.ability.extra.soul_level = card.ability.extra.soul_level + 1
+                            card.children.floating_sprite:set_sprite_pos({
+                                x = card.ability.extra.soul_level + 1,
+                                y = 2
+                            })
                         end
                         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex'), colour = G.C.MULT})
                         return true
-                    end}))
+                    end
+                }))
             end
 			if context.consumeable.ability.set == "Flow" then
                 card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.add_chips
-                card.ability.extra.used_flows = card.ability.extra.used_flows +1
+                card.ability.extra.monk_level = card.ability.extra.monk_level +1
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        if (card.ability.extra.monk_level < card.ability.extra.used_planets) and
-                            (card.ability.extra.monk_level < card.ability.extra.used_tarots) and
-                            (card.ability.extra.monk_level < card.ability.extra.used_flows)
-                        then
-                            if card.ability.extra.monk_level < 4 then
-                                card.ability.extra.monk_level = card.ability.extra.monk_level + 1
-                                card.children.floating_sprite:set_sprite_pos({
-                                    x = card.ability.extra.monk_level + 1,
-                                    y = 2
-                                })
-                            end
+                        if card.ability.extra.monk_level % 5 == 0 and card.ability.extra.monk_level < 21 then
+                            card.ability.extra.soul_level = card.ability.extra.soul_level + 1
+                            card.children.floating_sprite:set_sprite_pos({
+                                x = card.ability.extra.soul_level + 1,
+                                y = 2
+                            })
                         end
                         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex'), colour = G.C.CHIPS})
                         return true
                     end}))
             end
             sendDebugMessage("Monk level: "..card.ability.extra.monk_level, "rh_j_munchy_monk")
-            sendDebugMessage("Used Planet cards: "..card.ability.extra.used_planets, "rh_j_munchy_monk")
-            sendDebugMessage("Used Tarot cards: "..card.ability.extra.used_tarots, "rh_j_munchy_monk")
-            sendDebugMessage("Used Flow cards: "..card.ability.extra.used_flows, "rh_j_munchy_monk")
             
             return
         end
@@ -327,7 +329,12 @@ SMODS.Joker({
                 }
             end
         end
-    end
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
 })
 
 -- Double Sided (common)
@@ -396,7 +403,12 @@ SMODS.Joker({
 
     set_ability = function(self, card, initial, delay_sprites)
         card.ability.extra.message = localize("rh_even")
-    end
+    end,
+    credit = {
+        art = "patataofcourse",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
 })
 
 -- Hairy Onion
@@ -462,7 +474,12 @@ SMODS.Joker({
                 pitch = math.random(0.1,1.5)
             }
         end
-    end
+    end,
+    credit = {
+        art = "Nate Candles",
+        code = "NoahAmp",
+        concept = "Nate Candles"
+    }
 })
 
 -- Sneaky Spirit
@@ -551,11 +568,15 @@ SMODS.Joker({
             local eval = function(card) return card.ability.extra.rounds >= card.ability.extra.max_rounds and not G.RESET_JIGGLES end
             juice_card_until(card, eval, true)
         end
-    end
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "NoahAmp",
+        concept = "Casseddiez"
+    }
 })
 
 -- Samurai Drummer
-
 SMODS.Joker({
     key = "samurai_drummer",
 
@@ -606,7 +627,12 @@ SMODS.Joker({
             end
         end
 
-    end
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "NoahAmp",
+        concept = "missingnumber"
+    }
 })
 
 -- Goat
@@ -667,7 +693,12 @@ SMODS.Joker({
         -- How did you even reach here??
         return 1
 
-    end
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "NoahAmp",
+        concept = "NoahAmp"
+    }
 })
 
 -- Monkey
@@ -705,5 +736,10 @@ SMODS.Joker({
                 sound = "rh_monkey"
             }
         end
-    end
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "NoahAmp",
+        concept = "TheAltDoc"
+    }
 })

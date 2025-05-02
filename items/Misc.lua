@@ -5,4 +5,9 @@ SMODS.Enhancement({
     no_suit = true,
     always_scores = true,
     replace_base_card = true,
+	credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+		concept = "TheAltDoc"
+    }
 })

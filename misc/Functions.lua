@@ -95,7 +95,6 @@ end
 
 function rh_copy_card(other, new_card, card_scale, playing_card, strip_edition)
     local old_ability = copy_table(new_card.ability)
-    sendDebugMessage(inspect(old_ability), "rhCopyCard")
     local other_abilities = copy_table(new_card.old_abilities)
     local old_name = new_card.ability.name
     local new_card = new_card or Card(other.T.x, other.T.y, G.CARD_W*(card_scale or 1), G.CARD_H*(card_scale or 1), G.P_CARDS.empty, G.P_CENTERS.c_base, {playing_card = playing_card})

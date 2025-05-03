@@ -528,6 +528,8 @@ SMODS.Joker({
 
             local display_message = card.ability.extra.rounds .. "/"..card.ability.extra.max_rounds
             if card.ability.extra.rounds >= card.ability.extra.max_rounds then
+                local eval = function(card) return card.ability.extra.rounds >= card.ability.extra.max_rounds end
+                juice_card_until(card, eval, true)
                 display_message = localize("k_active_ex")
             end
 
@@ -564,11 +566,6 @@ SMODS.Joker({
                 play_sound("rh_spirit_hit")
         end
         
-        -- Setting up the juice
-        if card.ability.extra.rounds >= card.ability.extra.max_rounds then
-            local eval = function(card) return card.ability.extra.rounds >= card.ability.extra.max_rounds and not G.RESET_JIGGLES end
-            juice_card_until(card, eval, true)
-        end
     end,
     credit = {
         art = "missingnumber",
@@ -742,5 +739,165 @@ SMODS.Joker({
         art = "missingnumber",
         code = "NoahAmp",
         concept = "TheAltDoc"
+    }
+})
+
+-- Songbird Egg
+SMODS.Joker({
+    key = "songbird_egg",
+
+    loc_vars = function(self, info_queue, card)
+                return {
+                    vars = {
+                        card.ability.extra.mult,
+                        card.ability.extra.level,
+                        card.ability.extra.max_level,
+                    }
+                }
+    end,
+    cost = 6,
+    rarity = 1,
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'jokers',
+    pos = {
+        x = 1,
+        y = 3
+    },
+	config = {
+        extra = {
+            mult = 10,
+            level = 0,
+            max_level = 4
+        }
+    },
+
+    calculate = function(self, card, context)
+        
+        if context.joker_main and context.cardarea == G.jokers then
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
+
+        if not context.blueprint then
+            -- Check if flow card has been used
+            if context.using_consumeable then
+                if context.consumeable.ability.set == "Flow" then
+                    card.ability.extra.level = card.ability.extra.level + 1
+                    if card.ability.extra.level >= card.ability.extra.max_level then 
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.15,
+                            func = function() 
+                                card:flip()
+                                play_sound('card1')
+                                card:juice_up(0.3, 0.3)
+                                return true 
+                            end 
+                        }))   
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.1,
+                            func = function() 
+                                local card_info = card.config.center
+                                local remixed_config = {"Joker", stickers = card_info.stickers, skip_materialize = false, key = "j_rh_songbird_bird"}
+                                if card.edition then
+                                    remixed_config.edition = card.edition.key
+                                else 
+                                    remixed_config.no_edition = true
+                                end
+                                local remixed = SMODS.create_card(remixed_config)
+                                local pos = remixed.T
+                                pos.x = 1000
+                                pos.y = 1000
+                                pos.w = 0
+                                pos.h = 0
+                                remixed.T = pos
+                                remixed.CT = pos
+                                remixed.VT = pos
+                                rh_copy_card(remixed, card)
+                                remixed:start_dissolve(nil,true)
+                                return true 
+                            end 
+                        }))        
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.15,
+                            func = function() 
+                                card:flip()
+                                play_sound('tarot2', 1, 0.6)
+                                card:juice_up(0.3, 0.3)
+                                return true 
+                            end 
+                        }))
+                        return {
+                            message = "SKRAW!",
+                        }
+                    else
+                        return {
+                            message = card.ability.extra.level.."/"..card.ability.extra.max_level,
+                        }
+                    end
+                end
+            end
+        end
+
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "Casseddiez, NoahAmp"
+    }
+})
+
+-- Songbird Egg
+SMODS.Joker({
+    key = "songbird_bird",
+
+    loc_vars = function(self, info_queue, card)
+                return {
+                    vars = {
+                        card.ability.extra.xmult,
+                    }
+                }
+    end,
+    cost = 6,
+    rarity = 1,
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'jokers',
+    pos = {
+        x = 2,
+        y = 3
+    },
+    soul_pos = {
+        x = 3,
+        y = 3
+    },
+	config = {
+        extra = {
+            xmult = 3,
+        }
+    },
+    in_pool = function(self, args)
+        return false
+    end
+
+    calculate = function(self, card, context)
+        if context.joker_main and context.cardarea == G.jokers then
+            return {
+                xmult = card.ability.extra.xmult
+            }
+        end
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "Casseddiez, NoahAmp"
     }
 })

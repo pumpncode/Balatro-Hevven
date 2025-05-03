@@ -89,6 +89,21 @@ return {
                     "1 {C:attention}#2#{} de {C:spades}Piques{} ou de {C:clubs}Trèfles{}",
                     "{C:inactive}(Actuellement : {C:red}+#3#{C:inactive} Multi.)",
                 }
+            },
+            j_rh_songbird_egg = {
+                name = 'Oeuf Cui-cui',
+                text = {
+                    "Multi. {C:mult}+#1#{}",
+                    "Eclos après avoir utilisé",
+                    "#3# {C:rh_flow}Cartes Rythme",
+                    "{C:inactive}(Actuellement {C:attention}#2#{C:inactive}/#3#)"
+                }
+            },
+            j_rh_songbird_bird = {
+                name = 'Cui-cui',
+                text = {
+                    "Multi. {X:mult,C:white}x#1#{}",
+                }
             }
         },
         Flow = {

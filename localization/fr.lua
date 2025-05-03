@@ -104,7 +104,17 @@ return {
                 text = {
                     "Multi. {X:mult,C:white}x#1#{}",
                 }
-            }
+            },
+            j_rh_lumbearjack = {
+                name = 'Ours ron-ron',
+                text = {
+                    "Si la {C:attention}première main{} de la manche",
+                    "ne contient qu'{C:attention}une{} carte, détruisez-la,",
+                    "ajoutez #1# copies permanentes",
+                    "de {C:attention}la moitié{} de leur valeur",
+                    "et placez-les dans la {C:attention}main",
+                }
+            },
         },
         Flow = {
             c_rh_you = {

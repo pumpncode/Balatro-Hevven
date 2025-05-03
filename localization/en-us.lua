@@ -97,7 +97,18 @@ return {
                 text = {
                     "{X:mult,C:white}x#1#{} Mult",
                 }
-            }
+            },
+            j_rh_lumbearjack = {
+                name = 'Lumbearjack',
+                text = {
+                    "If {C:attention}first hand{} of round",
+                    "has only {C:attention}1{} card,",
+                    "destroy it and add",
+                    "#1# copies of {C:attention}half",
+                    "its rank to deck",
+                    "and draw it to {C:attention}hand",
+                }
+            },
         },
         Flow = {
             c_rh_you = {

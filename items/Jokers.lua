@@ -886,7 +886,7 @@ SMODS.Joker({
     },
     in_pool = function(self, args)
         return false
-    end
+    end,
 
     calculate = function(self, card, context)
         if context.joker_main and context.cardarea == G.jokers then
@@ -899,5 +899,71 @@ SMODS.Joker({
         art = "missingnumber",
         code = "TheAltDoc",
         concept = "Casseddiez, NoahAmp"
+    }
+})
+
+-- Bear
+SMODS.Joker({
+    key = "lumbearjack",
+
+    loc_vars = function(self, info_queue, card)
+                return {
+                    vars = {
+                        card.ability.extra.new_cards,
+                    }
+                }
+    end,
+    cost = 6,
+    rarity = 1,
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'jokers',
+    pos = {
+        x = 4,
+        y = 0
+    },
+	config = {
+        extra = {
+            new_cards = 2,
+        }
+    },
+
+    calculate = function(self, card, context)
+        if context.cardarea == G.play and context.destroy_card == context.scoring_hand[1] and #context.scoring_hand == 1 and G.GAME.current_round.hands_played == 0 then
+            for i=1, card.ability.extra.new_cards do
+                local suit_prefix = string.sub(context.destroy_card.base.suit, 1, 1)..'_'
+                local rank_suffix = context.destroy_card.base.id == 14 and 2 or math.min(context.destroy_card.base.id+1, 14)
+                rank_suffix = math.floor(rank_suffix/2)
+                if rank_suffix < 10 then rank_suffix = tostring(rank_suffix)
+                elseif rank_suffix == 10 then rank_suffix = 'T'
+                elseif rank_suffix == 11 then rank_suffix = 'J'
+                elseif rank_suffix == 12 then rank_suffix = 'Q'
+                elseif rank_suffix == 13 then rank_suffix = 'K'
+                elseif rank_suffix == 14 or rank_suffix == 1 then rank_suffix = 'A'
+                end
+                local _card = copy_card(context.destroy_card, nil, nil, G.playing_card)
+                _card:set_base(G.P_CARDS[suit_prefix..rank_suffix])
+                _card:add_to_deck()
+                G.deck.config.card_limit = G.deck.config.card_limit + 1
+                G.hand:emplace(_card)
+                _card.states.visible = nil
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        _card:start_materialize()
+                        return true
+                    end
+                })) 
+            end
+            return {
+                remove = true
+            }
+        end
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
     }
 })

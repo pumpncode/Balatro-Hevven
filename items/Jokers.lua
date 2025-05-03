@@ -915,8 +915,8 @@ SMODS.Joker({
                     }
                 }
     end,
-    cost = 6,
-    rarity = 1,
+    cost = 8,
+    rarity = 2,
     blueprint_compat = true,
     eternal_compat = true,
     unlocked = true,

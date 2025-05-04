@@ -113,7 +113,6 @@ SMODS.Joker({
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.before then
             if next(context.poker_hands['Flush']) and not context.blueprint then
-                sendDebugMessage("card suits: "..context.scoring_hand[1].base.suit.." "..context.scoring_hand[2].base.suit, "rh_j_gramps")
                 if  (context.scoring_hand[1].base.suit == "Spades" or context.scoring_hand[1].base.suit == "Clubs") and
                     (context.scoring_hand[2].base.suit == "Spades" or context.scoring_hand[2].base.suit == "Clubs") then
                     card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
@@ -368,7 +367,6 @@ SMODS.Joker({
             context.other_card:get_id() >= 0 and
             context.other_card:get_id()%2 == card.ability.extra.parity)
             then
-                sendDebugMessage(sound, "rhDoubleSided")
                 return {
                     chips = card.ability.extra.chips,
                     mult = card.ability.extra.mult,
@@ -953,7 +951,6 @@ SMODS.Joker({
                     new_rank = base_rank
                     base_rank = base_rank + halved_rank
                 end
-                sendDebugMessage(base_rank..":"..halved_rank..":"..new_rank)
                 if new_rank == 1 then rank_suffix = 'A'
                 elseif new_rank < 10 then rank_suffix = tostring(new_rank)
                 elseif new_rank == 10 then rank_suffix = 'T'

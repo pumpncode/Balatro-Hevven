@@ -107,7 +107,6 @@ if SMODS and SMODS.calculate_end_of_round_effects then
                 end
             end
         end
-        sendDebugMessage(inspect(call_cards), "rhScoreEoR")
         -- We calculate...
         local ret = sceore(context)
         -- We reassign the right abilities
@@ -132,7 +131,6 @@ end
 -- Adding function to patch for New Record
 function rh_flow_check_for_new_record(amt)
     if not G.GAME.current_round.rh_flow_new_record then return end
-    sendDebugMessage(type(amt)..".", "rhNewRecord")
     if not amt then return end
     if type(amt) == 'number' or type(amt) == 'table' then
         if to_big(G.GAME.round_scores['hand']) and to_big(math.floor(amt)) > to_big(G.GAME.round_scores['hand'].amt) then

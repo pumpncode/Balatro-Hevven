@@ -313,7 +313,6 @@ SMODS.Consumable({
                     highlighted_cards[#highlighted_cards+1] = v
                 end
             end
-            sendDebugMessage(#to_discard, "rhFlowPerfect")
             for i=1, #G.hand.highlighted do
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                     local enhancement_type = pseudorandom(pseudoseed("perfect"))

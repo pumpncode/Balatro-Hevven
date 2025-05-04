@@ -73,3 +73,23 @@ SMODS.Sound({
     key="text_gba",
     path="text_gba.ogg"
 })
+
+SMODS.Sound({
+    key="bear_small",
+    path="bear_small.ogg"
+})
+
+SMODS.Sound({
+    key="bear_medium",
+    path="bear_medium.ogg"
+})
+
+SMODS.Sound({
+    key="bear_large",
+    path="bear_large.ogg"
+})
+
+SMODS.Sound({
+    key="songbird_hatch",
+    path="songbird_hatch.ogg"
+})

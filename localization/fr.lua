@@ -89,18 +89,38 @@ return {
                     "1 {C:attention}#2#{} de {C:spades}Piques{} ou de {C:clubs}Trèfles{}",
                     "{C:inactive}(Actuellement : {C:red}+#3#{C:inactive} Multi.)",
                 }
-            }
+            },
+            j_rh_songbird_egg = {
+                name = 'Oeuf Cui-cui',
+                text = {
+                    "Multi. {C:mult}+#1#{}",
+                    "Eclos après avoir utilisé",
+                    "#3# {C:rh_flow}Cartes Rythme",
+                    "{C:inactive}(Actuellement {C:attention}#2#{C:inactive}/#3#)"
+                }
+            },
+            j_rh_songbird_bird = {
+                name = 'Cui-cui',
+                text = {
+                    "Multi. {X:mult,C:white}x#1#{}",
+                }
+            },
+            j_rh_lumbearjack = {
+                name = 'Ours ron-ron',
+                text = {
+                    "Si la {C:attention}première main{} de la manche",
+                    "ne contient qu'{C:attention}une{} carte, détruisez-la,",
+                    "ajoutez #1# copies permanentes",
+                    "de {C:attention}la moitié{} de leur valeur",
+                    "et placez-les dans la {C:attention}main",
+                }
+            },
         },
         Flow = {
             c_rh_you = {
                 name = 'Vous',
                 text = {
                     "Marque la carte sélectionnée avec {C:dark_edition}Vous{}",
-                    "Pour la manche, cette carte sera",
-                    "toujours {C:attention}sélectionnée{} et {C:attention}jouée{}",
-                    "à {C:attention}chaque{} main",
-                    "{C:inactive,s:0.9}(Cet {C:attention,s:0.9}Autocollant{C:inactive,s:0.9} est retiré",
-                    "{C:inactive,s:0.9}à la fin de la manche)"
                 }
             },
             c_rh_try_again = {
@@ -203,11 +223,6 @@ return {
                 name = 'Vous',
                 text = {
                     "La carte sélectionnée a été marqué avec {C:dark_edition}Vous{}",
-                    "Pour la manche, cette carte sera",
-                    "toujours {C:attention}sélectionnée{} et {C:attention}jouée{}",
-                    "à {C:attention}chaque{} main",
-                    "{C:inactive,s:0.9}(Cet {C:attention,s:0.9}Autocollant{C:inactive,s:0.9} est retiré",
-                    "{C:inactive,s:0.9}à la fin de la manche)"
                 }
             },
             tag_rh_skill_star = {
@@ -293,8 +308,18 @@ return {
                 name = 'Infini',
                 text = {
                     "{C:attention}Duplique{} un Joker aléatoire,",
-                    "mais le rends {C:attention}éternel",
+                    "rends les deux {C:attention}éternel",
+                    "{C:inactive}(Selon la place disponible)",
                     "{C:inactive,s:0.9}(Supprime le {C:dark_edition,s:0.9}Negatif{C:inactive,s:0.9} de la copie)",
+                }
+            },
+            c_rh_imperfection = {
+                name = 'Imperfection',
+                text = {
+                    "Ajoute {C:dark_edition}Négatif{} à",
+                    "{C:attention}#1# carte aléatoire,",
+                    "et l'améliore en",
+                    "{C:attention}Carte Pierre"
                 }
             },
         },

@@ -21,7 +21,7 @@ return {
                     "After {C:attention}#2#{} rounds,",
                     "sell this card to",
                     "add {C:dark_edition}Negative{} to a random Joker",
-                    "{C:inactive}(Currently {C:attention}#1#/{C:inactive}#2#)"
+                    "{C:inactive}(Currently {C:attention}#1#{C:inactive}/#2#)"
                 }
             },
             j_rh_samurai_drummer = {
@@ -83,13 +83,30 @@ return {
                     "{C:inactive}(Currently {C:red}+#3#{C:inactive} Mult)",
                 }
             },
-            j_rh_space_gramp = {
-                name = 'Space Gramps',
+            j_rh_songbird_egg = {
+                name = 'Songbird Egg',
                 text = {
-                    "This Joker gains {C:mult}+#1#{} Mult",
-                    "if played hand contains",
-                    "a {C:spades}Spades{} or {C:clubs}Clubs{} {C:attention}#2#{}",
-                    "{C:inactive}(Currently {C:red}+#3#{C:inactive} Mult)",
+                    "{C:mult}+#1#{} Mult",
+                    "Hatches after using",
+                    "#3# {C:rh_flow}Flow Cards",
+                    "{C:inactive}(Currently {C:attention}#2#{C:inactive}/#3#)"
+                }
+            },
+            j_rh_songbird_bird = {
+                name = 'Songbird',
+                text = {
+                    "{X:mult,C:white}x#1#{} Mult",
+                }
+            },
+            j_rh_lumbearjack = {
+                name = 'Lumbearjack',
+                text = {
+                    "If {C:attention}first hand{} of round",
+                    "has only {C:attention}1{} card,",
+                    "destroy it and add",
+                    "#1# copies of {C:attention}half",
+                    "its rank to deck",
+                    "and draw it to {C:attention}hand",
                 }
             },
         },
@@ -97,12 +114,7 @@ return {
             c_rh_you = {
                 name = 'You',
                 text = {
-                    "Marks a selected card as {C:dark_edition}You{}.",
-                    "For the round, this card will",
-                    "always be {C:attention}selected{} and {C:attention}played{}",
-                    "in {C:attention}every{} hand",
-                    "{C:inactive,s:0.9}({C:attention,s:0.9}Sticker{C:inactive,s:0.9} is removed at",
-                    "{C:inactive,s:0.9}the end of the round)"
+                    "Marks a selected card as {C:dark_edition}You{}",
                 }
             },
             c_rh_try_again = {
@@ -204,12 +216,7 @@ return {
             tag_rh_you = {
                 name = 'You',
                 text = {
-                    "Selected card has been marked as {C:dark_edition}You{}.",
-                    "For the round, this card will",
-                    "always be {C:attention}selected and {C:attention}played{}",
-                    "in {C:attention}every{} hand",
-                    "{C:inactive,s:0.9}({C:attention,s:0.9}Sticker{C:inactive,s:0.9} is removed at",
-                    "{C:inactive,s:0.9}the end of the round)"
+                    "Selected card has been marked as {C:dark_edition}You{}",
                 }
             },
             tag_rh_skill_star = {
@@ -295,8 +302,18 @@ return {
                 name = 'Endless',
                 text = {
                     "{C:attention}Duplicate{} a random Joker,",
-                    "but makes it {C:attention}eternal",
+                    "and make both of them {C:attention}eternal",
+                    "{C:inactive}(Must have room)",
                     "{C:inactive,s:0.9}(Removes {C:dark_edition,s:0.9}Negative{C:inactive,s:0.9} from copy)",
+                }
+            },
+            c_rh_imperfection = {
+                name = 'Imperfection',
+                text = {
+                    "Adds {C:dark_edition}Negative{} to",
+                    "{C:attention}#1# random card,",
+                    "and enhances it",
+                    "into a {C:attention}Stone Card"
                 }
             },
         },

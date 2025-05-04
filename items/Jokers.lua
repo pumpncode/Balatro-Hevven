@@ -931,7 +931,7 @@ SMODS.Joker({
     },
 
     calculate = function(self, card, context)
-        if context.before and context.cardarea == G.jokers and #context.scoring_hand == 1 and G.GAME.current_round.hands_played == 0 then
+        if context.before and context.cardarea == G.jokers and #G.play.cards == 1 and G.GAME.current_round.hands_played == 0 then
             local suit_prefix = string.sub(context.scoring_hand[1].base.suit, 1, 1)..'_'
             local rank_suffix = math.min(context.scoring_hand[1].base.id, 14)
             local sound = "rh_bear_small"
@@ -980,11 +980,13 @@ SMODS.Joker({
                 pitch = 1,
                 playing_cards_created = {true}
             }
-        end
-        if context.scoring_hand and #context.scoring_hand == 1 and context.destroying_card == context.scoring_hand[1] and G.GAME.current_round.hands_played == 0 and not context.blueprint then
+        elseif context.scoring_hand and #G.play.cards == 1 and context.destroying_card == context.scoring_hand[1] and G.GAME.current_round.hands_played == 0 and not context.blueprint then
             return {
                 remove = true
             }
+        elseif context.setting_blind then
+            local eval = function(card) return G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES end
+            juice_card_until(card, eval, true)
         end
     end,
     credit = {

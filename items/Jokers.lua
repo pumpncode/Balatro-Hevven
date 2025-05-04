@@ -934,22 +934,32 @@ SMODS.Joker({
 
     calculate = function(self, card, context)
         if context.before and context.cardarea == G.jokers and #context.scoring_hand == 1 and G.GAME.current_round.hands_played == 0 then
+            local suit_prefix = string.sub(context.scoring_hand[1].base.suit, 1, 1)..'_'
+            local rank_suffix = math.min(context.scoring_hand[1].base.id, 14)
             local sound = "rh_bear_small"
+            if rank_suffix > 10 then
+                sound = "rh_bear_large"
+            elseif rank_suffix > 5 then
+                sound = "rh_bear_medium"
+            end
+            local base_rank = rank_suffix
+            rank_suffix = math.ceil(rank_suffix/2)
+            local halved_rank = rank_suffix
             for i=1, card.ability.extra.new_cards do
-                local suit_prefix = string.sub(context.scoring_hand[1].base.suit, 1, 1)..'_'
-                local rank_suffix = math.min(context.scoring_hand[1].base.id+1, 14)
-                if rank_suffix > 11 then
-                    sound = "rh_bear_large"
-                elseif rank_suffix > 6 then
-                    sound = "rh_bear_medium"
+                local new_rank = halved_rank
+                if base_rank > halved_rank then
+                    base_rank = base_rank - halved_rank
+                else
+                    new_rank = base_rank
+                    base_rank = base_rank + halved_rank
                 end
-                rank_suffix = math.floor(rank_suffix/2)
-                if rank_suffix == 1 then rank_suffix = 'A'
-                elseif rank_suffix < 10 then rank_suffix = tostring(rank_suffix)
-                elseif rank_suffix == 10 then rank_suffix = 'T'
-                elseif rank_suffix == 11 then rank_suffix = 'J'
-                elseif rank_suffix == 12 then rank_suffix = 'Q'
-                elseif rank_suffix == 13 then rank_suffix = 'K'
+                sendDebugMessage(base_rank..":"..halved_rank..":"..new_rank)
+                if new_rank == 1 then rank_suffix = 'A'
+                elseif new_rank < 10 then rank_suffix = tostring(new_rank)
+                elseif new_rank == 10 then rank_suffix = 'T'
+                elseif new_rank == 11 then rank_suffix = 'J'
+                elseif new_rank == 12 then rank_suffix = 'Q'
+                elseif new_rank == 13 then rank_suffix = 'K'
                 end
                 sendDebugMessage("Creating a "..suit_prefix..rank_suffix, "rhLumbearjack")
                 local _card = copy_card(context.scoring_hand[1], nil, nil, G.playing_card)
@@ -967,7 +977,7 @@ SMODS.Joker({
                 })) 
             end
             return {
-                message = "Axed!",
+                message = localize("rh_lumbearjack_axed"),
                 colour = G.C.CHIPS,
                 sound = sound,
                 pitch = 1,

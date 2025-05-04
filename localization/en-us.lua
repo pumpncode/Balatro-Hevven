@@ -496,6 +496,7 @@ return {
             rh_remix_sticker_joker_word = "Joker",
             rh_remix_sticker_joker_link = "of the same",
             rh_remix_sticker_joker_rarity = "rarity",
+            rh_lumbearjack_axed = "Axed!",
             k_rh_endless = "Endless Remix"
         },
         v_dictionary = {

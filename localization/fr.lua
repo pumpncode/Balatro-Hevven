@@ -503,6 +503,8 @@ return {
             rh_remix_sticker_joker_word = "Joker",
             rh_remix_sticker_joker_link = "de la même",
             rh_remix_sticker_joker_rarity = "rareté",
+            rh_lumbearjack_axed = "Haché!",
+            k_rh_endless = "Remix Infini"
         },
         v_dictionary = {
             a_mmoonk = {"+#1# Jetons,+#2# Mult,X#3# Mult"},

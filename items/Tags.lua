@@ -22,9 +22,7 @@ SMODS.Tag({
 		return false
 	end,
     apply = function(self, tag, context)
-        sendDebugMessage("Tag calculating..."..inspect(context), "RhFlowSomeGoodParts")
 		if context.type == "shop_start" then
-            sendDebugMessage("Deleting tag!", "RhFlowSomeGoodParts")
             tag:yep("", G.C.SECONDARY_SET.FLOW, function() return true end)
 			tag.triggered = true
             return true
@@ -55,7 +53,6 @@ SMODS.Tag({
 	end,
     apply = function(self, tag, context)
         if context.type == "shop_start" then
-            sendDebugMessage("Deleting tag!", "RhFlowYou")
             tag:yep("", G.C.SECONDARY_SET.FLOW, function() return true end)
 			tag.triggered = true
             return true
@@ -91,14 +88,12 @@ SMODS.Tag({
 		return false
 	end,
     apply = function(self, tag, context)
-        sendDebugMessage("Tag calculating..."..inspect(context), "RhFlowSkillStar")
         if context.type == "eval" then
             local percentage = ((to_big(G.GAME.chips)/to_big(G.GAME.blind.chips))-1)*100
             local base_dollar = to_big(math.floor(percentage/G.GAME.current_round.skill_star.percentage*G.GAME.current_round.skill_star.base_money))
             if base_dollar > to_big(G.GAME.current_round.skill_star.max_money) then
                 base_dollar = G.GAME.current_round.skill_star.max_money
             end
-            sendDebugMessage("Deleting tag!", "RhFlowSkillStar")
             tag:yep('+', G.C.GOLD, function() return true end)
 			tag.triggered = true
             return {
@@ -209,7 +204,6 @@ SMODS.Tag({
                             pool[#pool+1] = v
                         end
                     end
-                    sendDebugMessage("pool: "..inspect(pool), "rhTagRandom")
                     key = pseudorandom_element(pool, pseudoseed("performer"))
                 else
                     key = 'p_rh_legendary'

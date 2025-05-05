@@ -113,7 +113,6 @@ SMODS.Joker({
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.before then
             if next(context.poker_hands['Flush']) and not context.blueprint then
-                sendDebugMessage("card suits: "..context.scoring_hand[1].base.suit.." "..context.scoring_hand[2].base.suit, "rh_j_gramps")
                 if  (context.scoring_hand[1].base.suit == "Spades" or context.scoring_hand[1].base.suit == "Clubs") and
                     (context.scoring_hand[2].base.suit == "Spades" or context.scoring_hand[2].base.suit == "Clubs") then
                     card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
@@ -368,7 +367,6 @@ SMODS.Joker({
             context.other_card:get_id() >= 0 and
             context.other_card:get_id()%2 == card.ability.extra.parity)
             then
-                sendDebugMessage(sound, "rhDoubleSided")
                 return {
                     chips = card.ability.extra.chips,
                     mult = card.ability.extra.mult,
@@ -933,7 +931,7 @@ SMODS.Joker({
     },
 
     calculate = function(self, card, context)
-        if context.before and context.cardarea == G.jokers and #context.scoring_hand == 1 and G.GAME.current_round.hands_played == 0 then
+        if context.before and context.cardarea == G.jokers and #G.play.cards == 1 and G.GAME.current_round.hands_played == 0 then
             local suit_prefix = string.sub(context.scoring_hand[1].base.suit, 1, 1)..'_'
             local rank_suffix = math.min(context.scoring_hand[1].base.id, 14)
             local sound = "rh_bear_small"
@@ -953,7 +951,6 @@ SMODS.Joker({
                     new_rank = base_rank
                     base_rank = base_rank + halved_rank
                 end
-                sendDebugMessage(base_rank..":"..halved_rank..":"..new_rank)
                 if new_rank == 1 then rank_suffix = 'A'
                 elseif new_rank < 10 then rank_suffix = tostring(new_rank)
                 elseif new_rank == 10 then rank_suffix = 'T'
@@ -983,11 +980,13 @@ SMODS.Joker({
                 pitch = 1,
                 playing_cards_created = {true}
             }
-        end
-        if context.scoring_hand and #context.scoring_hand == 1 and context.destroying_card == context.scoring_hand[1] and G.GAME.current_round.hands_played == 0 and not context.blueprint then
+        elseif context.scoring_hand and #G.play.cards == 1 and context.destroying_card == context.scoring_hand[1] and G.GAME.current_round.hands_played == 0 and not context.blueprint then
             return {
                 remove = true
             }
+        elseif context.setting_blind then
+            local eval = function(card) return G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES end
+            juice_card_until(card, eval, true)
         end
     end,
     credit = {

@@ -87,7 +87,7 @@ SMODS.Sticker({
                     else 
                         remixed_config.no_edition = true
                     end
-                    local remixed = SMODS.create_card(remixed_config)
+                    local remixed = rh_create_card_silent(remixed_config)
                     local pos = remixed.T
                     pos.x = 1000
                     pos.y = 1000
@@ -99,7 +99,7 @@ SMODS.Sticker({
                     while G.GAME.blind.boss and remixed.ability.name == "Chicot" do
                         sendDebugMessage("Rolled into Chicot during a boss blind!", "rhRemixSticker")
                         remixed:start_dissolve(nil,true)
-                        remixed = SMODS.create_card(remixed_config)
+                        remixed = rh_create_card_silent(remixed_config)
                         sendDebugMessage("Rolled "..remixed.ability.name, "rhRemixSticker")
                         pos = remixed.T
                         pos.x = 1000

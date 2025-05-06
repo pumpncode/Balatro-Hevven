@@ -77,6 +77,7 @@ SMODS.Challenge{
     rules = {
         custom = {
             {id = 'all_rental'},
+            {id = 'cry_all_rental'}, -- Fix for Cryptid since it overrides the normal card creation
         },
         modifiers = {
         }

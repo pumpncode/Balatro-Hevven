@@ -222,6 +222,21 @@ end
 '''
 match_indent = true
 
+# Call & Response - Calculate Discard
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''SMODS.calculate_context({discard = true, other_card =  G.hand.highlighted[i], full_hand = G.hand.highlighted}, effects)'''
+position = "at"
+payload = '''
+local other_card = G.hand.highlighted[i]
+if other_card.ability.name == 'm_rh_call_response' then
+    other_card = rh_seek_copiable(true, G.hand.highlighted[i], G.hand.highlighted)
+end
+SMODS.calculate_context({discard = true, other_card =  other_card, full_hand = G.hand.highlighted}, effects)
+'''
+match_indent = true
+
 # Call & Response - get_X_same override kind of
 [[patches]]
 [patches.pattern]

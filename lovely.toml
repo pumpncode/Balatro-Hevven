@@ -218,6 +218,9 @@ payload = '''
 if G.STATE == G.STATES.SELECTING_HAND then
     self.highlighted = rh_sort_highlighted(self)
     self:parse_highlighted()
+    for i=1, #G.hand.cards do
+        rh_debuff_call_response(G.hand.cards[i], from_blind)
+    end 
 end
 '''
 match_indent = true

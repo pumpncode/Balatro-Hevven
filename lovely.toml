@@ -218,7 +218,25 @@ payload = '''
 if G.STATE == G.STATES.SELECTING_HAND then
     self.highlighted = rh_sort_highlighted(self)
     self:parse_highlighted()
+    for i=1, #G.hand.cards do
+        rh_debuff_call_response(G.hand.cards[i], from_blind)
+    end 
 end
+'''
+match_indent = true
+
+# Call & Response - Calculate Discard
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''SMODS.calculate_context({discard = true, other_card =  G.hand.highlighted[i], full_hand = G.hand.highlighted}, effects)'''
+position = "at"
+payload = '''
+local other_card = G.hand.highlighted[i]
+if other_card.ability.name == 'm_rh_call_response' then
+    other_card = (rh_seek_copiable(true, G.hand.highlighted[i], G.hand.highlighted) or other_card)
+end
+SMODS.calculate_context({discard = true, other_card =  other_card, full_hand = G.hand.highlighted}, effects)
 '''
 match_indent = true
 

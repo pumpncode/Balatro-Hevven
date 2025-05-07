@@ -66,15 +66,11 @@ function rh_seek_copiable(highlighted, card, hand)
             pos = k
         end
     end
-    sendDebugMessage("Found C&R at pos "..pos, "rhC&Rseek")
-    local added = false
     for j=pos, 1, -1 do
-        sendDebugMessage("Checking "..hand[j].base.value.." of "..hand[j].base.suit,"rhC&Rseek")
-        if hand[j].ability.name ~= 'm_rh_call_response' and not added then
+        if hand[j].ability.name ~= 'm_rh_call_response' then
             if (hand[j].highlighted or false) == highlighted then
-                added = true
                 copiable = hand[j]
-                sendDebugMessage("Found "..copiable.base.value.." of "..copiable.base.suit, "rhC&Rseek")
+                break
             end
         end
     end
@@ -134,4 +130,36 @@ function rh_copy_card(other, new_card, card_scale, playing_card, strip_edition)
     end
     new_card.old_abilities[old_name] = copy_table(old_ability)
     return new_card
+end
+
+function rh_create_card_silent(t)
+    if not t.area and t.key and G.P_CENTERS[t.key] then
+        t.area = G.P_CENTERS[t.key].consumeable and G.consumeables or G.P_CENTERS[t.key].set == 'Joker' and G.jokers
+    end
+    if not t.area and not t.key and t.set and SMODS.ConsumableTypes[t.set] then
+        t.area = G.consumeables
+    end
+    SMODS.bypass_create_card_edition = t.no_edition or t.edition
+    SMODS.bypass_create_card_discover = t.discover
+    SMODS.bypass_create_card_discovery_center = t.bypass_discovery_center
+    local _card = create_card(t.set, t.area, t.legendary, t.rarity, t.skip_materialize, t.soulable, t.key, t.key_append)
+    SMODS.bypass_create_card_edition = nil
+    SMODS.bypass_create_card_discover = nil
+    SMODS.bypass_create_card_discovery_center = nil
+
+    -- Should this be restricted to only cards able to handle these
+    -- or should that be left to the person calling SMODS.create_card to use it correctly?
+    if t.edition then _card:set_edition(t.edition, nil, true) end
+    if t.enhancement then _card:set_ability(G.P_CENTERS[t.enhancement]) end
+    if t.seal then _card:set_seal(t.seal, true) end
+    if t.stickers then
+        for i, v in ipairs(t.stickers) do
+            local s = SMODS.Stickers[v]
+            if not s or type(s.should_apply) ~= 'function' or s:should_apply(_card, t.area, true) then
+                SMODS.Stickers[v]:apply(_card, true)
+            end
+        end
+    end
+
+    return _card
 end

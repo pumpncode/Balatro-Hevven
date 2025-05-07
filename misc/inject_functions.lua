@@ -90,7 +90,6 @@ if SMODS and SMODS.calculate_end_of_round_effects then
         local call_cards_base = {}
         local call_cards_config = {}
         local indexes = {}
-        local replacement_cards = {}
         for i, card in ipairs(context.cardarea.cards) do
             if card.ability.name == 'm_rh_call_response' then
                 -- Setting abilities to the other card's
@@ -198,4 +197,15 @@ function rh_sort_highlighted(cardarea)
         end
     end
     return sorted
+end
+
+function rh_debuff_call_response(card, from_blind)
+    if card.ability.name == 'm_rh_call_response' then
+        local copiable = rh_seek_copiable(card.highlighted or false, card, G.hand.cards)
+        if copiable and copiable.debuff then
+            card.debuff = true
+        else
+            card.debuff = false
+        end
+    end
 end

@@ -193,9 +193,12 @@ end
 function rh_sort_highlighted(cardarea)
     local sorted = {}
     for k, v in pairs(cardarea.cards) do
-        for ki, vi in pairs(cardarea.highlighted) do
-            if vi == v then
-                table.insert(sorted, v)
+        if v.highlighted then
+            for ki, vi in pairs(cardarea.highlighted) do
+                if vi == v then
+                    table.insert(sorted, v)
+                    break
+                end
             end
         end
     end

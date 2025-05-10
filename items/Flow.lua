@@ -868,7 +868,7 @@ SMODS.Consumable({
     },
     hidden = true,    
     use = function(self, card, area, copier)
-        if G.STATE == G.STATES.SPECTRAL_PACK or G.STATE == G.STATES.TAROT_PACK then
+        if G.STATE ~= G.STATES.SELECTING_HAND then
             local card_t = {
                 set = "Flow",
                 area = G.consumeables,

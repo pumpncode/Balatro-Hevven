@@ -1,6 +1,6 @@
 -- Adding a beat anim to the main menu (juices up the card)
 function rh_beat_anim(card)
-    if BHevven.config.rh_beat_anim then
+    if BHevven and BHevven.config.rh_beat_anim then
         local start_time = love.timer.getTime()
         local actual_time = love.timer.getTime()
         G.E_MANAGER:add_event(Event({
@@ -10,6 +10,9 @@ function rh_beat_anim(card)
                 if (love.timer.getTime() - start_time) / 0.556 > 1 then
                     start_time = love.timer.getTime()
                     card:juice_up(0.05, 0.05)
+                end
+                if G.STATE ~= G.STATES.MENU then
+                    return true
                 end
                 return false
             end
@@ -200,7 +203,7 @@ function rh_sort_highlighted(cardarea)
 end
 
 function rh_debuff_call_response(card, from_blind)
-    if card.ability.name == 'm_rh_call_response' then
+    if card.ability.name == 'm_rh_call_response' and G.GAME.blind.name ~= "The Pillar" then
         local copiable = rh_seek_copiable(card.highlighted or false, card, G.hand.cards)
         if copiable and copiable.debuff then
             card.debuff = true

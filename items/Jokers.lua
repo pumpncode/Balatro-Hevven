@@ -995,3 +995,72 @@ SMODS.Joker({
         concept = "TheAltDoc"
     }
 })
+
+SMODS.Joker({
+    key = "tibby",
+
+    loc_txt = {
+        name = "Tibby"
+    },
+
+    loc_vars = function(self, info_queue, card)
+                return {
+                    vars = {
+                    }
+                }
+    end,
+    cost = 20,
+    rarity = 4,
+    blueprint_compat = false,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'jokers',
+    pos = {
+        x = 4,
+        y = 3
+    },
+    soul_pos = {
+        x = 5,
+        y = 3
+    },
+	config = {
+        extra = {
+        }
+    },
+
+    calculate = function(self, card, context)
+        if context.before and context.cardarea == G.jokers and #G.play.cards == 1 then -- and G.GAME.current_round.hands_played == 0 then
+            local hand_card = context.scoring_hand[1]
+            local enhanced = false
+            if hand_card.ability.set ~= "Enhanced" then
+                enhanced = true
+                hand_card:set_ability(G.P_CENTERS[SMODS.poll_enhancement({guaranteed = true, type_key = "tibby"})], nil, true)
+            elseif not hand_card.seal then
+                enhanced = true
+                hand_card:set_seal(SMODS.poll_seal({guaranteed = true, type_key = "tibby"}), nil, true)
+            elseif not hand_card.edition then
+                enhanced = true
+                hand_card:set_edition(poll_edition("tibby", nil, true, true), true)
+            end
+            if enhanced then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        hand_card:juice_up()
+                        return true
+                    end 
+                }))
+                return {
+                    message = localize('k_rh_tibby'),
+                    colour = G.C.SECONDARY_SET.FLOW,
+                }
+            end
+        end
+    end,
+
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
+})

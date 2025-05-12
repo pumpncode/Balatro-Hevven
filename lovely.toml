@@ -206,7 +206,7 @@ self.highlighted = rh_sort_highlighted(self)
 '''
 match_indent = true
 
-# Call & Response - sort highlighted after drag
+# Call & Response - calculate after drag
 [[patches]]
 [patches.pattern]
 target = "cardarea.lua"
@@ -216,10 +216,13 @@ function CardArea:update(dt)
 position = "after"
 payload = '''
 if G.STATE == G.STATES.SELECTING_HAND then
-    self:parse_highlighted()
-    for i=1, #G.hand.cards do
-        rh_debuff_call_response(G.hand.cards[i], from_blind)
-    end 
+    if not rh_is_equal_simple(G.GAME.current_round.rh_current_hand or {}, rh_simplify_cards(G.hand.cards)) then
+        G.GAME.current_round.rh_current_hand = rh_simplify_cards(G.hand.cards)
+        self:parse_highlighted()
+        for i=1, #G.hand.cards do
+            rh_debuff_call_response(G.hand.cards[i], from_blind)
+        end 
+     end
 end
 '''
 match_indent = true
@@ -233,7 +236,7 @@ position = "at"
 payload = '''
 local other_card = G.hand.highlighted[i]
 if other_card.ability.name == 'm_rh_call_response' then
-    other_card = (rh_seek_copiable(true, G.hand.highlighted[i], G.hand.highlighted) or other_card)
+    other_card = (rh_seek_copiable(true, G.hand.highlighted[i], G.hand.cards) or other_card)
 end
 SMODS.calculate_context({discard = true, other_card =  other_card, full_hand = G.hand.highlighted}, effects)
 '''
@@ -254,11 +257,11 @@ if hand[i]:get_id() == hand[j]:get_id() and i ~= j then
 elseif hand[j].ability.name == 'm_rh_call_response' and i~=j and j~=1 then
     local added = false
     for k=j, 1, -1 do
-        if hand[k].ability.name ~= 'm_rh_call_response' and not added then
-            added = true
+        if hand[k].ability.name ~= 'm_rh_call_response' then
             if hand[i]:get_id() == hand[k]:get_id()then
                 table.insert(curr, hand[k])
             end
+            break
         end
     end
 end
@@ -276,14 +279,13 @@ if hand[i]:is_suit(suit, nil, true) then
     flush_count = flush_count + 1
     t[#t+1] = hand[i]
 elseif hand[i].ability.name == 'm_rh_call_response' then
-    local added = false
     for j=i, 1, -1 do
-        if hand[j].ability.name ~= 'm_rh_call_response' and not added then
-            added = true
+        if hand[j].ability.name ~= 'm_rh_call_response' then
             if hand[j]:is_suit(suit, nil, true) then
                 flush_count = flush_count + 1
                 t[#t+1] = hand[j]
             end
+            break
         end
     end
 end

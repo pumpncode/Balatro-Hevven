@@ -57,7 +57,7 @@ SMODS.load_file("items/Boosters.lua")()
 SMODS.load_file("items/Jokers.lua")()
 SMODS.load_file("items/Misc.lua")()
 SMODS.load_file("items/Stickers.lua")()
-SMODS.load_file("items/EndlessRemix.lua")()
+-- Endless Remixes are loaded in Jokers.lua
 
 SMODS.load_file("misc/Challenges.lua")()
 

@@ -40,17 +40,19 @@
 
 -- ======================
 
--- Widget (uncommon)
+-- Samurai Drummer
 SMODS.Joker({
-    key = "widget",
+    key = "samurai_drummer",
+
     loc_vars = function(self, info_queue, card)
                 return {
                     vars = {
-                        card.ability.extra.retriggers
+                        card.ability.extra.bonus_chips,
+                        (G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.flow or 0)*card.ability.extra.bonus_chips
                     }
                 }
     end,
-    cost = 5,
+    cost = 6,
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = true,
@@ -58,354 +60,42 @@ SMODS.Joker({
     discovered = true,
     atlas = 'jokers',
     pos = {
-        x = 0,
+        x = 1,
         y = 0
     },
 	config = {
         extra = {
-            retriggers = 2
+            bonus_chips = 25
         }
     },
 
     calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.play and context.other_card == context.scoring_hand[5] then
+        
+        if context.joker_main and context.cardarea == G.jokers then
             return {
-                message = localize('k_again_ex'),
-                repetitions = card.ability.extra.retriggers,
-                card = card,
-                sound = "rh_widget",
+                chips = (G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.flow or 0) * card.ability.extra.bonus_chips,
+                sound = "rh_text_gba",
                 pitch = 1
             }
         end
-    end,
-    credit = {
-        art = "TheAltDoc",
-        code = "TheAltDoc",
-        concept = "patataofcourse"
-    }
-})
 
--- Space Gramps (common)
-SMODS.Joker({
-    key = "space_gramp",
-    loc_vars = function(self, info_queue, card)
-                return {
-                    vars = {
-                        card.ability.extra.mult_mod,
-                        localize('Flush', 'poker_hands'),
-                        card.ability.extra.mult
-                    }
-                }
-    end,
-    cost = 6,
-    rarity = 2,
-    blueprint_compat = true,
-    eternal_compat = true,
-    unlocked = true,
-    discovered = true,
-    atlas = 'jokers',
-    pos = {
-        x = 0,
-        y = 1
-    },
-	config = { extra = { mult = 0, mult_mod = 4 }},
-
-    calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.before then
-            if next(context.poker_hands['Flush']) and not context.blueprint then
-                if  (context.scoring_hand[1].base.suit == "Spades" or context.scoring_hand[1].base.suit == "Clubs") and
-                    (context.scoring_hand[2].base.suit == "Spades" or context.scoring_hand[2].base.suit == "Clubs") then
-                    card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
+        if not context.blueprint then
+            -- Check if flow card has been used
+            if context.using_consumeable then
+                if context.consumeable.ability.set == "Flow" then
                     return {
-                        sound = rh_localize_sfx('rh_space_gramp_pose'),
-                        pitch = 1.0,
-                        message = localize('k_upgrade_ex'),
-                        colour = G.C.MULT
+                        message = "+" .. card.ability.extra.bonus_chips,
+                        colour = G.C.BLUE,
                     }
                 end
             end
         end
-        if context.joker_main then
-            if card.ability.extra.mult > 0 then
-                return {
-                    message = localize({ type = "variable", key = "a_mult", vars = {
-                        card.ability.extra.mult,
-                    }}),
-                    mult_mod = card.ability.extra.mult,
-                    colour = G.C.MULT
-                }
-            end
-        end
+
     end,
     credit = {
         art = "missingnumber",
-        code = "TheAltDoc",
-        concept = "TheAltDoc"
-    }
-})
-
--- Cosmic Girl (common)
-SMODS.Joker({
-    key = "cosmic_girl",
-    loc_vars = function(self, info_queue, card)
-                return {
-                    vars = {
-                        card.ability.extra.mult_mod,
-                        localize('Flush', 'poker_hands'),
-                        card.ability.extra.mult
-                    }
-                }
-    end,
-    cost = 6,
-    rarity = 2,
-    blueprint_compat = true,
-    eternal_compat = true,
-    unlocked = true,
-    discovered = true,
-    atlas = 'jokers',
-    pos = {
-        x = 1,
-        y = 1
-    },
-	config = { extra = { mult = 0, mult_mod = 4 }},
-
-    calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.before then
-            if next(context.poker_hands['Flush']) and not context.blueprint then
-                if  context.scoring_hand[1].base.suit == "Hearts" or context.scoring_hand[1].base.suit == "Diamonds" and
-                    context.scoring_hand[2].base.suit == "Hearts"  or context.scoring_hand[2].base.suit == "Diamonds"  then
-                    card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
-                    return {
-                        sound = rh_localize_sfx('rh_cosmic_girl_pose'),
-                        pitch = 1.0,
-                        message = localize('k_upgrade_ex'),
-                        colour = G.C.MULT
-                    }
-                end
-            end
-        end
-        if context.joker_main then
-            if card.ability.extra.mult > 0 then
-                return {
-                    message = localize({ type = "variable", key = "a_mult", vars = {
-                        card.ability.extra.mult,
-                    }}),
-                    mult_mod = card.ability.extra.mult,
-                    colour = G.C.MULT
-                }
-            end
-        end
-    end,
-    credit = {
-        art = "missingnumber",
-        code = "TheAltDoc",
-        concept = "TheAltDoc"
-    }
-})
-
--- Munchy Monk
-SMODS.Joker({
-    key = "munchy_monk",
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                card.ability.extra.add_chips,
-                card.ability.extra.add_mult,
-                card.ability.extra.add_x_mult,
-                (G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.flow or 0)*card.ability.extra.add_chips,
-                (G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.tarot or 0)*card.ability.extra.add_mult,
-                card.ability.extra.x_mult,
-            }
-        }
-    end,
-    cost = 20,
-    rarity = 4,
-    blueprint_compat = true,
-    eternal_compat = true,
-    unlocked = true,
-    discovered = true,
-    atlas = 'jokers',
-    pos = {
-        x = 0,
-        y = 2
-    },
-    soul_pos = {
-        x = 1,
-        y = 2
-    },
-	config = { extra = {
-        add_chips = 50,
-        add_mult = 1,
-        add_x_mult = 0.1,
-        chips = 0,
-        mult = 0,
-        x_mult = 1.0,
-        monk_level = 0,
-        soul_level = 0
-    }},
-    calculate = function(self, card, context)
-        if
-			context.using_consumeable
-			and not context.consumeable.beginning_end
-		then
-			if context.consumeable.ability.set == "Planet" then
-                card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.add_x_mult
-                card.ability.extra.monk_level = card.ability.extra.monk_level +1
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        if card.ability.extra.monk_level % 5 == 0 and card.ability.extra.monk_level < 21 then
-                            card.ability.extra.soul_level = card.ability.extra.soul_level + 1
-                            card.children.floating_sprite:set_sprite_pos({
-                                x = card.ability.extra.soul_level + 1,
-                                y = 2
-                            })
-                        end
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult}}})
-                        return true
-                    end
-                }))
-            end
-			if context.consumeable.ability.set == "Tarot" then
-                card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.add_mult
-                card.ability.extra.monk_level = card.ability.extra.monk_level +1
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        if card.ability.extra.monk_level % 5 == 0 and card.ability.extra.monk_level < 21 then
-                            card.ability.extra.soul_level = card.ability.extra.soul_level + 1
-                            card.children.floating_sprite:set_sprite_pos({
-                                x = card.ability.extra.soul_level + 1,
-                                y = 2
-                            })
-                        end
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex'), colour = G.C.MULT})
-                        return true
-                    end
-                }))
-            end
-			if context.consumeable.ability.set == "Flow" then
-                card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.add_chips
-                card.ability.extra.monk_level = card.ability.extra.monk_level +1
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        if card.ability.extra.monk_level % 5 == 0 and card.ability.extra.monk_level < 21 then
-                            card.ability.extra.soul_level = card.ability.extra.soul_level + 1
-                            card.children.floating_sprite:set_sprite_pos({
-                                x = card.ability.extra.soul_level + 1,
-                                y = 2
-                            })
-                        end
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex'), colour = G.C.CHIPS})
-                        return true
-                    end}))
-            end
-            sendDebugMessage("Monk level: "..card.ability.extra.monk_level, "rh_j_munchy_monk")
-            
-            return
-        end
-        if context.joker_main then
-            if
-            card.ability.extra.x_mult ~= 1.0 or 
-            card.ability.extra.mult ~= 0 or 
-            card.ability.extra.chips ~= 0
-            then 
-                local sound = rh_localize_sfx("rh_monk_one")
-                if card.ability.extra.monk_level > 2 then
-                    sound = rh_localize_sfx("rh_monk_three")
-                elseif card.ability.extra.monk_level > 0 then
-                    sound = rh_localize_sfx("rh_monk_two")
-                end
-                return {
-                    message = localize({ type = "variable", key = "a_mmoonk", vars = {
-                        card.ability.extra.chips,
-                        card.ability.extra.mult,
-                        card.ability.extra.x_mult 
-                    }}),
-                    Xmult_mod = card.ability.extra.x_mult,
-                    chip_mod = card.ability.extra.chips,
-                    mult_mod = card.ability.extra.mult,
-                    sound = sound,
-                    pitch = 1
-                }
-            end
-        end
-    end,
-    credit = {
-        art = "missingnumber",
-        code = "TheAltDoc",
-        concept = "TheAltDoc"
-    }
-})
-
--- Double Sided (common)
-SMODS.Joker({
-    key = "lockstep",
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                card.ability.extra.message,
-                card.ability.extra.chips,
-                card.ability.extra.mult
-            }
-        }
-    end,
-    cost = 4,
-    rarity = 1,
-    blueprint_compat = true,
-    eternal_compat = true,
-    unlocked = true,
-    discovered = true,
-    atlas = 'jokers',
-    pos = {
-        x = 2,
-        y = 0
-    },
-	config = { extra = { parity = 0, chips = 20, mult = 2, message = localize("rh_even") }},
-
-    calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
-            if (context.other_card:get_id() <= 10 and
-            context.other_card:get_id() >= 0 and
-            context.other_card:get_id()%2 == card.ability.extra.parity)
-            then
-                return {
-                    chips = card.ability.extra.chips,
-                    mult = card.ability.extra.mult,
-                }
-            end
-            -- I can't be bothered to write it better right now...
-            if context.other_card:get_id() == 14 and card.ability.extra.parity == 1 then
-                return {
-                    chips = card.ability.extra.chips,
-                    mult = card.ability.extra.mult,
-                }
-            end
-        end
-        if context.end_of_round and context.cardarea == G.jokers then
-            local sound = ""
-            if card.ability.extra.parity == 1 then
-                card.ability.extra.parity = 0
-                card.ability.extra.message = localize("rh_even")
-                sound = "rh_lockstep_to_on"
-            else 
-                card.ability.extra.parity = 1
-                card.ability.extra.message = localize("rh_odd")
-                sound = "rh_lockstep_to_off"
-            end
-            return {
-                sound = sound,
-                pitch = 1,
-                message = localize('k_reset')
-            }
-        end
-    end,
-
-    set_ability = function(self, card, initial, delay_sprites)
-        card.ability.extra.message = localize("rh_even")
-    end,
-    credit = {
-        art = "patataofcourse",
-        code = "TheAltDoc",
-        concept = "TheAltDoc"
+        code = "NoahAmp",
+        concept = "missingnumber"
     }
 })
 
@@ -572,20 +262,79 @@ SMODS.Joker({
     }
 })
 
--- Samurai Drummer
+-- Space Gramps (common)
 SMODS.Joker({
-    key = "samurai_drummer",
-
+    key = "space_gramp",
     loc_vars = function(self, info_queue, card)
                 return {
                     vars = {
-                        card.ability.extra.bonus_chips,
-                        (G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.flow or 0)*card.ability.extra.bonus_chips
+                        card.ability.extra.mult_mod,
+                        localize('Flush', 'poker_hands'),
+                        card.ability.extra.mult
                     }
                 }
     end,
     cost = 6,
-    rarity = 1,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'jokers',
+    pos = {
+        x = 0,
+        y = 1
+    },
+	config = { extra = { mult = 0, mult_mod = 4 }},
+
+    calculate = function(self, card, context)
+        if context.cardarea == G.jokers and context.before then
+            if next(context.poker_hands['Flush']) and not context.blueprint then
+                if  (context.scoring_hand[1].base.suit == "Spades" or context.scoring_hand[1].base.suit == "Clubs") and
+                    (context.scoring_hand[2].base.suit == "Spades" or context.scoring_hand[2].base.suit == "Clubs") then
+                    card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
+                    return {
+                        sound = rh_localize_sfx('rh_space_gramp_pose'),
+                        pitch = 1.0,
+                        message = localize('k_upgrade_ex'),
+                        colour = G.C.MULT
+                    }
+                end
+            end
+        end
+        if context.joker_main then
+            if card.ability.extra.mult > 0 then
+                return {
+                    message = localize({ type = "variable", key = "a_mult", vars = {
+                        card.ability.extra.mult,
+                    }}),
+                    mult_mod = card.ability.extra.mult,
+                    colour = G.C.MULT
+                }
+            end
+        end
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
+})
+
+-- Cosmic Girl (common)
+SMODS.Joker({
+    key = "cosmic_girl",
+    loc_vars = function(self, info_queue, card)
+                return {
+                    vars = {
+                        card.ability.extra.mult_mod,
+                        localize('Flush', 'poker_hands'),
+                        card.ability.extra.mult
+                    }
+                }
+    end,
+    cost = 6,
+    rarity = 2,
     blueprint_compat = true,
     eternal_compat = true,
     unlocked = true,
@@ -593,43 +342,207 @@ SMODS.Joker({
     atlas = 'jokers',
     pos = {
         x = 1,
-        y = 0
+        y = 1
     },
-	config = {
-        extra = {
-            bonus_chips = 25
-        }
-    },
+	config = { extra = { mult = 0, mult_mod = 4 }},
 
     calculate = function(self, card, context)
-        
-        if context.joker_main and context.cardarea == G.jokers then
-            return {
-                chips = (G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.flow or 0) * card.ability.extra.bonus_chips,
-                sound = "rh_text_gba",
-                pitch = 1
-            }
-        end
-
-        if not context.blueprint then
-            -- Check if flow card has been used
-            if context.using_consumeable then
-                if context.consumeable.ability.set == "Flow" then
+        if context.cardarea == G.jokers and context.before then
+            if next(context.poker_hands['Flush']) and not context.blueprint then
+                if  context.scoring_hand[1].base.suit == "Hearts" or context.scoring_hand[1].base.suit == "Diamonds" and
+                    context.scoring_hand[2].base.suit == "Hearts"  or context.scoring_hand[2].base.suit == "Diamonds"  then
+                    card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
                     return {
-                        message = "+" .. card.ability.extra.bonus_chips,
-                        colour = G.C.BLUE,
+                        sound = rh_localize_sfx('rh_cosmic_girl_pose'),
+                        pitch = 1.0,
+                        message = localize('k_upgrade_ex'),
+                        colour = G.C.MULT
                     }
                 end
             end
         end
+        if context.joker_main then
+            if card.ability.extra.mult > 0 then
+                return {
+                    message = localize({ type = "variable", key = "a_mult", vars = {
+                        card.ability.extra.mult,
+                    }}),
+                    mult_mod = card.ability.extra.mult,
+                    colour = G.C.MULT
+                }
+            end
+        end
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
+})
 
+-- Widget (uncommon)
+SMODS.Joker({
+    key = "widget",
+    loc_vars = function(self, info_queue, card)
+                return {
+                    vars = {
+                        card.ability.extra.retriggers
+                    }
+                }
+    end,
+    cost = 5,
+    rarity = 1,
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'jokers',
+    pos = {
+        x = 0,
+        y = 0
+    },
+	config = {
+        extra = {
+            retriggers = 2
+        }
+    },
+
+    calculate = function(self, card, context)
+        if context.repetition and context.cardarea == G.play and context.other_card == context.scoring_hand[5] then
+            return {
+                message = localize('k_again_ex'),
+                repetitions = card.ability.extra.retriggers,
+                card = card,
+                sound = "rh_widget",
+                pitch = 1
+            }
+        end
+    end,
+    credit = {
+        art = "TheAltDoc",
+        code = "TheAltDoc",
+        concept = "patataofcourse"
+    }
+})
+
+-- Double Sided (common)
+SMODS.Joker({
+    key = "lockstep",
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.message,
+                card.ability.extra.chips,
+                card.ability.extra.mult
+            }
+        }
+    end,
+    cost = 4,
+    rarity = 1,
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'jokers',
+    pos = {
+        x = 2,
+        y = 0
+    },
+	config = { extra = { parity = 0, chips = 20, mult = 2, message = localize("rh_even") }},
+
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            if (context.other_card:get_id() <= 10 and
+            context.other_card:get_id() >= 0 and
+            context.other_card:get_id()%2 == card.ability.extra.parity)
+            then
+                return {
+                    chips = card.ability.extra.chips,
+                    mult = card.ability.extra.mult,
+                }
+            end
+            -- I can't be bothered to write it better right now...
+            if context.other_card:get_id() == 14 and card.ability.extra.parity == 1 then
+                return {
+                    chips = card.ability.extra.chips,
+                    mult = card.ability.extra.mult,
+                }
+            end
+        end
+        if context.end_of_round and context.cardarea == G.jokers then
+            local sound = ""
+            if card.ability.extra.parity == 1 then
+                card.ability.extra.parity = 0
+                card.ability.extra.message = localize("rh_even")
+                sound = "rh_lockstep_to_on"
+            else 
+                card.ability.extra.parity = 1
+                card.ability.extra.message = localize("rh_odd")
+                sound = "rh_lockstep_to_off"
+            end
+            return {
+                sound = sound,
+                pitch = 1,
+                message = localize('k_reset')
+            }
+        end
+    end,
+
+    set_ability = function(self, card, initial, delay_sprites)
+        card.ability.extra.message = localize("rh_even")
+    end,
+    credit = {
+        art = "patataofcourse",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
+})
+
+-- Monkey
+SMODS.Joker({
+    key = "monkey",
+
+    loc_vars = function(self, info_queue, card)
+                return {
+                    vars = {
+                    }
+                }
+    end,
+    cost = 8,
+    rarity = 3,
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'jokers',
+    pos = {
+        x = 3,
+        y = 0
+    },
+	config = {
+        extra = {
+        }
+    },
+
+    calculate = function(self, card, context)
+        if context.repetition and context.cardarea == G.play then
+            return {
+                message = localize('k_again_ex'),
+                repetitions = 1,
+                card = card,
+                sound = "rh_monkey"
+            }
+        end
     end,
     credit = {
         art = "missingnumber",
         code = "NoahAmp",
-        concept = "missingnumber"
+        concept = "TheAltDoc"
     }
 })
+
+--Putting the Endless Remixes in the middle of the pool
+SMODS.load_file("items/EndlessRemix.lua")()
 
 -- Goat
 SMODS.Joker({
@@ -697,45 +610,96 @@ SMODS.Joker({
     }
 })
 
--- Monkey
+-- Bear
 SMODS.Joker({
-    key = "monkey",
+    key = "lumbearjack",
 
     loc_vars = function(self, info_queue, card)
                 return {
                     vars = {
+                        card.ability.extra.new_cards,
                     }
                 }
     end,
     cost = 8,
-    rarity = 3,
+    rarity = 2,
     blueprint_compat = true,
     eternal_compat = true,
     unlocked = true,
     discovered = true,
     atlas = 'jokers',
     pos = {
-        x = 3,
+        x = 4,
         y = 0
     },
 	config = {
         extra = {
+            new_cards = 2,
         }
     },
 
     calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.play then
+        if context.before and context.cardarea == G.jokers and #G.play.cards == 1 and G.GAME.current_round.hands_played == 0 then
+            local suit_prefix = string.sub(context.scoring_hand[1].base.suit, 1, 1)..'_'
+            local rank_suffix = math.min(context.scoring_hand[1].base.id, 14)
+            local sound = "rh_bear_small"
+            if rank_suffix > 10 then
+                sound = "rh_bear_large"
+            elseif rank_suffix > 5 then
+                sound = "rh_bear_medium"
+            end
+            local base_rank = rank_suffix
+            rank_suffix = math.ceil(rank_suffix/2)
+            local halved_rank = rank_suffix
+            for i=1, card.ability.extra.new_cards do
+                local new_rank = halved_rank
+                if base_rank > halved_rank then
+                    base_rank = base_rank - halved_rank
+                else
+                    new_rank = base_rank
+                    base_rank = base_rank + halved_rank
+                end
+                if new_rank == 1 then rank_suffix = 'A'
+                elseif new_rank < 10 then rank_suffix = tostring(new_rank)
+                elseif new_rank == 10 then rank_suffix = 'T'
+                elseif new_rank == 11 then rank_suffix = 'J'
+                elseif new_rank == 12 then rank_suffix = 'Q'
+                elseif new_rank == 13 then rank_suffix = 'K'
+                end
+                sendDebugMessage("Creating a "..suit_prefix..rank_suffix, "rhLumbearjack")
+                local _card = copy_card(context.scoring_hand[1], nil, nil, G.playing_card)
+                _card:set_base(G.P_CARDS[suit_prefix..rank_suffix])
+                _card:add_to_deck()
+                G.deck.config.card_limit = G.deck.config.card_limit + 1
+                G.hand:emplace(_card)
+                _card.states.visible = nil
+                table.insert(G.playing_cards, _card)
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        _card:start_materialize()
+                        return true
+                    end
+                })) 
+            end
             return {
-                message = localize('k_again_ex'),
-                repetitions = 1,
-                card = card,
-                sound = "rh_monkey"
+                message = localize("rh_lumbearjack_axed"),
+                colour = G.C.CHIPS,
+                sound = sound,
+                pitch = 1,
+                playing_cards_created = {true}
             }
+        elseif context.scoring_hand and #G.play.cards == 1 and context.destroying_card == context.scoring_hand[1] and G.GAME.current_round.hands_played == 0 and not context.blueprint then
+            return {
+                remove = true
+            }
+        elseif context.setting_blind then
+            local eval = function(card) return G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES end
+            juice_card_until(card, eval, true)
         end
     end,
     credit = {
         art = "missingnumber",
-        code = "NoahAmp",
+        code = "TheAltDoc",
         concept = "TheAltDoc"
     }
 })
@@ -853,7 +817,7 @@ SMODS.Joker({
     }
 })
 
--- Songbird Egg
+-- Songbird
 SMODS.Joker({
     key = "songbird_bird",
 
@@ -902,91 +866,130 @@ SMODS.Joker({
     }
 })
 
--- Bear
+-- Munchy Monk
 SMODS.Joker({
-    key = "lumbearjack",
-
+    key = "munchy_monk",
     loc_vars = function(self, info_queue, card)
-                return {
-                    vars = {
-                        card.ability.extra.new_cards,
-                    }
-                }
+        return {
+            vars = {
+                card.ability.extra.add_chips,
+                card.ability.extra.add_mult,
+                card.ability.extra.add_x_mult,
+                (G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.flow or 0)*card.ability.extra.add_chips,
+                (G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.tarot or 0)*card.ability.extra.add_mult,
+                card.ability.extra.x_mult,
+            }
+        }
     end,
-    cost = 8,
-    rarity = 2,
+    cost = 20,
+    rarity = 4,
     blueprint_compat = true,
     eternal_compat = true,
     unlocked = true,
     discovered = true,
     atlas = 'jokers',
     pos = {
-        x = 4,
-        y = 0
+        x = 0,
+        y = 2
     },
-	config = {
-        extra = {
-            new_cards = 2,
-        }
+    soul_pos = {
+        x = 1,
+        y = 2
     },
-
+	config = { extra = {
+        add_chips = 50,
+        add_mult = 1,
+        add_x_mult = 0.1,
+        chips = 0,
+        mult = 0,
+        x_mult = 1.0,
+        monk_level = 0,
+        soul_level = 0
+    }},
     calculate = function(self, card, context)
-        if context.before and context.cardarea == G.jokers and #G.play.cards == 1 and G.GAME.current_round.hands_played == 0 then
-            local suit_prefix = string.sub(context.scoring_hand[1].base.suit, 1, 1)..'_'
-            local rank_suffix = math.min(context.scoring_hand[1].base.id, 14)
-            local sound = "rh_bear_small"
-            if rank_suffix > 10 then
-                sound = "rh_bear_large"
-            elseif rank_suffix > 5 then
-                sound = "rh_bear_medium"
-            end
-            local base_rank = rank_suffix
-            rank_suffix = math.ceil(rank_suffix/2)
-            local halved_rank = rank_suffix
-            for i=1, card.ability.extra.new_cards do
-                local new_rank = halved_rank
-                if base_rank > halved_rank then
-                    base_rank = base_rank - halved_rank
-                else
-                    new_rank = base_rank
-                    base_rank = base_rank + halved_rank
-                end
-                if new_rank == 1 then rank_suffix = 'A'
-                elseif new_rank < 10 then rank_suffix = tostring(new_rank)
-                elseif new_rank == 10 then rank_suffix = 'T'
-                elseif new_rank == 11 then rank_suffix = 'J'
-                elseif new_rank == 12 then rank_suffix = 'Q'
-                elseif new_rank == 13 then rank_suffix = 'K'
-                end
-                sendDebugMessage("Creating a "..suit_prefix..rank_suffix, "rhLumbearjack")
-                local _card = copy_card(context.scoring_hand[1], nil, nil, G.playing_card)
-                _card:set_base(G.P_CARDS[suit_prefix..rank_suffix])
-                _card:add_to_deck()
-                G.deck.config.card_limit = G.deck.config.card_limit + 1
-                G.hand:emplace(_card)
-                _card.states.visible = nil
-                table.insert(G.playing_cards, _card)
+        if
+			context.using_consumeable
+			and not context.consumeable.beginning_end
+		then
+			if context.consumeable.ability.set == "Planet" then
+                card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.add_x_mult
+                card.ability.extra.monk_level = card.ability.extra.monk_level +1
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        _card:start_materialize()
+                        if card.ability.extra.monk_level % 5 == 0 and card.ability.extra.monk_level < 21 then
+                            card.ability.extra.soul_level = card.ability.extra.soul_level + 1
+                            card.children.floating_sprite:set_sprite_pos({
+                                x = card.ability.extra.soul_level + 1,
+                                y = 2
+                            })
+                        end
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult}}})
                         return true
                     end
-                })) 
+                }))
             end
-            return {
-                message = localize("rh_lumbearjack_axed"),
-                colour = G.C.CHIPS,
-                sound = sound,
-                pitch = 1,
-                playing_cards_created = {true}
-            }
-        elseif context.scoring_hand and #G.play.cards == 1 and context.destroying_card == context.scoring_hand[1] and G.GAME.current_round.hands_played == 0 and not context.blueprint then
-            return {
-                remove = true
-            }
-        elseif context.setting_blind then
-            local eval = function(card) return G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES end
-            juice_card_until(card, eval, true)
+			if context.consumeable.ability.set == "Tarot" then
+                card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.add_mult
+                card.ability.extra.monk_level = card.ability.extra.monk_level +1
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        if card.ability.extra.monk_level % 5 == 0 and card.ability.extra.monk_level < 21 then
+                            card.ability.extra.soul_level = card.ability.extra.soul_level + 1
+                            card.children.floating_sprite:set_sprite_pos({
+                                x = card.ability.extra.soul_level + 1,
+                                y = 2
+                            })
+                        end
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex'), colour = G.C.MULT})
+                        return true
+                    end
+                }))
+            end
+			if context.consumeable.ability.set == "Flow" then
+                card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.add_chips
+                card.ability.extra.monk_level = card.ability.extra.monk_level +1
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        if card.ability.extra.monk_level % 5 == 0 and card.ability.extra.monk_level < 21 then
+                            card.ability.extra.soul_level = card.ability.extra.soul_level + 1
+                            card.children.floating_sprite:set_sprite_pos({
+                                x = card.ability.extra.soul_level + 1,
+                                y = 2
+                            })
+                        end
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex'), colour = G.C.CHIPS})
+                        return true
+                    end}))
+            end
+            sendDebugMessage("Monk level: "..card.ability.extra.monk_level, "rh_j_munchy_monk")
+            
+            return
+        end
+        if context.joker_main then
+            if
+            card.ability.extra.x_mult ~= 1.0 or 
+            card.ability.extra.mult ~= 0 or 
+            card.ability.extra.chips ~= 0
+            then 
+                local sound = rh_localize_sfx("rh_monk_one")
+                if card.ability.extra.monk_level > 2 then
+                    sound = rh_localize_sfx("rh_monk_three")
+                elseif card.ability.extra.monk_level > 0 then
+                    sound = rh_localize_sfx("rh_monk_two")
+                end
+                return {
+                    message = localize({ type = "variable", key = "a_mmoonk", vars = {
+                        card.ability.extra.chips,
+                        card.ability.extra.mult,
+                        card.ability.extra.x_mult 
+                    }}),
+                    Xmult_mod = card.ability.extra.x_mult,
+                    chip_mod = card.ability.extra.chips,
+                    mult_mod = card.ability.extra.mult,
+                    sound = sound,
+                    pitch = 1
+                }
+            end
         end
     end,
     credit = {
@@ -996,6 +999,7 @@ SMODS.Joker({
     }
 })
 
+-- Tibby
 SMODS.Joker({
     key = "tibby",
 

@@ -115,6 +115,16 @@ return {
                     "et placez-les dans la {C:attention}main",
                 }
             },
+            j_rh_tibby = {
+                name = 'Tibby',
+                text = {
+                    "Si la {C:attention}première main{} de la manche",
+                    "ne contient qu'{C:attention}une{} carte,",
+                    "{C:enhanced}améliore-là{}, ajoute un ",
+                    "{C:attention}Sceau{}, ou une {C:dark_edition}Edition{},",
+                    "en fonction de ce qu'elle a",
+                }
+            },
         },
         Flow = {
             c_rh_you = {
@@ -504,7 +514,8 @@ return {
             rh_remix_sticker_joker_link = "de la même",
             rh_remix_sticker_joker_rarity = "rareté",
             rh_lumbearjack_axed = "Haché!",
-            k_rh_endless = "Remix Infini"
+            k_rh_endless = "Remix Infini",
+            k_rh_tibby = "Allez les potos!"
         },
         v_dictionary = {
             a_mmoonk = {"+#1# Jetons,+#2# Mult,X#3# Mult"},

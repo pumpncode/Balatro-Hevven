@@ -109,6 +109,16 @@ return {
                     "and draw it to {C:attention}hand",
                 }
             },
+            j_rh_tibby = {
+                name = 'Tibby',
+                text = {
+                    "If {C:attention}first hand{} of round",
+                    "has only {C:attention}1{} card,",
+                    "give it an {C:enhanced}enhancement{},",
+                    "{C:attention}seal{}, or {C:dark_edition}edition{},",
+                    "depending on what it has",
+                }
+            },
         },
         Flow = {
             c_rh_you = {
@@ -497,7 +507,8 @@ return {
             rh_remix_sticker_joker_link = "of the same",
             rh_remix_sticker_joker_rarity = "rarity",
             rh_lumbearjack_axed = "Axed!",
-            k_rh_endless = "Endless Remix"
+            k_rh_endless = "Endless Remix",
+            k_rh_tibby = "Let's we go!"
         },
         v_dictionary = {
             a_mmoonk = {"+#1# Chips,+#2# Mult,X#3# Mult"},

@@ -163,3 +163,25 @@ function rh_create_card_silent(t)
 
     return _card
 end
+
+function rh_simplify_cards(cards)
+    local simplecards = {}
+    for i=1, #cards do
+        simplecards[i] = cards[i].base.name 
+    end
+    return simplecards
+end
+
+function rh_is_equal_simple(cards, other_cards)
+    if #cards ~= #other_cards then return false end
+    for i=1, #cards do
+        if cards[i] ~= other_cards[i] then
+            return false
+        end
+    end
+    return true
+end
+
+function create_badge_megamix()
+    return create_badge(localize('k_rh_megamix_badge'), HEX('ffde25'), HEX('000000'), 1.2 )
+end

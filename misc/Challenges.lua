@@ -94,13 +94,10 @@ SMODS.Challenge{
 
 SMODS.Challenge{
     key = "remix_medley",
-    loc_txt = {
-        name = "Remix Medley",
-    },
     jokers = {
         { id = "j_rh_endless_common", eternal = true},
-        { id = "j_rh_endless_common", eternal = true},
-        { id = "j_rh_endless_uncommon", eternal = true}
+        { id = "j_rh_endless_uncommon", eternal = true},
+        { id = "j_rh_endless_rare", eternal = true}
     },
 	restrictions = {
 		banned_cards = {
@@ -109,4 +106,29 @@ SMODS.Challenge{
     -- deck = {
     --     type = 'Challenge Deck',
     -- }
+}
+
+SMODS.Challenge{
+    key = "remix_10",
+    rules = {
+        custom = {
+            {id = 'no_skip'},
+            {id = 'all_boss'},
+        },
+        modifiers = {
+        }
+    },
+	restrictions = {
+        banned_cards = {
+			{ id = "c_rh_pity_skip" },
+        },
+		banned_other = {
+            {id = "bl_small",type = "blind"},
+            {id = "bl_big",type = "blind"},
+		},
+    },
+    jokers = {
+        { id = "j_rh_endless_rare"},
+        { id = "j_rh_endless_rare"}
+    },
 }

@@ -517,10 +517,18 @@ return {
             ch_c_all_rental={
                 "All Jokers are {C:eternal}Rental{}",
             },
+            ch_c_no_skip={
+                "You are unable to {C:attention}skip",
+            },
+            ch_c_all_boss={
+                "All Blinds are {C:attention}Boss Blinds{}",
+            },
         },
 		challenge_names = {
 			c_rh_second_contact = "Second Contact",
 			c_rh_saffron_trial = "Saffron's Trial",
+			c_rh_remix_medley = "Remix Medley", -- References the Megamix Challenge Train of the same name
+			c_rh_remix_10 = "Remix 10",
 		},
         labels = {
             rh_you_sticker = 'YOU',

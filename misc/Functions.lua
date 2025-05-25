@@ -208,6 +208,9 @@ function rh_gift_flow()
                 last_point = v
             end
         end
+        if reward == "random" then
+            reward = nil
+        end
         local card_t = {
             set = "Flow",
             area = G.consumeables,
@@ -216,6 +219,15 @@ function rh_gift_flow()
         }
         local card = SMODS.create_card(card_t)
         G.consumeables:emplace(card)
+    else
+					card_eval_status_text(
+						G.consumeables,
+						"extra",
+						nil,
+						nil,
+						nil,
+						{ message = localize("k_no_space_ex"), colour = G.C.SECONDARY_SET.Flow }
+					)
     end
 end
 

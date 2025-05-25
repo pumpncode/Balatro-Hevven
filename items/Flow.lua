@@ -868,9 +868,12 @@ SMODS.Consumable({
     },
     hidden = true,    
     use = function(self, card, area, copier)
-        if G.STATE ~= G.STATES.SELECTING_HAND then
+        if (G.STATE == G.STATES.SPECTRAL_PACK or 
+        G.STATE == G.STATES.TAROT_PACK or
+        G.STATE == G.STATES.PLANET_PACK or
+        G.STATE == G.STATES.SMODS_BOOSTER_OPENED) then
             local card_t = {
-                set = "Flow",
+                set = "Spectral",
                 area = G.consumeables,
                 key = "c_rh_remix"
             }

@@ -46,7 +46,9 @@ return {
                 name = "Singe",
                 text = {
                     "Déclenche à nouveau",
-                    "{C:attention}toutes{} les cartes"
+                    "{C:attention}toutes{} les cartes",
+                    "pour marquer des points",
+                    "{C:attention}#1#{} fois supplémentaires",
                 }
             },
             j_rh_lockstep = {
@@ -407,6 +409,37 @@ return {
                     'la {C:attention}Couleur{} et l\'{C:attention}Amélioration',
                     'de la carte',
                     'à sa gauche' 
+                }
+            }
+        },
+		Back = {
+            b_rh_flow = {
+                name = "Jeu de rythme",
+                text = {
+                    "{C:attention}#1#{} emplacement de consommable",
+                    "Après avoir battu une {C:attention}Blinde{},",
+                    "obtenez une carte {C:rh_flow}Rythme{}",
+                    "{s:0.8}La carte {s:0.8,C:rh_flow}Rythme{s:0.8} reçu dépends",
+                    "{s:0.8}de votre {s:0.8,C:attention}réussite",
+                },
+            }
+        },
+        Sleeve = {
+            sleeve_rh_flow = { 
+                name = "Pochette de rythme",
+                text = {
+                    "{C:attention}#1#{} emplacement de consommable",
+                    "Après avoir battu une {C:attention}Blinde{},",
+                    "obtenez une carte {C:rh_flow}Rythme{}",
+                    "{s:0.8}La carte {s:0.8,C:rh_flow}Rythme{s:0.8} reçu dépends",
+                    "{s:0.8}de votre {s:0.8,C:attention}réussite",
+                },
+            },
+            sleeve_rh_flow_alt = { 
+                name = "Pochette de rhythme",
+                text = { 
+                    "Retournez à {C:attention}#1#{} emplacements de consommable",
+                    "La carte {C:rh_flow}rythme{} générée est {C:dark_edition}Négative",
                 }
             }
         },

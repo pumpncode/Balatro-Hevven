@@ -42,7 +42,8 @@ return {
             j_rh_monkey = {
                 name = "Monkey",
                 text = {
-                    "Retrigger {C:attention}each{} played card"
+                    "Retrigger {C:attention}each{} played card",
+                    "{C:attention}#1#{} additional times"
                 }
             },
             j_rh_lockstep = {
@@ -402,6 +403,37 @@ return {
                     '{C:attention}suit{} and {C:attention}enhancement',
                     'of the card',
                     'on the left' 
+                }
+            }
+        },
+		Back = {
+            b_rh_flow = {
+                name ="Flow Deck",
+                text={
+                    "{C:attention}#1#{} consumable slot",
+                    "After defeating each {C:attention}Blind,",
+                    "gain a {C:rh_flow}Flow{} card",
+                    "{s:0.8}The {s:0.8,C:rh_flow}Flow{s:0.8} card received depends",
+                    "{s:0.8}on {s:0.8,C:attention}how well{s:0.8} you did",
+                },
+            }
+        },
+        Sleeve = {
+            sleeve_rh_flow = { 
+                name = "Flow Sleeve",
+                text = {
+                    "{C:attention}#1#{} consumable slots",
+                    "After defeating each {C:attention}Blind{},",
+                    "gain a {C:rh_flow}Flow{} card",
+                    "{s:0.8}The {s:0.8,C:rh_flow}Flow{s:0.8} card received depends",
+                    "{s:0.8}on {s:0.8,C:attention}how well{s:0.8} you did",
+                },
+            },
+            sleeve_rh_flow_alt = { 
+                name = "Flow Sleeve",
+                text = { 
+                    "Go back to {C:attention}#1#{} consumable slots",
+                    "The {C:rh_flow}Flow{} card generated is {C:dark_edition}Negative",
                 }
             }
         },

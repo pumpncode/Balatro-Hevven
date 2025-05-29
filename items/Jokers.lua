@@ -505,6 +505,7 @@ SMODS.Joker({
     loc_vars = function(self, info_queue, card)
                 return {
                     vars = {
+                        card.ability.extra.repetitions
                     }
                 }
     end,
@@ -521,6 +522,7 @@ SMODS.Joker({
     },
 	config = {
         extra = {
+            repetitions = 1
         }
     },
 
@@ -528,7 +530,7 @@ SMODS.Joker({
         if context.repetition and context.cardarea == G.play then
             return {
                 message = localize('k_again_ex'),
-                repetitions = 1,
+                repetitions = card.ability.extra.repetitions,
                 card = card,
                 sound = "rh_monkey"
             }

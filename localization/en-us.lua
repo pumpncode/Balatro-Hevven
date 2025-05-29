@@ -42,7 +42,8 @@ return {
             j_rh_monkey = {
                 name = "Monkey",
                 text = {
-                    "Retrigger {C:attention}each{} played card"
+                    "Retrigger {C:attention}each{} played card",
+                    "{C:attention}#1#{} additional times"
                 }
             },
             j_rh_lockstep = {
@@ -405,6 +406,37 @@ return {
                 }
             }
         },
+		Back = {
+            b_rh_flow = {
+                name ="Flow Deck",
+                text={
+                    "{C:attention}#1#{} consumable slot",
+                    "After defeating each {C:attention}Blind,",
+                    "gain a {C:rh_flow}Flow{} card",
+                    "{s:0.8}The {s:0.8,C:rh_flow}Flow{s:0.8} card received depends",
+                    "{s:0.8}on {s:0.8,C:attention}how well{s:0.8} you did",
+                },
+            }
+        },
+        Sleeve = {
+            sleeve_rh_flow = { 
+                name = "Flow Sleeve",
+                text = {
+                    "{C:attention}#1#{} consumable slots",
+                    "After defeating each {C:attention}Blind{},",
+                    "gain a {C:rh_flow}Flow{} card",
+                    "{s:0.8}The {s:0.8,C:rh_flow}Flow{s:0.8} card received depends",
+                    "{s:0.8}on {s:0.8,C:attention}how well{s:0.8} you did",
+                },
+            },
+            sleeve_rh_flow_alt = { 
+                name = "Flow Sleeve",
+                text = { 
+                    "Go back to {C:attention}#1#{} consumable slots",
+                    "The {C:rh_flow}Flow{} card generated is {C:dark_edition}Negative",
+                }
+            }
+        },
         Other = {
             rh_you_sticker = {
                 name = 'You',
@@ -517,10 +549,18 @@ return {
             ch_c_all_rental={
                 "All Jokers are {C:eternal}Rental{}",
             },
+            ch_c_no_skip={
+                "You are unable to {C:attention}skip",
+            },
+            ch_c_all_boss={
+                "All Blinds are {C:attention}Boss Blinds{}",
+            },
         },
 		challenge_names = {
 			c_rh_second_contact = "Second Contact",
 			c_rh_saffron_trial = "Saffron's Trial",
+			c_rh_remix_medley = "Remix Medley", -- References the Megamix Challenge Train of the same name
+			c_rh_remix_10 = "Remix 10",
 		},
         labels = {
             rh_you_sticker = 'YOU',

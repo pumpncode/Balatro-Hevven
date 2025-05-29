@@ -3,7 +3,7 @@ SMODS.Booster({
     kind = "Flow",
     atlas = "boosters",
     pos = {
-        x = 1,
+        x = 0,
         y = 0
     },
     config = { extra = 2, choose = 1 },
@@ -68,6 +68,7 @@ SMODS.Booster({
         x = 2,
         y = 0
     },
+	cost=6,
     config = { extra = 4, choose = 1 },
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.config.center.config.choose, card.ability.extra } }
@@ -99,6 +100,7 @@ SMODS.Booster({
         x = 3,
         y = 0
     },
+	cost=8,
     config = { extra = 4, choose = 2 },
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.config.center.config.choose, card.ability.extra } }
@@ -120,6 +122,19 @@ SMODS.Booster({
         code = "TheAltDoc",
 		concept = "TheAltDoc"
     }
+})
+
+-- I think that's the best place to put it?
+SMODS.Sound({
+    key = "music_practice",
+    path = "music_practice.ogg",
+    select_music_track = function()
+        local booster = G.pack_cards and G.pack_cards.cards and SMODS.OPENED_BOOSTER
+
+        if booster and booster.config.center_key:find('p_rh_flow') then
+            return true
+        end
+	end,
 })
 
 SMODS.Booster({

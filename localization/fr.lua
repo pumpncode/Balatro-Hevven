@@ -46,7 +46,9 @@ return {
                 name = "Singe",
                 text = {
                     "Déclenche à nouveau",
-                    "{C:attention}toutes{} les cartes"
+                    "{C:attention}toutes{} les cartes",
+                    "pour marquer des points",
+                    "{C:attention}#1#{} fois supplémentaires",
                 }
             },
             j_rh_lockstep = {
@@ -410,6 +412,37 @@ return {
                 }
             }
         },
+		Back = {
+            b_rh_flow = {
+                name = "Jeu de rythme",
+                text = {
+                    "{C:attention}#1#{} emplacement de consommable",
+                    "Après avoir battu une {C:attention}Blinde{},",
+                    "obtenez une carte {C:rh_flow}Rythme{}",
+                    "{s:0.8}La carte {s:0.8,C:rh_flow}Rythme{s:0.8} reçu dépends",
+                    "{s:0.8}de votre {s:0.8,C:attention}réussite",
+                },
+            }
+        },
+        Sleeve = {
+            sleeve_rh_flow = { 
+                name = "Pochette de rythme",
+                text = {
+                    "{C:attention}#1#{} emplacement de consommable",
+                    "Après avoir battu une {C:attention}Blinde{},",
+                    "obtenez une carte {C:rh_flow}Rythme{}",
+                    "{s:0.8}La carte {s:0.8,C:rh_flow}Rythme{s:0.8} reçu dépends",
+                    "{s:0.8}de votre {s:0.8,C:attention}réussite",
+                },
+            },
+            sleeve_rh_flow_alt = { 
+                name = "Pochette de rhythme",
+                text = { 
+                    "Retournez à {C:attention}#1#{} emplacements de consommable",
+                    "La carte {C:rh_flow}rythme{} générée est {C:dark_edition}Négative",
+                }
+            }
+        },
         Other = {
             rh_you_sticker = {
                 name = 'Vous',
@@ -522,15 +555,24 @@ return {
         },
         v_text={
             ch_c_all_rental={
-                "Tout les Jokers sont {C:eternal}Location{}",
+                "Tout les Jokers sont {C:eternal}Location",
+            },
+            ch_c_no_skip={
+                "Vous ne pouvez pas {C:attention}passer la Blinde",
+            },
+            ch_c_all_boss={
+                "Toutes les blindes sont des {C:attention}Blindes Boss{}",
             },
         },
 		challenge_names = {
 			c_rh_second_contact = "Interprète terrien-martien",
 			c_rh_saffron_trial = "L'épreuve d'Adagio",
+			c_rh_remix_medley = "Remix des remix",
+			c_rh_remix_10 = "Remix 10",
 		},
         labels = {
-            rh_you_sticker = 'VOUS'
+            rh_you_sticker = 'VOUS',
+            rh_remix_sticker = "Remix"
         }
     }
 }

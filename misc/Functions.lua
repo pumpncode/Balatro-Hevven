@@ -182,6 +182,43 @@ function rh_is_equal_simple(cards, other_cards)
     return true
 end
 
+function rh_gift_flow()
+    local is_combo = (G.GAME.selected_back.name == "b_rh_flow" and CardSleeves and G.GAME.selected_sleeve and G.GAME.selected_sleeve == "sleeve_rh_flow")
+    if G.consumeables.config.card_limit > #G.consumeables.cards or is_combo then
+        local back_config = G.GAME.rh_reward_system
+        local hands = G.GAME.current_round.hands_left * back_config.points.hands
+        local discards = G.GAME.current_round.discards_left * back_config.points.discards
+        local blind_multiplier = 1
+        if G.GAME.blind:get_type() == 'Big' then
+            blind_multiplier = blind_multiplier+back_config.points.blind
+        elseif G.GAME.blind:get_type() == 'Boss' and G.GAME.blind.config.blind.boss.showdown then
+            blind_multiplier = back_config.points.showdown
+        elseif G.GAME.blind:get_type() == 'Boss' then
+            blind_multiplier = blind_multiplier+back_config.points.blind * 2
+        end
+        sendDebugMessage(blind_multiplier)
+        local score_multiplier = G.GAME.chips / G.GAME.blind.chips * back_config.points.score
+        local points = (hands+discards)*score_multiplier*blind_multiplier
+        local reward = ""
+        local last_point = 0
+        sendDebugMessage("Final point tally:"..points, "rhFlowDeck")
+        for k, v in pairs(back_config.rewards) do
+            if points >= v and last_point <= v then
+                reward = k
+                last_point = v
+            end
+        end
+        local card_t = {
+            set = "Flow",
+            area = G.consumeables,
+            key = reward,
+            edition = {negative = is_combo }
+        }
+        local card = SMODS.create_card(card_t)
+        G.consumeables:emplace(card)
+    end
+end
+
 function create_badge_megamix()
     return create_badge(localize('k_rh_megamix_badge'), HEX('ffde25'), HEX('000000'), 1.2 )
 end

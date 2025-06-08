@@ -1070,3 +1070,63 @@ SMODS.Joker({
         concept = "TheAltDoc"
     }
 })
+
+SMODS.Joker({
+    key = "sick_beats",
+
+    loc_vars = function(self, info_queue, card)
+                return {
+                    vars = {
+                        card.ability.extra.to_keep,
+                    }
+                }
+    end,
+    cost = 1,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'jokers',
+    pos = {
+        x = 5,
+        y = 0
+    },
+	config = {
+        extra = {
+            to_keep = 2
+        }
+    },
+
+    calculate = function(self, card, context)
+        if context.before then
+            if not G.GAME.current_round.viruses_keep then
+                G.GAME.current_round.viruses_keep = 0
+            end
+            G.GAME.current_round.viruses_keep = G.GAME.current_round.viruses_keep + card.ability.extra.to_keep
+        end
+        if context.after then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.2,
+                func = function()
+                    if G.GAME.chips - G.GAME.blind.chips < 0 and G.GAME.current_round.viruses_keep > 0 then
+                        rh_conditional_return_to_hand(false)
+                        local pitch = pseudorandom(pseudoseed('virus'), 5, 10)/10
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize("k_rh_virus_miss"), sound="rh_virus", pitch = pitch})
+                    else
+                        rh_conditional_return_to_hand(true)
+                    end
+                    G.GAME.current_round.viruses_keep = 0
+                    return true
+                end
+            }))
+        end
+    end,
+
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "patataofcourse"
+    }
+})

@@ -127,6 +127,14 @@ return {
                     "en fonction de ce qu'elle a",
                 }
             },
+            j_rh_sick_beats = {
+                name = 'Virus',
+                text = {
+                    "Si la main jouée ne gagne pas,",
+                    "retourne {C:attention}#1# cartes aléatoires{}",
+                    "à la main"
+                }
+            },
         },
         Flow = {
             c_rh_you = {
@@ -548,7 +556,8 @@ return {
             rh_remix_sticker_joker_rarity = "rareté",
             rh_lumbearjack_axed = "Haché!",
             k_rh_endless = "Remix Infini",
-            k_rh_tibby = "Allez les potos!"
+            k_rh_tibby = "Allez les potos!",
+            k_rh_virus_miss = "Raté!"
         },
         v_dictionary = {
             a_mmoonk = {"+#1# Jetons,+#2# Mult,X#3# Mult"},

@@ -215,3 +215,42 @@ function rh_debuff_call_response(card, from_blind)
         end
     end
 end
+
+function rh_draw_from_play_to_hand()
+    sendDebugMessage("Figuring out if we need to move cards to hand", "rhDrawPlayToHand")
+    local cards_to_keep = {}
+    local default_cards_key = {}
+    for k, _ in ipairs(G.play.cards) do
+        default_cards_key[#default_cards_key+1] = k
+    end
+    sendDebugMessage("Got "..(G.GAME.current_round.viruses_keep or 0).." from Viruses", "rhDrawPlayToHand")
+    for i=1, (G.GAME.current_round.viruses_keep or 0) do
+        if #default_cards_key ~= 0 then
+            local key = pseudorandom_element(default_cards_key, pseudoseed('virus'))
+            cards_to_keep[#cards_to_keep+1] = G.play.cards[key]
+            for kd,vd in ipairs(default_cards_key) do
+                if vd == key then
+                    table.remove(default_cards_key,kd)
+                    break
+                end
+            end
+        end
+    end
+    for k, v in ipairs(G.play.cards) do
+        if v.ability["rh_you_sticker"] then
+            draw_card(G.play,G.hand, it*100/play_count,'down', false, v)
+            -- We check if the card didn't already get selected to be kept
+            local exists = false
+            for kk, vk in ipairs(cards_to_keep) do
+                if v == vk then
+                    sendDebugMessage("Removing cards from to_keep")
+                    table.remove(cards_to_keep, kk)
+                    break
+                end
+            end
+        end
+    end
+    G.GAME.current_round.rh_cards_to_keep = cards_to_keep
+    --We still return the cards so they don't get also discarded by accident
+    return cards_to_keep
+end

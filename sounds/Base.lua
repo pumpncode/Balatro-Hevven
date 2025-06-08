@@ -98,3 +98,8 @@ SMODS.Sound({
     key="virus",
     path="virus.ogg"
 })
+
+SMODS.Sound({
+    key="flockstep_jump",
+    path="flockstep_jump.ogg"
+})

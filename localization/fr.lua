@@ -135,6 +135,16 @@ return {
                     "à la main"
                 }
             },
+            j_rh_flockstep = {
+                name = 'Echassiers colorés',
+                text = {
+                    "{C:rh_flow} +#1# carte Rythme{} si la",
+                    "main de poker contient une carte",
+                    "{C:diamonds}Carreau{}, une carte {C:clubs}Trèfle{},",
+                    "une carte {C:hearts}Cœur{} et une carte {C:spades}Pique{}",
+                    "{C:inactive}(Selon la place disponible)",
+                }
+            },
         },
         Flow = {
             c_rh_you = {
@@ -561,6 +571,7 @@ return {
         },
         v_dictionary = {
             a_mmoonk = {"+#1# Jetons,+#2# Mult,X#3# Mult"},
+            k_rh_plus_flow = {"+#1# Rythme"}
         },
         v_text={
             ch_c_all_rental={

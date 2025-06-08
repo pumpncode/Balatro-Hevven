@@ -1130,3 +1130,95 @@ SMODS.Joker({
         concept = "patataofcourse"
     }
 })
+
+SMODS.Joker({
+    key = "flockstep",
+
+    loc_vars = function(self, info_queue, card)
+                return {
+                    vars = {
+                        card.ability.extra.create_flow
+                    }
+                }
+    end,
+    cost = 1,
+    rarity = 1,
+    blueprint_compat = false,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'jokers',
+    pos = {
+        x = 5,
+        y = 1
+    },
+	config = {
+        extra = {
+            create_flow = 1
+        }
+    },
+
+    calculate = function(self, card, context)
+        if context.joker_main and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + card.ability.extra.create_flow
+            local suits = {
+                ['Hearts'] = 0,
+                ['Diamonds'] = 0,
+                ['Spades'] = 0,
+                ['Clubs'] = 0
+            }
+            for i = 1, #context.scoring_hand do
+                if context.scoring_hand[i].ability.name ~= 'Wild Card' then
+                    if context.scoring_hand[i]:is_suit('Hearts', true) and suits["Hearts"] == 0 then suits["Hearts"] = suits["Hearts"] + 1
+                    elseif context.scoring_hand[i]:is_suit('Diamonds', true) and suits["Diamonds"] == 0  then suits["Diamonds"] = suits["Diamonds"] + 1
+                    elseif context.scoring_hand[i]:is_suit('Spades', true) and suits["Spades"] == 0  then suits["Spades"] = suits["Spades"] + 1
+                    elseif context.scoring_hand[i]:is_suit('Clubs', true) and suits["Clubs"] == 0  then suits["Clubs"] = suits["Clubs"] + 1 end
+                end
+            end
+            for i = 1, #context.scoring_hand do
+                if context.scoring_hand[i].ability.name == 'Wild Card' then
+                    if context.scoring_hand[i]:is_suit('Hearts') and suits["Hearts"] == 0 then suits["Hearts"] = suits["Hearts"] + 1
+                    elseif context.scoring_hand[i]:is_suit('Diamonds') and suits["Diamonds"] == 0  then suits["Diamonds"] = suits["Diamonds"] + 1
+                    elseif context.scoring_hand[i]:is_suit('Spades') and suits["Spades"] == 0  then suits["Spades"] = suits["Spades"] + 1
+                    elseif context.scoring_hand[i]:is_suit('Clubs') and suits["Clubs"] == 0  then suits["Clubs"] = suits["Clubs"] + 1 end
+                end
+            end
+            if suits["Hearts"] > 0 and
+            suits["Diamonds"] > 0 and
+            suits["Spades"] > 0 and
+            suits["Clubs"] > 0 then      
+                local created = G.consumeables.config.card_limit - #G.consumeables.cards
+                if created > card.ability.extra.create_flow then
+                    created = card.ability.extra.create_flow
+                end
+                return {
+                    extra = {focus = card, message = localize{type='variable',key='k_rh_plus_flow',vars={created}}, func = function()
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'before',
+                            delay = 0.0,
+                            func = (function()
+                                    for i=1, card.ability.extra.create_flow do
+                                        if #G.consumeables.cards < G.consumeables.config.card_limit then
+                                            local flow = create_card('Flow',G.consumeables, nil, nil, nil, nil, nil, 'flockstep')
+                                            flow:add_to_deck()
+                                            G.consumeables:emplace(flow)
+                                        end
+                                    end
+                                    G.GAME.consumeable_buffer = 0
+                                    play_sound("rh_flockstep_jump")
+                                return true
+                            end)}))
+                    end},
+                    colour = G.C.SECONDARY_SET.Flow,
+                    card = card,
+                }
+            end
+        end
+    end,
+
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "NoahAmp"
+    }
+})

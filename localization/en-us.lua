@@ -128,6 +128,16 @@ return {
                     "to your hand"
                 }
             },
+            j_rh_flockstep = {
+                name = 'Huebirds',
+                text = {
+                    "{C:rh_flow} +#1# Flow card{} if poker",
+                    "hand contains a",
+                    "{C:diamonds}Diamond{} card, {C:clubs}Club{} card,",
+                    "{C:hearts}Heart{} card, and {C:spades}Spade{} card",
+                    "{C:inactive}(Must have room)",
+                }
+            },
         },
         Flow = {
             c_rh_you = {
@@ -553,6 +563,7 @@ return {
         },
         v_dictionary = {
             a_mmoonk = {"+#1# Chips,+#2# Mult,X#3# Mult"},
+            k_rh_plus_flow = {"+#1# Flow"}
         },
         v_text={
             ch_c_all_rental={

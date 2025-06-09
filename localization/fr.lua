@@ -145,6 +145,14 @@ return {
                     "{C:inactive}(Selon la place disponible)",
                 }
             },
+            j_rh_two_players = {
+                name = 'Deux Joueurs',
+                text = {
+                    "Si toutes les cartes jouées",
+                    "ont une {C:attention}paire{},",
+					"balance les {C:chips}Jetons{} et le {C:mult}Multi{}",
+                }
+            },
         },
         Flow = {
             c_rh_you = {
@@ -583,12 +591,16 @@ return {
             ch_c_all_boss={
                 "Toutes les blindes sont des {C:attention}Blindes Boss{}",
             },
+            ch_c_all_water={
+                "Toutes les Blindes Boss deviennent {C:dark_negative}L'eau{}",
+            },
         },
 		challenge_names = {
 			c_rh_second_contact = "Interprète terrien-martien",
 			c_rh_saffron_trial = "L'épreuve d'Adagio",
 			c_rh_remix_medley = "Remix des remix",
 			c_rh_remix_10 = "Remix 10",
+			c_rh_perfect_campaign = "Visez le parfait !",
 		},
         labels = {
             rh_you_sticker = 'VOUS',

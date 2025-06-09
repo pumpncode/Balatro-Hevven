@@ -132,3 +132,21 @@ SMODS.Challenge{
         { id = "j_rh_endless_rare"}
     },
 }
+
+SMODS.Challenge{
+    key = "perfect_campaign",
+    rules = {
+        custom = {
+            {id = 'all_water'},
+        },
+        modifiers = {
+        }
+    },
+	restrictions = {
+        banned_cards = {
+			{ id = "c_rh_extra_life" },
+        },
+    },
+    jokers = {
+    },
+}

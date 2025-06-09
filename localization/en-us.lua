@@ -138,6 +138,14 @@ return {
                     "{C:inactive}(Must have room)",
                 }
             },
+            j_rh_two_players = {
+                name = 'Two Player',
+                text = {
+                    "If every card played",
+                    "is {C:attention}paired{},",
+                    "balances {C:chips}Chips{} and {C:mult}Mult{}"
+                }
+            },
         },
         Flow = {
             c_rh_you = {
@@ -575,12 +583,16 @@ return {
             ch_c_all_boss={
                 "All Blinds are {C:attention}Boss Blinds{}",
             },
+            ch_c_all_water={
+                "All Boss Blinds are {C:dark_edition}The Water{}",
+            },
         },
 		challenge_names = {
 			c_rh_second_contact = "Second Contact",
 			c_rh_saffron_trial = "Saffron's Trial",
 			c_rh_remix_medley = "Remix Medley", -- References the Megamix Challenge Train of the same name
 			c_rh_remix_10 = "Remix 10",
+			c_rh_perfect_campaign = "Go for a Perfect!",
 		},
         labels = {
             rh_you_sticker = 'YOU',

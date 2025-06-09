@@ -217,13 +217,11 @@ function rh_debuff_call_response(card, from_blind)
 end
 
 function rh_draw_from_play_to_hand()
-    sendDebugMessage("Figuring out if we need to move cards to hand", "rhDrawPlayToHand")
     local cards_to_keep = {}
     local default_cards_key = {}
     for k, _ in ipairs(G.play.cards) do
         default_cards_key[#default_cards_key+1] = k
     end
-    sendDebugMessage("Got "..(G.GAME.current_round.viruses_keep or 0).." from Viruses", "rhDrawPlayToHand")
     for i=1, (G.GAME.current_round.viruses_keep or 0) do
         if #default_cards_key ~= 0 then
             local key = pseudorandom_element(default_cards_key, pseudoseed('virus'))

@@ -1222,3 +1222,76 @@ SMODS.Joker({
         concept = "NoahAmp"
     }
 })
+
+
+SMODS.Joker({
+    key = "two_players",
+
+    loc_vars = function(self, info_queue, card)
+                return {
+                    vars = {
+                    }
+                }
+    end,
+    cost = 6,
+    rarity = 3,
+    blueprint_compat = false,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'jokers',
+    pos = {
+        x = 0,
+        y = 5
+    },
+	config = {
+        extra = {
+        }
+    },
+
+	calculate = function(self, card, context)
+		if (context.joker_main and not context.debuffed_hand) or context.forcetrigger then
+            local played_cards_key = {}
+            local paired_cards_key = {}
+            local paired = false
+            for k, _ in ipairs(context.scoring_hand) do
+                played_cards_key[#played_cards_key+1] = k
+            end
+            for k, v in ipairs(played_cards_key) do
+                for jk, jv in ipairs(played_cards_key) do
+                    if context.scoring_hand[v]:get_id() == context.scoring_hand[jv]:get_id() and v ~= jv then
+                        local is_paired = false
+                        for pk, pv in ipairs(paired_cards_key) do
+                            if pv == v or pv == jv then 
+                                is_paired = true
+                            end
+                        end
+                        if not is_paired then
+                            for pk, pv in ipairs(played_cards_key) do
+                                if pv == v or pv == jv then 
+                                    paired_cards_key[#paired_cards_key+1] = pk
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+            if #paired_cards_key == #context.scoring_hand then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        play_sound("rh_2player_balance")
+                        return true
+                    end}))
+                return {
+                    balance = true,
+                }
+            end
+		end
+	end,
+
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "patataofcourse"
+    }
+})

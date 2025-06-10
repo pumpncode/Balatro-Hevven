@@ -92,6 +92,9 @@ SMODS.Joker({
         end
 
     end,
+
+    set_badges = create_badge_tengoku,
+
     credit = {
         art = "missingnumber",
         code = "NoahAmp",
@@ -163,6 +166,9 @@ SMODS.Joker({
             }
         end
     end,
+
+    set_badges = create_badge_tengoku,
+
     credit = {
         art = "Nate Candles",
         code = "NoahAmp",
@@ -255,10 +261,76 @@ SMODS.Joker({
         end
         
     end,
+
+    set_badges = create_badge_tengoku,
+
     credit = {
         art = "missingnumber",
         code = "NoahAmp",
         concept = "Casseddiez"
+    }
+})
+
+-- Virus
+SMODS.Joker({
+    key = "sick_beats",
+
+    loc_vars = function(self, info_queue, card)
+                return {
+                    vars = {
+                        card.ability.extra.to_keep,
+                    }
+                }
+    end,
+    cost = 1,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'jokers',
+    pos = {
+        x = 5,
+        y = 0
+    },
+	config = {
+        extra = {
+            to_keep = 2
+        }
+    },
+
+    calculate = function(self, card, context)
+        if context.before then
+            if not G.GAME.current_round.viruses_keep then
+                G.GAME.current_round.viruses_keep = 0
+            end
+            G.GAME.current_round.viruses_keep = G.GAME.current_round.viruses_keep + card.ability.extra.to_keep
+        end
+        if context.after then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.2,
+                func = function()
+                    if G.GAME.chips - G.GAME.blind.chips < 0 and G.GAME.current_round.viruses_keep > 0 then
+                        rh_conditional_return_to_hand(false)
+                        local pitch = pseudorandom(pseudoseed('virus'), 5, 10)/10
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize("k_rh_virus_miss"), sound="rh_virus", pitch = pitch})
+                    else
+                        rh_conditional_return_to_hand(true)
+                    end
+                    G.GAME.current_round.viruses_keep = 0
+                    return true
+                end
+            }))
+        end
+    end,
+
+    set_badges = create_badge_tengoku,
+
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "patataofcourse"
     }
 })
 
@@ -314,6 +386,9 @@ SMODS.Joker({
             end
         end
     end,
+
+    set_badges = create_badge_tengoku,
+
     credit = {
         art = "missingnumber",
         code = "TheAltDoc",
@@ -373,6 +448,9 @@ SMODS.Joker({
             end
         end
     end,
+
+    set_badges = create_badge_tengoku,
+
     credit = {
         art = "missingnumber",
         code = "TheAltDoc",
@@ -418,6 +496,9 @@ SMODS.Joker({
             }
         end
     end,
+
+    set_badges = create_badge_ds,
+
     credit = {
         art = "TheAltDoc",
         code = "TheAltDoc",
@@ -488,6 +569,8 @@ SMODS.Joker({
         end
     end,
 
+    set_badges = create_badge_ds,
+
     set_ability = function(self, card, initial, delay_sprites)
         card.ability.extra.message = localize("rh_even")
     end,
@@ -536,10 +619,183 @@ SMODS.Joker({
             }
         end
     end,
+
+    set_badges = create_badge_fever,
+
     credit = {
         art = "missingnumber",
         code = "NoahAmp",
         concept = "TheAltDoc"
+    }
+})
+
+-- Huebird
+SMODS.Joker({
+    key = "flockstep",
+
+    loc_vars = function(self, info_queue, card)
+                return {
+                    vars = {
+                        card.ability.extra.create_flow
+                    }
+                }
+    end,
+    cost = 1,
+    rarity = 1,
+    blueprint_compat = false,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'jokers',
+    pos = {
+        x = 5,
+        y = 1
+    },
+	config = {
+        extra = {
+            create_flow = 1
+        }
+    },
+
+    calculate = function(self, card, context)
+        if context.joker_main and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + card.ability.extra.create_flow
+            local suits = {
+                ['Hearts'] = 0,
+                ['Diamonds'] = 0,
+                ['Spades'] = 0,
+                ['Clubs'] = 0
+            }
+            for i = 1, #context.scoring_hand do
+                if context.scoring_hand[i].ability.name ~= 'Wild Card' then
+                    if context.scoring_hand[i]:is_suit('Hearts', true) and suits["Hearts"] == 0 then suits["Hearts"] = suits["Hearts"] + 1
+                    elseif context.scoring_hand[i]:is_suit('Diamonds', true) and suits["Diamonds"] == 0  then suits["Diamonds"] = suits["Diamonds"] + 1
+                    elseif context.scoring_hand[i]:is_suit('Spades', true) and suits["Spades"] == 0  then suits["Spades"] = suits["Spades"] + 1
+                    elseif context.scoring_hand[i]:is_suit('Clubs', true) and suits["Clubs"] == 0  then suits["Clubs"] = suits["Clubs"] + 1 end
+                end
+            end
+            for i = 1, #context.scoring_hand do
+                if context.scoring_hand[i].ability.name == 'Wild Card' then
+                    if context.scoring_hand[i]:is_suit('Hearts') and suits["Hearts"] == 0 then suits["Hearts"] = suits["Hearts"] + 1
+                    elseif context.scoring_hand[i]:is_suit('Diamonds') and suits["Diamonds"] == 0  then suits["Diamonds"] = suits["Diamonds"] + 1
+                    elseif context.scoring_hand[i]:is_suit('Spades') and suits["Spades"] == 0  then suits["Spades"] = suits["Spades"] + 1
+                    elseif context.scoring_hand[i]:is_suit('Clubs') and suits["Clubs"] == 0  then suits["Clubs"] = suits["Clubs"] + 1 end
+                end
+            end
+            if suits["Hearts"] > 0 and
+            suits["Diamonds"] > 0 and
+            suits["Spades"] > 0 and
+            suits["Clubs"] > 0 then      
+                local created = G.consumeables.config.card_limit - #G.consumeables.cards
+                if created > card.ability.extra.create_flow then
+                    created = card.ability.extra.create_flow
+                end
+                return {
+                    extra = {focus = card, message = localize{type='variable',key='k_rh_plus_flow',vars={created}}, func = function()
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'before',
+                            delay = 0.0,
+                            func = (function()
+                                    for i=1, card.ability.extra.create_flow do
+                                        if #G.consumeables.cards < G.consumeables.config.card_limit then
+                                            local flow = create_card('Flow',G.consumeables, nil, nil, nil, nil, nil, 'flockstep')
+                                            flow:add_to_deck()
+                                            G.consumeables:emplace(flow)
+                                        end
+                                    end
+                                    G.GAME.consumeable_buffer = 0
+                                    play_sound("rh_flockstep_jump")
+                                return true
+                            end)}))
+                    end},
+                    colour = G.C.SECONDARY_SET.Flow,
+                    card = card,
+                }
+            end
+        end
+    end,
+
+    set_badges = create_badge_fever,
+
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "NoahAmp"
+    }
+})
+
+-- Two Player
+SMODS.Joker({
+    key = "two_players",
+
+    loc_vars = function(self, info_queue, card)
+                return {
+                    vars = {
+                    }
+                }
+    end,
+    cost = 6,
+    rarity = 3,
+    blueprint_compat = false,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'jokers',
+    pos = {
+        x = 0,
+        y = 5
+    },
+	config = {
+        extra = {
+        }
+    },
+
+	calculate = function(self, card, context)
+		if (context.joker_main and not context.debuffed_hand) or context.forcetrigger then
+            local played_cards_key = {}
+            local paired_cards_key = {}
+            local paired = false
+            for k, _ in ipairs(context.scoring_hand) do
+                played_cards_key[#played_cards_key+1] = k
+            end
+            for k, v in ipairs(played_cards_key) do
+                for jk, jv in ipairs(played_cards_key) do
+                    if context.scoring_hand[v]:get_id() == context.scoring_hand[jv]:get_id() and v ~= jv then
+                        local is_paired = false
+                        for pk, pv in ipairs(paired_cards_key) do
+                            if pv == v or pv == jv then 
+                                is_paired = true
+                            end
+                        end
+                        if not is_paired then
+                            for pk, pv in ipairs(played_cards_key) do
+                                if pv == v or pv == jv then 
+                                    paired_cards_key[#paired_cards_key+1] = pk
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+            if #paired_cards_key == #context.scoring_hand then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        play_sound("rh_2player_balance")
+                        return true
+                    end}))
+                return {
+                    balance = true,
+                }
+            end
+		end
+	end,
+
+    set_badges = create_badge_fever,
+
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "patataofcourse"
     }
 })
 
@@ -605,6 +861,9 @@ SMODS.Joker({
         return 1
 
     end,
+
+    set_badges = create_badge_megamix,
+
     credit = {
         art = "missingnumber",
         code = "NoahAmp",
@@ -699,6 +958,9 @@ SMODS.Joker({
             juice_card_until(card, eval, true)
         end
     end,
+
+    set_badges = create_badge_megamix,
+    
     credit = {
         art = "missingnumber",
         code = "TheAltDoc",
@@ -812,6 +1074,9 @@ SMODS.Joker({
         end
 
     end,
+
+    set_badges = create_badge_megamix,
+    
     credit = {
         art = "missingnumber",
         code = "TheAltDoc",
@@ -861,6 +1126,9 @@ SMODS.Joker({
             }
         end
     end,
+
+    set_badges = create_badge_megamix,
+    
     credit = {
         art = "missingnumber",
         code = "TheAltDoc",
@@ -994,6 +1262,9 @@ SMODS.Joker({
             end
         end
     end,
+
+    set_badges = create_badge_ds,
+    
     credit = {
         art = "missingnumber",
         code = "TheAltDoc",
@@ -1064,234 +1335,11 @@ SMODS.Joker({
         end
     end,
 
+    set_badges = create_badge_megamix,
+
     credit = {
         art = "missingnumber",
         code = "TheAltDoc",
         concept = "TheAltDoc"
-    }
-})
-
-SMODS.Joker({
-    key = "sick_beats",
-
-    loc_vars = function(self, info_queue, card)
-                return {
-                    vars = {
-                        card.ability.extra.to_keep,
-                    }
-                }
-    end,
-    cost = 1,
-    rarity = 2,
-    blueprint_compat = true,
-    eternal_compat = true,
-    unlocked = true,
-    discovered = true,
-    atlas = 'jokers',
-    pos = {
-        x = 5,
-        y = 0
-    },
-	config = {
-        extra = {
-            to_keep = 2
-        }
-    },
-
-    calculate = function(self, card, context)
-        if context.before then
-            if not G.GAME.current_round.viruses_keep then
-                G.GAME.current_round.viruses_keep = 0
-            end
-            G.GAME.current_round.viruses_keep = G.GAME.current_round.viruses_keep + card.ability.extra.to_keep
-        end
-        if context.after then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.2,
-                func = function()
-                    if G.GAME.chips - G.GAME.blind.chips < 0 and G.GAME.current_round.viruses_keep > 0 then
-                        rh_conditional_return_to_hand(false)
-                        local pitch = pseudorandom(pseudoseed('virus'), 5, 10)/10
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize("k_rh_virus_miss"), sound="rh_virus", pitch = pitch})
-                    else
-                        rh_conditional_return_to_hand(true)
-                    end
-                    G.GAME.current_round.viruses_keep = 0
-                    return true
-                end
-            }))
-        end
-    end,
-
-    credit = {
-        art = "missingnumber",
-        code = "TheAltDoc",
-        concept = "patataofcourse"
-    }
-})
-
-SMODS.Joker({
-    key = "flockstep",
-
-    loc_vars = function(self, info_queue, card)
-                return {
-                    vars = {
-                        card.ability.extra.create_flow
-                    }
-                }
-    end,
-    cost = 1,
-    rarity = 1,
-    blueprint_compat = false,
-    eternal_compat = true,
-    unlocked = true,
-    discovered = true,
-    atlas = 'jokers',
-    pos = {
-        x = 5,
-        y = 1
-    },
-	config = {
-        extra = {
-            create_flow = 1
-        }
-    },
-
-    calculate = function(self, card, context)
-        if context.joker_main and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + card.ability.extra.create_flow
-            local suits = {
-                ['Hearts'] = 0,
-                ['Diamonds'] = 0,
-                ['Spades'] = 0,
-                ['Clubs'] = 0
-            }
-            for i = 1, #context.scoring_hand do
-                if context.scoring_hand[i].ability.name ~= 'Wild Card' then
-                    if context.scoring_hand[i]:is_suit('Hearts', true) and suits["Hearts"] == 0 then suits["Hearts"] = suits["Hearts"] + 1
-                    elseif context.scoring_hand[i]:is_suit('Diamonds', true) and suits["Diamonds"] == 0  then suits["Diamonds"] = suits["Diamonds"] + 1
-                    elseif context.scoring_hand[i]:is_suit('Spades', true) and suits["Spades"] == 0  then suits["Spades"] = suits["Spades"] + 1
-                    elseif context.scoring_hand[i]:is_suit('Clubs', true) and suits["Clubs"] == 0  then suits["Clubs"] = suits["Clubs"] + 1 end
-                end
-            end
-            for i = 1, #context.scoring_hand do
-                if context.scoring_hand[i].ability.name == 'Wild Card' then
-                    if context.scoring_hand[i]:is_suit('Hearts') and suits["Hearts"] == 0 then suits["Hearts"] = suits["Hearts"] + 1
-                    elseif context.scoring_hand[i]:is_suit('Diamonds') and suits["Diamonds"] == 0  then suits["Diamonds"] = suits["Diamonds"] + 1
-                    elseif context.scoring_hand[i]:is_suit('Spades') and suits["Spades"] == 0  then suits["Spades"] = suits["Spades"] + 1
-                    elseif context.scoring_hand[i]:is_suit('Clubs') and suits["Clubs"] == 0  then suits["Clubs"] = suits["Clubs"] + 1 end
-                end
-            end
-            if suits["Hearts"] > 0 and
-            suits["Diamonds"] > 0 and
-            suits["Spades"] > 0 and
-            suits["Clubs"] > 0 then      
-                local created = G.consumeables.config.card_limit - #G.consumeables.cards
-                if created > card.ability.extra.create_flow then
-                    created = card.ability.extra.create_flow
-                end
-                return {
-                    extra = {focus = card, message = localize{type='variable',key='k_rh_plus_flow',vars={created}}, func = function()
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'before',
-                            delay = 0.0,
-                            func = (function()
-                                    for i=1, card.ability.extra.create_flow do
-                                        if #G.consumeables.cards < G.consumeables.config.card_limit then
-                                            local flow = create_card('Flow',G.consumeables, nil, nil, nil, nil, nil, 'flockstep')
-                                            flow:add_to_deck()
-                                            G.consumeables:emplace(flow)
-                                        end
-                                    end
-                                    G.GAME.consumeable_buffer = 0
-                                    play_sound("rh_flockstep_jump")
-                                return true
-                            end)}))
-                    end},
-                    colour = G.C.SECONDARY_SET.Flow,
-                    card = card,
-                }
-            end
-        end
-    end,
-
-    credit = {
-        art = "missingnumber",
-        code = "TheAltDoc",
-        concept = "NoahAmp"
-    }
-})
-
-
-SMODS.Joker({
-    key = "two_players",
-
-    loc_vars = function(self, info_queue, card)
-                return {
-                    vars = {
-                    }
-                }
-    end,
-    cost = 6,
-    rarity = 3,
-    blueprint_compat = false,
-    eternal_compat = true,
-    unlocked = true,
-    discovered = true,
-    atlas = 'jokers',
-    pos = {
-        x = 0,
-        y = 5
-    },
-	config = {
-        extra = {
-        }
-    },
-
-	calculate = function(self, card, context)
-		if (context.joker_main and not context.debuffed_hand) or context.forcetrigger then
-            local played_cards_key = {}
-            local paired_cards_key = {}
-            local paired = false
-            for k, _ in ipairs(context.scoring_hand) do
-                played_cards_key[#played_cards_key+1] = k
-            end
-            for k, v in ipairs(played_cards_key) do
-                for jk, jv in ipairs(played_cards_key) do
-                    if context.scoring_hand[v]:get_id() == context.scoring_hand[jv]:get_id() and v ~= jv then
-                        local is_paired = false
-                        for pk, pv in ipairs(paired_cards_key) do
-                            if pv == v or pv == jv then 
-                                is_paired = true
-                            end
-                        end
-                        if not is_paired then
-                            for pk, pv in ipairs(played_cards_key) do
-                                if pv == v or pv == jv then 
-                                    paired_cards_key[#paired_cards_key+1] = pk
-                                end
-                            end
-                        end
-                    end
-                end
-            end
-            if #paired_cards_key == #context.scoring_hand then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound("rh_2player_balance")
-                        return true
-                    end}))
-                return {
-                    balance = true,
-                }
-            end
-		end
-	end,
-
-    credit = {
-        art = "missingnumber",
-        code = "TheAltDoc",
-        concept = "patataofcourse"
     }
 })

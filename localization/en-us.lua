@@ -567,7 +567,12 @@ return {
             rh_lumbearjack_axed = "Axed!",
             k_rh_endless = "Endless Remix",
             k_rh_tibby = "Let's we go!",
-            k_rh_virus_miss = "Miss!"
+            k_rh_virus_miss = "Miss!",
+
+            k_rh_gba_badge="Tengoku",
+            k_rh_ds_badge="DS",
+            k_rh_wii_badge="Fever",
+            k_rh_3ds_badge="Megamix",
         },
         v_dictionary = {
             a_mmoonk = {"+#1# Chips,+#2# Mult,X#3# Mult"},

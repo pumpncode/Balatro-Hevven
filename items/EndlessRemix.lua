@@ -101,6 +101,7 @@ SMODS.Joker({
     end,
     set_badges = function(self, card, badges)
         badges[#badges+1] = create_badge(localize('k_rh_endless'), HEX('cd00cd'), HEX('FEE500'), 1.2 )
+        badges[#badges+1] = create_badge(localize('k_rh_wii_badge'), HEX('e0001a'), HEX('ffffff'), 1.2 )
     end,
 })
 
@@ -180,6 +181,7 @@ SMODS.Joker({
     end,
     set_badges = function(self, card, badges)
         badges[#badges+1] = create_badge(localize('k_rh_endless'), HEX('cd00cd'), HEX('FEE500'), 1.2 )
+        badges[#badges+1] = create_badge(localize('k_rh_wii_badge'), HEX('e0001a'), HEX('ffffff'), 1.2 )
     end,
 })
 
@@ -259,6 +261,7 @@ SMODS.Joker({
     end,
     set_badges = function(self, card, badges)
         badges[#badges+1] = create_badge(localize('k_rh_endless'), HEX('cd00cd'), HEX('FEE500'), 1.2 )
+        badges[#badges+1] = create_badge(localize('k_rh_wii_badge'), HEX('e0001a'), HEX('ffffff'), 1.2 )
     end,
 })
 
@@ -352,6 +355,7 @@ SMODS.Joker({
     end,
     set_badges = function(self, card, badges)
         badges[#badges+1] = create_badge(localize('k_rh_endless'), HEX('cd00cd'), HEX('FEE500'), 1.2 )
+        badges[#badges+1] = create_badge(localize('k_rh_wii_badge'), HEX('e0001a'), HEX('ffffff'), 1.2 )
     end,
 })
 
@@ -432,6 +436,7 @@ for k, v in pairs(SMODS.Rarities) do
             end,
             set_badges = function(self, card, badges)
                 badges[#badges+1] = create_badge(localize('k_rh_endless'), HEX('cd00cd'), HEX('FEE500'), 1.2 )
+                badges[#badges+1] = create_badge(localize('k_rh_wii_badge'), HEX('e0001a'), HEX('ffffff'), 1.2 )
             end,
         })
     end

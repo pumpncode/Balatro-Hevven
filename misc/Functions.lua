@@ -249,6 +249,19 @@ function rh_conditional_return_to_hand(round_end) -- used by Virus at end of han
     G.GAME.current_round.rh_cards_to_keep = nil
 end
 
-function create_badge_megamix()
-    return create_badge(localize('k_rh_megamix_badge'), HEX('ffde25'), HEX('000000'), 1.2 )
+function create_badge_tengoku(self, card, badges)
+    badges[#badges+1] = create_badge(localize('k_rh_gba_badge'), HEX('2922cd'), HEX('ffffff'), 1.2 )
 end
+
+function create_badge_ds(self, card, badges)
+    badges[#badges+1] = create_badge(localize('k_rh_ds_badge'), HEX('44b9ac'), HEX('ffffff'), 1.2 )
+end
+
+function create_badge_fever(self, card, badges)
+    badges[#badges+1] = create_badge(localize('k_rh_wii_badge'), HEX('e0001a'), HEX('ffffff'), 1.2 )
+end
+
+function create_badge_megamix(self, card, badges)
+    badges[#badges+1] = create_badge(localize('k_rh_3ds_badge'), HEX('ffbe00'), HEX('ffffff'), 1.2 )
+end
+

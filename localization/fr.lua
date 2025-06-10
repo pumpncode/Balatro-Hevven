@@ -575,7 +575,8 @@ return {
             rh_lumbearjack_axed = "Haché!",
             k_rh_endless = "Remix Infini",
             k_rh_tibby = "Allez les potos!",
-            k_rh_virus_miss = "Raté!"
+            k_rh_virus_miss = "Raté!",
+            k_rh_wii_badge="Beat the Beat",
         },
         v_dictionary = {
             a_mmoonk = {"+#1# Jetons,+#2# Mult,X#3# Mult"},

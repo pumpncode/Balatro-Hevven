@@ -197,15 +197,18 @@ function rh_gift_flow()
             blind_multiplier = blind_multiplier+back_config.points.blind * 2
         end
         sendDebugMessage(blind_multiplier)
-        local score_multiplier = G.GAME.chips / G.GAME.blind.chips * back_config.points.score
-        local points = (hands+discards)*score_multiplier*blind_multiplier
+        local score_multiplier = to_big(G.GAME.chips) / to_big(G.GAME.blind.chips) * to_big(back_config.points.score)
+        local base_points = (hands+discards)*score_multiplier*blind_multiplier
+        local points = to_big(base_points)*score_multiplier
         local reward = ""
-        local last_point = 0
-        sendDebugMessage("Final point tally:"..points, "rhFlowDeck")
+        local last_point = to_big(0)
+        if type(last_point) ~= "table" then -- I still want it but don't wanna deal with Talisman compat
+            sendDebugMessage("Final point tally:"..points, "rhFlowDeck")
+        end
         for k, v in pairs(back_config.rewards) do
-            if points >= v and last_point <= v then
+            if points >= to_big(v) and last_point <= to_big(v) then
                 reward = k
-                last_point = v
+                last_point = to_big(v)
             end
         end
         if reward == "random" then

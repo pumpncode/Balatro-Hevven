@@ -93,3 +93,18 @@ SMODS.Sound({
     key="songbird_hatch",
     path="songbird_hatch.ogg"
 })
+
+SMODS.Sound({
+    key="virus",
+    path="virus.ogg"
+})
+
+SMODS.Sound({
+    key="flockstep_jump",
+    path="flockstep_jump.ogg"
+})
+
+SMODS.Sound({
+    key="2player_balance",
+    path="2player_balance.ogg"
+})

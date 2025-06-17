@@ -111,3 +111,29 @@ pattern = "elseif G.GAME.round_resets.blind == G.P_BLINDS.bl_big then"
 position = "at"
 payload = "elseif G.GAME.blind_on_deck == 'Big' then"
 match_indent = true
+
+# Go for a perfect - Only Water
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''self.GAME.round_resets.blind_choices.Boss = get_new_boss()'''
+position = "after"
+payload = '''
+if G.GAME.modifiers.all_water then
+    self.GAME.round_resets.blind_choices.Boss = "bl_water"
+end
+'''
+match_indent = true
+
+# Go for a perfect - Only Water
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "G.GAME.round_resets.blind_choices.Boss = get_new_boss()"
+position = "after"
+payload = '''
+if G.GAME.modifiers.all_water then
+    G.GAME.round_resets.blind_choices.Boss = "bl_water"
+end
+'''
+match_indent = true

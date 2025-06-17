@@ -14,27 +14,27 @@ SMODS.Enhancement({
 
 -- Flow Deck/Sleeve values
 local flow_deck_config={
-points = {
-    hands = 2, -- How many points to award per leftover hand
-    discards = 1, -- How many points to award per leftover discard
-    blind = 0.5, -- How many xPoints to add to the blind multiplier, eg. 1.0/1.5/2.0 for small/big/boss
-    showdown = 4, -- How many xPoints to add when Showdown is defeated (does not take boss reward into account)
-    score = 0.9 -- (Score/Requirement) * thisValue - This is a points multiplier
-},
-rewards = {
-    c_rh_pity_skip = 0,
-    c_rh_try_again = 5,
-    c_rh_some_good_parts = 7,
-    c_rh_extra_life = 9,
-    c_rh_simple_tap = 12,
-    c_rh_ok = 15,
-    c_rh_you = 18,
-    c_rh_skill_star = 20,
-    c_rh_superb = 23,
-    c_rh_new_record = 25,
-    c_rh_perfect = 50,
-    c_rh_remix = 300
-}
+    points = {
+        hands = 2, -- How many points to award per leftover hand
+        discards = 1, -- How many points to award per leftover discard
+        blind = 0.5, -- How many xPoints to add to the blind multiplier, eg. 1.0/1.5/2.0 for small/big/boss
+        showdown = 4, -- How many xPoints to add when Showdown is defeated (does not take boss reward into account)
+        score = 0.9 -- (Score/Requirement) * thisValue - This is a points multiplier
+    },
+    rewards = {
+        c_rh_pity_skip = 0,
+        c_rh_try_again = 5,
+        c_rh_some_good_parts = 7,
+        c_rh_extra_life = 9,
+        c_rh_simple_tap = 12,
+        c_rh_ok = 15,
+        c_rh_you = 18,
+        c_rh_skill_star = 20,
+        c_rh_superb = 23,
+        c_rh_new_record = 25,
+        c_rh_perfect = 50,
+        random = 300
+    }
 }
 
 -- Flow Deck

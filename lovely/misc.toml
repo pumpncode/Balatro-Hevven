@@ -30,3 +30,30 @@ pattern = '''
 position = "after"
 payload = "rh_beat_anim(card)"
 match_indent = true
+
+# We somehow have a few ways of keeping the cards in your hand huh
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "G.FUNCS.draw_from_play_to_discard = function(e)"
+position = "after"
+payload = "local to_hand = rh_draw_from_play_to_hand()"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "draw_card(G.play,G.discard, it*100/play_count,'down', false, v)"
+position = "at"
+payload = '''
+local to_discard = true
+for kh, vh in ipairs(to_hand) do
+    if v == vh then
+        to_discard = false
+    end
+end
+if to_discard then
+    draw_card(G.play,G.discard, it*100/play_count,'down', false, v)
+end 
+'''
+match_indent = true

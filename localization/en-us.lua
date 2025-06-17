@@ -120,6 +120,32 @@ return {
                     "depending on what it has",
                 }
             },
+            j_rh_sick_beats = {
+                name = 'Virus',
+                text = {
+                    "If the played hand doesn't win,",
+                    "return {C:attention}#1# random played cards{}",
+                    "to your hand"
+                }
+            },
+            j_rh_flockstep = {
+                name = 'Huebirds',
+                text = {
+                    "{C:rh_flow} +#1# Flow card{} if poker",
+                    "hand contains a",
+                    "{C:diamonds}Diamond{} card, {C:clubs}Club{} card,",
+                    "{C:hearts}Heart{} card, and {C:spades}Spade{} card",
+                    "{C:inactive}(Must have room)",
+                }
+            },
+            j_rh_two_players = {
+                name = 'Two Player',
+                text = {
+                    "If every card played",
+                    "is {C:attention}paired{},",
+                    "balances {C:chips}Chips{} and {C:mult}Mult{}"
+                }
+            },
         },
         Flow = {
             c_rh_you = {
@@ -540,10 +566,17 @@ return {
             rh_remix_sticker_joker_rarity = "rarity",
             rh_lumbearjack_axed = "Axed!",
             k_rh_endless = "Endless Remix",
-            k_rh_tibby = "Let's we go!"
+            k_rh_tibby = "Let's we go!",
+            k_rh_virus_miss = "Miss!",
+
+            k_rh_gba_badge="Tengoku",
+            k_rh_ds_badge="DS",
+            k_rh_wii_badge="Fever",
+            k_rh_3ds_badge="Megamix",
         },
         v_dictionary = {
             a_mmoonk = {"+#1# Chips,+#2# Mult,X#3# Mult"},
+            k_rh_plus_flow = {"+#1# Flow"}
         },
         v_text={
             ch_c_all_rental={
@@ -555,12 +588,16 @@ return {
             ch_c_all_boss={
                 "All Blinds are {C:attention}Boss Blinds{}",
             },
+            ch_c_all_water={
+                "All Boss Blinds are {C:dark_edition}The Water{}",
+            },
         },
 		challenge_names = {
 			c_rh_second_contact = "Second Contact",
 			c_rh_saffron_trial = "Saffron's Trial",
 			c_rh_remix_medley = "Remix Medley", -- References the Megamix Challenge Train of the same name
 			c_rh_remix_10 = "Remix 10",
+			c_rh_perfect_campaign = "Go for a Perfect!",
 		},
         labels = {
             rh_you_sticker = 'YOU',

@@ -213,12 +213,13 @@ SMODS.Consumable({
                 }))
             end
             G.E_MANAGER:add_event(Event({
-                trigger = "after", 
-                delay = 1.2, 
                 blocking = false,
                 func = function() 
-                    G.FUNCS.play_cards_from_highlighted()
-                    return true
+                    if G.STATE == G.STATES.SELECTING_HAND then
+                        G.FUNCS.play_cards_from_highlighted()
+                        return true
+                    end
+                    return false
                 end
             }))
             local hands_played_before = G.GAME.hands_played
@@ -350,8 +351,11 @@ SMODS.Consumable({
                 delay = 1.2, 
                 blocking = false,
                 func = function() 
-                    G.FUNCS.play_cards_from_highlighted()
-                    return true
+                    if G.STATE == G.STATES.SELECTING_HAND then
+                        G.FUNCS.play_cards_from_highlighted()
+                        return true
+                    end
+                    return false
                 end
             }))
             local hands_played_before = G.GAME.hands_played
@@ -866,11 +870,15 @@ SMODS.Consumable({
         x = 3,
         y = 2
     },
+    cost = 20,
     hidden = true,    
     use = function(self, card, area, copier)
-        if G.STATE ~= G.STATES.SELECTING_HAND then
+        if (G.STATE == G.STATES.SPECTRAL_PACK or 
+        G.STATE == G.STATES.TAROT_PACK or
+        G.STATE == G.STATES.PLANET_PACK or
+        G.STATE == G.STATES.SMODS_BOOSTER_OPENED) then
             local card_t = {
-                set = "Flow",
+                set = "Spectral",
                 area = G.consumeables,
                 key = "c_rh_remix"
             }
@@ -941,13 +949,16 @@ SMODS.Consumable({
                 delay = 1.2, 
                 blocking = false,
                 func = function() 
-                    for i = 1, #G.hand.cards do
-                        local CARD = G.hand.cards[i]
-                        G.hand.highlighted[#G.hand.highlighted+1] = CARD
-                        CARD:highlight(true)
+                    if G.STATE == G.STATES.SELECTING_HAND then
+                        for i = 1, #G.hand.cards do
+                            local CARD = G.hand.cards[i]
+                            G.hand.highlighted[#G.hand.highlighted+1] = CARD
+                            CARD:highlight(true)
+                        end
+                        G.FUNCS.play_cards_from_highlighted()
+                        return true
                     end
-                    G.FUNCS.play_cards_from_highlighted()
-                    return true
+                    return false
                 end
             }))
         end

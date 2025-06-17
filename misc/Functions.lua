@@ -208,6 +208,9 @@ function rh_gift_flow()
                 last_point = v
             end
         end
+        if reward == "random" then
+            reward = nil
+        end
         local card_t = {
             set = "Flow",
             area = G.consumeables,
@@ -216,9 +219,49 @@ function rh_gift_flow()
         }
         local card = SMODS.create_card(card_t)
         G.consumeables:emplace(card)
+    else
+					card_eval_status_text(
+						G.consumeables,
+						"extra",
+						nil,
+						nil,
+						nil,
+						{ message = localize("k_no_space_ex"), colour = G.C.SECONDARY_SET.Flow }
+					)
     end
 end
 
-function create_badge_megamix()
-    return create_badge(localize('k_rh_megamix_badge'), HEX('ffde25'), HEX('000000'), 1.2 )
+function rh_conditional_return_to_hand(round_end) -- used by Virus at end of hand
+    sendDebugMessage("Found "..#G.GAME.current_round.rh_cards_to_keep.." cards to keep in hand", "rhDrawPlayToHand")
+    local it = 1
+    local play_count = #G.GAME.current_round.rh_cards_to_keep
+    if not round_end then
+        delay(0.4)
+    end
+    for k,v in ipairs(G.GAME.current_round.rh_cards_to_keep) do
+        if round_end then
+            draw_card(G.play,G.discard, it*100/play_count,'down', false, v)
+        else
+            draw_card(G.play,G.hand, it*100/play_count,'down', false, v)
+        end
+        it = it + 1
+    end
+    G.GAME.current_round.rh_cards_to_keep = nil
 end
+
+function create_badge_tengoku(self, card, badges)
+    badges[#badges+1] = create_badge(localize('k_rh_gba_badge'), HEX('2922cd'), HEX('ffffff'), 1.2 )
+end
+
+function create_badge_ds(self, card, badges)
+    badges[#badges+1] = create_badge(localize('k_rh_ds_badge'), HEX('44b9ac'), HEX('ffffff'), 1.2 )
+end
+
+function create_badge_fever(self, card, badges)
+    badges[#badges+1] = create_badge(localize('k_rh_wii_badge'), HEX('e0001a'), HEX('ffffff'), 1.2 )
+end
+
+function create_badge_megamix(self, card, badges)
+    badges[#badges+1] = create_badge(localize('k_rh_3ds_badge'), HEX('ffbe00'), HEX('ffffff'), 1.2 )
+end
+

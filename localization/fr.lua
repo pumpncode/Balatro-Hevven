@@ -127,6 +127,32 @@ return {
                     "en fonction de ce qu'elle a",
                 }
             },
+            j_rh_sick_beats = {
+                name = 'Virus',
+                text = {
+                    "Si la main jouée ne gagne pas,",
+                    "retourne {C:attention}#1# cartes aléatoires{}",
+                    "à la main"
+                }
+            },
+            j_rh_flockstep = {
+                name = 'Echassiers colorés',
+                text = {
+                    "{C:rh_flow} +#1# carte Rythme{} si la",
+                    "main de poker contient une carte",
+                    "{C:diamonds}Carreau{}, une carte {C:clubs}Trèfle{},",
+                    "une carte {C:hearts}Cœur{} et une carte {C:spades}Pique{}",
+                    "{C:inactive}(Selon la place disponible)",
+                }
+            },
+            j_rh_two_players = {
+                name = 'Deux Joueurs',
+                text = {
+                    "Si toutes les cartes jouées",
+                    "ont une {C:attention}paire{},",
+					"balance les {C:chips}Jetons{} et le {C:mult}Multi{}",
+                }
+            },
         },
         Flow = {
             c_rh_you = {
@@ -548,10 +574,13 @@ return {
             rh_remix_sticker_joker_rarity = "rareté",
             rh_lumbearjack_axed = "Haché!",
             k_rh_endless = "Remix Infini",
-            k_rh_tibby = "Allez les potos!"
+            k_rh_tibby = "Allez les potos!",
+            k_rh_virus_miss = "Raté!",
+            k_rh_wii_badge="Beat the Beat",
         },
         v_dictionary = {
             a_mmoonk = {"+#1# Jetons,+#2# Mult,X#3# Mult"},
+            k_rh_plus_flow = {"+#1# Rythme"}
         },
         v_text={
             ch_c_all_rental={
@@ -563,12 +592,16 @@ return {
             ch_c_all_boss={
                 "Toutes les blindes sont des {C:attention}Blindes Boss{}",
             },
+            ch_c_all_water={
+                "Toutes les Blindes Boss deviennent {C:dark_negative}L'eau{}",
+            },
         },
 		challenge_names = {
 			c_rh_second_contact = "Interprète terrien-martien",
 			c_rh_saffron_trial = "L'épreuve d'Adagio",
 			c_rh_remix_medley = "Remix des remix",
 			c_rh_remix_10 = "Remix 10",
+			c_rh_perfect_campaign = "Visez le parfait !",
 		},
         labels = {
             rh_you_sticker = 'VOUS',

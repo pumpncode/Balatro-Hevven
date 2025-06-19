@@ -235,21 +235,23 @@ function rh_gift_flow()
 end
 
 function rh_conditional_return_to_hand(round_end) -- used by Virus at end of hand
-    sendDebugMessage("Found "..#G.GAME.current_round.rh_cards_to_keep.." cards to keep in hand", "rhDrawPlayToHand")
-    local it = 1
-    local play_count = #G.GAME.current_round.rh_cards_to_keep
-    if not round_end then
-        delay(0.4)
-    end
-    for k,v in ipairs(G.GAME.current_round.rh_cards_to_keep) do
-        if round_end then
-            draw_card(G.play,G.discard, it*100/play_count,'down', false, v)
-        else
-            draw_card(G.play,G.hand, it*100/play_count,'down', false, v)
+    if(G.GAME.current_round.rh_cards_to_keep) then -- Somehow I managed to break that???
+        sendDebugMessage("Found "..#G.GAME.current_round.rh_cards_to_keep.." cards to keep in hand", "rhDrawPlayToHand")
+        local it = 1
+        local play_count = #G.GAME.current_round.rh_cards_to_keep
+        if not round_end then
+            delay(0.4)
         end
-        it = it + 1
+        for k,v in ipairs(G.GAME.current_round.rh_cards_to_keep) do
+            if round_end then
+                draw_card(G.play,G.discard, it*100/play_count,'down', false, v)
+            else
+                draw_card(G.play,G.hand, it*100/play_count,'down', false, v)
+            end
+            it = it + 1
+        end
+        G.GAME.current_round.rh_cards_to_keep = 0
     end
-    G.GAME.current_round.rh_cards_to_keep = nil
 end
 
 function create_badge_tengoku(self, card, badges)

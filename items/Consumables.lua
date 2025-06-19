@@ -437,3 +437,180 @@ SMODS.Consumable({
         concept = "TheAltDoc"
     }
 })
+
+-- Descendant
+SMODS.Consumable({
+    key = "descendant",
+    set = 'Tarot',
+    cost=3,
+    atlas = 'consumables',
+    pos = {
+        x = 2,
+        y = 2
+    },
+
+    use = function(self, card, area, copier)
+        for k, v in ipairs(G.jokers.cards) do
+            if v.ability["rh_remix_sticker_joker"] then
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.6,
+                    func = function() 
+                        v:juice_up()
+                        v:remove_sticker("rh_remix_sticker_joker")
+                        play_sound('gold_seal', 1.2, 0.4)
+                        return true 
+                    end 
+                }))
+            end
+        end
+        for k, v in ipairs(G.consumeables.cards) do
+            if v.ability["rh_remix_sticker_joker"] then
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.6,
+                    func = function() 
+                        v:juice_up()
+                        v:remove_sticker("rh_remix_sticker_joker")
+                        play_sound('gold_seal', 1.2, 0.4)
+                        return true 
+                    end 
+                }))
+            end
+        end
+        for k, v in ipairs(G.hand.cards) do
+            if v.ability["rh_remix_sticker_card"] then
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.6,
+                    func = function() 
+                        v:juice_up()
+                        v:remove_sticker("rh_remix_sticker_card")
+                        play_sound('gold_seal', 1.2, 0.4)
+                        return true 
+                    end 
+                }))
+            end
+        end
+    end,
+
+    can_use = function (self, card) 
+        local stickers = 0
+        for k, v in ipairs(G.jokers.cards) do
+            if v.ability["rh_remix_sticker_joker"] then
+                stickers = stickers + 1
+            end
+        end
+        for k, v in ipairs(G.consumeables.cards) do
+            if v.ability["rh_remix_sticker_joker"] then
+                stickers = stickers + 1
+            end
+        end
+        for k, v in ipairs(G.hand.cards) do
+            if v.ability["rh_remix_sticker_card"] then
+                stickers = stickers + 1
+            end
+        end
+        return stickers > 0
+    end,
+
+    in_pool = function(self, args)
+        local stickers = 0
+        for k, v in ipairs(G.jokers.cards) do
+            if v.ability["rh_remix_sticker_joker"] then
+                stickers = stickers + 1
+            end
+        end
+        for k, v in ipairs(G.consumeables.cards) do
+            if v.ability["rh_remix_sticker_joker"] then
+                stickers = stickers + 1
+            end
+        end
+        for k, v in ipairs(G.deck.cards) do
+            if v.ability["rh_remix_sticker_card"] then
+                stickers = stickers + 1
+            end
+        end
+        return stickers > 0
+    end,
+
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "TheAltDoc"
+    }
+})
+
+-- Finale
+SMODS.Consumable({
+    key = "finale",
+    set = 'Spectral',
+    cost=3,
+    atlas = 'consumables',
+    pos = {
+        x = 0,
+        y = 1
+    },
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {key = 'rh_remix_sticker_joker', set = 'Other', vars = {
+            localize("rh_remix_sticker_joker_name"),
+            localize("rh_remix_sticker_joker_link"),
+            localize("rh_remix_sticker_joker_type"),
+        }}
+        info_queue[#info_queue+1] = {key = 'rh_remix_sticker_card', set = 'Other'}
+        return {
+            vars = {
+                "1"
+            }
+        }
+    end,
+    
+    use = function(self, card, area, copier)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.6,
+            func = function() 
+                if #G.jokers.cards > 0 then
+                    G.jokers.cards[1]:juice_up()
+                    G.jokers.cards[1]:add_sticker("rh_remix_sticker_joker", true)
+                    play_sound('gold_seal', 1.2, 0.4)
+                end
+                return true 
+            end 
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.6,
+            func = function() 
+                if #G.consumeables.cards > 0 then
+                    G.consumeables.cards[1]:juice_up()
+                    G.consumeables.cards[1]:add_sticker("rh_remix_sticker_joker", true)
+                    play_sound('gold_seal', 1.2, 0.4)
+                end
+                return true 
+            end 
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.6,
+            func = function() 
+                if #G.hand.cards > 0 then
+                    G.hand.cards[1]:juice_up()
+                    G.hand.cards[1]:add_sticker("rh_remix_sticker_card", true)
+                    play_sound('gold_seal', 1.2, 0.4)
+                end
+                return true 
+            end 
+        }))
+    end,
+
+    can_use = function (self, card) 
+        return true
+    end,
+    credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+        concept = "NoahAmp"
+    }
+})

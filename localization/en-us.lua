@@ -353,6 +353,14 @@ return {
                     "into a {C:attention}Stone Card"
                 }
             },
+            c_rh_finale = {
+                name = 'Finale',
+                text = {
+                    "Applies the {C:dark_edition}Remix{} sticker to",
+                    "the leftmost {C:attention}Joker,",
+                    "{C:attention}consumable{} and {C:attention}playing card",
+                }
+            },
         },
         Tarot = {
             c_rh_castle = {
@@ -384,6 +392,13 @@ return {
                     "card into a",
                     "{C:attention}Call & Response",
                     "Card",
+                },
+            },
+            c_rh_descendant = {
+                name = 'The Descendant',
+                text={
+                    "Removes all the {C:dark_edition}Remix{}",
+                    "Stickers on screen",
                 },
             },
         },
@@ -473,12 +488,20 @@ return {
                     "{C:inactive,s:0.9}the end of the round)"
                 },
             },
-            rh_remix_sticker = {
+            rh_remix_sticker_joker = {
                 name = 'Remix',
                 text = {
-                    "At end of round, transform",
-                    "into another {C:attention}#1#",
+                    "At the end of the round,",
+                    "transforms into another {C:attention}#1#",
                     "#2# {C:attention}#3#",
+                },
+            },
+            rh_remix_sticker_card = {
+                name = 'Remix',
+                text = {
+                    "When drawn, transforms",
+                    "into another {C:attention}playing card",
+                    "{C:inactive}(Randomize {C:attention}Rank{C:inactive}, {C:attention}Suit {C:inactive}and {C:attention}Enhancement{C:inactive})",
                 },
             },
             p_rh_flow_pack_1 = {
@@ -558,12 +581,12 @@ return {
                 "for the card on the title screen",
                 "(Requires a restart)"
             },
-            rh_remix_sticker_consumeable_word = "consumable",
+            rh_remix_sticker_joker_name = "Joker",
+            rh_remix_sticker_joker_link = "of the same",
+            rh_remix_sticker_joker_type = "rarity",
+            rh_remix_sticker_consumeable_name = "consumable",
             rh_remix_sticker_consumeable_link = "of the same",
             rh_remix_sticker_consumeable_type = "type",
-            rh_remix_sticker_joker_word = "Joker",
-            rh_remix_sticker_joker_link = "of the same",
-            rh_remix_sticker_joker_rarity = "rarity",
             rh_lumbearjack_axed = "Axed!",
             k_rh_endless = "Endless Remix",
             k_rh_tibby = "Let's we go!",
@@ -601,7 +624,8 @@ return {
 		},
         labels = {
             rh_you_sticker = 'YOU',
-            rh_remix_sticker = "Remix"
+            rh_remix_sticker_joker = "Remix",
+            rh_remix_sticker_card = "Remix"
         }
     }
 }

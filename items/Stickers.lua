@@ -8,12 +8,7 @@ SMODS.Sticker({
     rate=0,
     calculate = function(self, card, context)
         if context.end_of_round then
-            for k, v in pairs(G.playing_cards) do
-                if v.ability["rh_you_sticker"] then 
-                    sendDebugMessage("Removing sticker["..k.."]", "rhFlowSticker")
-                    v:remove_sticker("rh_you_sticker")
-                end
-            end
+            card:remove_sticker("rh_you_sticker")
         end
         
     end,
@@ -24,27 +19,28 @@ SMODS.Sticker({
     }
 })
 
--- Remix
+-- Remix (Joker & consumable)
 SMODS.Sticker({
-    key="remix_sticker",
+    key="remix_sticker_joker",
     badge_colour=HEX('CD00CD'),
     atlas='stickers',
     default_compat=true,
     rate=0,
     pos={x=1,y=0},
     loc_vars = function(self, info_queue, card)
+        -- Since it applies and differs between types...
         if card.config.center.set == 'Joker' then
             return {
                 vars = {
-                    localize("rh_remix_sticker_joker_word"),
+                    localize("rh_remix_sticker_joker_name"),
                     localize("rh_remix_sticker_joker_link"),
-                    localize("rh_remix_sticker_joker_rarity"),
+                    localize("rh_remix_sticker_joker_type"),
                 }
             }
         else
             return {
                 vars = {
-                    localize("rh_remix_sticker_consumeable_word"),
+                    localize("rh_remix_sticker_consumeable_name"),
                     localize("rh_remix_sticker_consumeable_link"),
                     localize("rh_remix_sticker_consumeable_type"),
                 }
@@ -126,6 +122,75 @@ SMODS.Sticker({
                 end 
             }))
         end
+    end,
+	credit = {
+        art = "missingnumber",
+        code = "TheAltDoc",
+		concept = "TheAltDoc"
+    }
+})
+
+-- Remix (Card)
+SMODS.Sticker({
+    key="remix_sticker_card",
+    badge_colour=HEX('CD00CD'),
+    atlas='stickers',
+    default_compat=true,
+    rate=0,
+	config = {
+        extra = {
+            round = 0
+        }
+    },
+    pos={x=1,y=0},
+    calculate = function(self, card, context)
+        if context.hand_drawn and G.GAME.round ~= card.config.center.remix_round then
+            card.config.center.remix_round = G.GAME.round
+            -- G.E_MANAGER:add_event(Event({
+            --     trigger = 'after',
+            --     delay = 0.1,
+            --     func = function() 
+                    local ranks = {}
+                    local suits = {}
+                    for k, v in pairs(SMODS.Ranks) do
+                        ranks[#ranks+1] = k
+                    end
+                    for k, v in pairs(SMODS.Suits) do
+                        suits[#suits+1] = v.card_key
+                    end
+                    local new_rank =  pseudorandom(pseudoseed('remix_sticker'), 1, #ranks)
+                    local new_suit =  pseudorandom(pseudoseed('remix_sticker'), 1, #suits)
+                    sendDebugMessage("Remixing into a "..suits[new_suit].."_"..ranks[new_rank])
+                    local new_card = G.P_CARDS[suits[new_suit].."_"..ranks[new_rank]]
+                    card:set_base(new_card)
+                    G.GAME.blind:debuff_card(card)
+                    
+                    local seal_rate = 10
+                    local seal_poll = pseudorandom(pseudoseed('remix_sticker'..G.GAME.round_resets.ante))
+                    if seal_poll > 1 - 0.02*seal_rate then
+                        seal = SMODS.poll_seal({guaranteed = true, type_key = "remix_sticker"})
+                        card:set_seal(seal, true, true)
+                    else
+                        card.seal = nil
+                    end
+                    
+                    local enhancement_rate = 10
+                    local enhancement_poll = pseudorandom(pseudoseed('stdseal'..G.GAME.round_resets.ante))
+                    if enhancement_poll > 1 - 0.02*enhancement_rate then
+                        enhancement = SMODS.poll_enhancement({guaranteed = true, type_key = "remix_sticker"})
+                        card:set_ability(G.P_CENTERS[enhancement], nil, true)
+                    else
+                        card:set_ability(G.P_CENTERS.c_base, nil, true)
+                    end
+                    
+            --         return true 
+            --     end 
+            -- }))
+        end
+    end,
+    apply = function(self, card, val)
+        card.ability[self.key] = val
+        card.config.center.remix_round = G.GAME.round
     end,
 	credit = {
         art = "missingnumber",

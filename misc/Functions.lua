@@ -221,6 +221,7 @@ function rh_gift_flow()
             edition = {negative = is_combo }
         }
         local card = SMODS.create_card(card_t)
+        card:add_to_deck()
         G.consumeables:emplace(card)
     else
 					card_eval_status_text(

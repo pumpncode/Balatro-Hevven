@@ -141,7 +141,7 @@ return {
             j_rh_two_players = {
                 name = 'Two Player',
                 text = {
-                    "If every card played",
+                    "If every rank played",
                     "is {C:attention}paired{},",
                     "balances {C:chips}Chips{} and {C:mult}Mult{}"
                 }

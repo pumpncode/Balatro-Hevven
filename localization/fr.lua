@@ -148,9 +148,9 @@ return {
             j_rh_two_players = {
                 name = 'Deux Joueurs',
                 text = {
-                    "Si toutes les cartes jouées",
+                    "Si toutes les valeurs jouées",
                     "ont une {C:attention}paire{},",
-					"balance les {C:chips}Jetons{} et le {C:mult}Multi{}",
+					"équilibre les {C:chips}Jetons{} et le {C:mult}Multi{}",
                 }
             },
         },

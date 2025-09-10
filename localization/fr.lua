@@ -148,9 +148,9 @@ return {
             j_rh_two_players = {
                 name = 'Deux Joueurs',
                 text = {
-                    "Si toutes les cartes jouées",
+                    "Si toutes les valeurs jouées",
                     "ont une {C:attention}paire{},",
-					"balance les {C:chips}Jetons{} et le {C:mult}Multi{}",
+					"équilibre les {C:chips}Jetons{} et le {C:mult}Multi{}",
                 }
             },
         },
@@ -360,6 +360,14 @@ return {
                     "{C:attention}Carte Pierre"
                 }
             },
+            c_rh_finale = {
+                name = 'Finale',
+                text = {
+                    "Applique le sticker {C:dark_edition}Remix{} au",
+                    "{C:attention}Joker{}, {C:attention}consommable{}",
+                    "et {C:attention}carte{} le plus à gauche",
+                }
+            },
         },
         Tarot = {
             c_rh_castle = {
@@ -390,6 +398,13 @@ return {
                     "Améliore {C:attention}#1#{} carte",
                     "sélectionnée en",
                     "{C:attention}carte Appel et Réponse",
+                },
+            },
+            c_rh_descendant = {
+                name = 'Le Descendant',
+                text={
+                    "Retire tout les stickers",
+                    "{C:dark_edition}Remix{} à l'écran",
                 },
             },
         },
@@ -480,12 +495,20 @@ return {
                     "{C:inactive,s:0.9}à la fin de la manche)"
                 },
             },
-            rh_remix_sticker = {
+            rh_remix_sticker_joker = {
                 name = 'Remix',
                 text = {
                     "A la fin de la manche,",
                     "transforme en un autre {C:attention}#1#{}",
                     "#2# {C:attention}#3#",
+                },
+            },
+            rh_remix_sticker_card = {
+                name = 'Remix',
+                text = {
+                    "Quand piochée, transforme",
+                    "en une autre {C:attention}carte à jouer",
+                    "{C:inactive}(Randomise le {C:attention}Rang{C:inactive}, la {C:attention}Couleur {C:inactive}et {C:attention}l'Amélioration{C:inactive})",
                 },
             },
             p_rh_flow_pack_1 = {
@@ -566,12 +589,12 @@ return {
                 "pour la carte sur le menu principal",
                 "(Requiert un redémarrage)"
             },
-            rh_remix_sticker_consumeable_word = "consommable",
+            rh_remix_sticker_consumeable_name = "consommable",
             rh_remix_sticker_consumeable_link = "du même",
             rh_remix_sticker_consumeable_type = "type",
-            rh_remix_sticker_joker_word = "Joker",
+            rh_remix_sticker_joker_name = "Joker",
             rh_remix_sticker_joker_link = "de la même",
-            rh_remix_sticker_joker_rarity = "rareté",
+            rh_remix_sticker_joker_type = "rareté",
             rh_lumbearjack_axed = "Haché!",
             k_rh_endless = "Remix Infini",
             k_rh_tibby = "Allez les potos!",
@@ -605,7 +628,8 @@ return {
 		},
         labels = {
             rh_you_sticker = 'VOUS',
-            rh_remix_sticker = "Remix"
+            rh_remix_sticker_joker = "Remix",
+            rh_remix_sticker_card = "Remix"
         }
     }
 }

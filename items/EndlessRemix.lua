@@ -81,7 +81,7 @@ SMODS.Joker({
                     remixed.T = pos
                     remixed.CT = pos
                     remixed.VT = pos
-                    remixed:add_sticker('rh_remix_sticker', true)
+                    remixed:add_sticker('rh_remix_sticker_joker', true)
                     rh_copy_card(remixed, card)
                     remixed:start_dissolve(nil,true)
                     return true 
@@ -161,7 +161,7 @@ SMODS.Joker({
                     remixed.T = pos
                     remixed.CT = pos
                     remixed.VT = pos
-                    remixed:add_sticker('rh_remix_sticker', true)
+                    remixed:add_sticker('rh_remix_sticker_joker', true)
                     rh_copy_card(remixed, card)
                     remixed:start_dissolve(nil,true)
                     return true 
@@ -241,7 +241,7 @@ SMODS.Joker({
                     remixed.T = pos
                     remixed.CT = pos
                     remixed.VT = pos
-                    remixed:add_sticker('rh_remix_sticker', true)
+                    remixed:add_sticker('rh_remix_sticker_joker', true)
                     rh_copy_card(remixed, card)
                     remixed:start_dissolve(nil,true)
                     return true 
@@ -335,7 +335,7 @@ SMODS.Joker({
                         remixed.CT = pos
                         remixed.VT = pos
                     end
-                    remixed:add_sticker('rh_remix_sticker', true)
+                    remixed:add_sticker('rh_remix_sticker_joker', true)
                     rh_copy_card(remixed, card)
                     remixed:start_dissolve(nil,true)
                     return true 
@@ -416,7 +416,7 @@ for k, v in pairs(SMODS.Rarities) do
                             remixed.T = pos
                             remixed.CT = pos
                             remixed.VT = pos
-                            remixed:add_sticker('rh_remix_sticker', true)
+                            remixed:add_sticker('rh_remix_sticker_joker', true)
                             rh_copy_card(remixed, card)
                             remixed:start_dissolve(nil,true)
                             return true 

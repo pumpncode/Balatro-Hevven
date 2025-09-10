@@ -197,15 +197,18 @@ function rh_gift_flow()
             blind_multiplier = blind_multiplier+back_config.points.blind * 2
         end
         sendDebugMessage(blind_multiplier)
-        local score_multiplier = G.GAME.chips / G.GAME.blind.chips * back_config.points.score
-        local points = (hands+discards)*score_multiplier*blind_multiplier
+        local score_multiplier = to_big(G.GAME.chips) / to_big(G.GAME.blind.chips) * to_big(back_config.points.score)
+        local base_points = (hands+discards)*score_multiplier*blind_multiplier
+        local points = to_big(base_points)*score_multiplier
         local reward = ""
-        local last_point = 0
-        sendDebugMessage("Final point tally:"..points, "rhFlowDeck")
+        local last_point = to_big(0)
+        if type(last_point) ~= "table" then -- I still want it but don't wanna deal with Talisman compat
+            sendDebugMessage("Final point tally:"..points, "rhFlowDeck")
+        end
         for k, v in pairs(back_config.rewards) do
-            if points >= v and last_point <= v then
+            if points >= to_big(v) and last_point <= to_big(v) then
                 reward = k
-                last_point = v
+                last_point = to_big(v)
             end
         end
         if reward == "random" then
@@ -218,6 +221,7 @@ function rh_gift_flow()
             edition = {negative = is_combo }
         }
         local card = SMODS.create_card(card_t)
+        card:add_to_deck()
         G.consumeables:emplace(card)
     else
 					card_eval_status_text(
@@ -232,21 +236,23 @@ function rh_gift_flow()
 end
 
 function rh_conditional_return_to_hand(round_end) -- used by Virus at end of hand
-    sendDebugMessage("Found "..#G.GAME.current_round.rh_cards_to_keep.." cards to keep in hand", "rhDrawPlayToHand")
-    local it = 1
-    local play_count = #G.GAME.current_round.rh_cards_to_keep
-    if not round_end then
-        delay(0.4)
-    end
-    for k,v in ipairs(G.GAME.current_round.rh_cards_to_keep) do
-        if round_end then
-            draw_card(G.play,G.discard, it*100/play_count,'down', false, v)
-        else
-            draw_card(G.play,G.hand, it*100/play_count,'down', false, v)
+    if(G.GAME.current_round.rh_cards_to_keep) then -- Somehow I managed to break that???
+        sendDebugMessage("Found "..#G.GAME.current_round.rh_cards_to_keep.." cards to keep in hand", "rhDrawPlayToHand")
+        local it = 1
+        local play_count = #G.GAME.current_round.rh_cards_to_keep
+        if not round_end then
+            delay(0.4)
         end
-        it = it + 1
+        for k,v in ipairs(G.GAME.current_round.rh_cards_to_keep) do
+            if round_end then
+                draw_card(G.play,G.discard, it*100/play_count,'down', false, v)
+            else
+                draw_card(G.play,G.hand, it*100/play_count,'down', false, v)
+            end
+            it = it + 1
+        end
+        G.GAME.current_round.rh_cards_to_keep = 0
     end
-    G.GAME.current_round.rh_cards_to_keep = nil
 end
 
 function create_badge_tengoku(self, card, badges)

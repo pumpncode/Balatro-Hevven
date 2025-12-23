@@ -30,6 +30,8 @@
 --         return true
 --     end,
 
+    -- set_badges = create_badge_ds,
+
     -- credit = {
     --     art = "",
     --     code = "",
@@ -311,7 +313,7 @@ SMODS.Joker({
                 trigger = 'after',
                 delay = 0.2,
                 func = function()
-                    if G.GAME.chips - G.GAME.blind.chips < 0 and G.GAME.current_round.viruses_keep > 0 then
+                    if to_big(G.GAME.chips) - to_big(G.GAME.blind.chips) < to_big(0) and G.GAME.current_round.viruses_keep > 0 then
                         rh_conditional_return_to_hand(false)
                         local pitch = pseudorandom(pseudoseed('virus'), 5, 10)/10
                         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize("k_rh_virus_miss"), sound="rh_virus", pitch = pitch})
@@ -503,6 +505,74 @@ SMODS.Joker({
         art = "TheAltDoc",
         code = "TheAltDoc",
         concept = "patataofcourse"
+    }
+})
+
+-- Conductor
+SMODS.Joker({
+    key = "glee_club",
+
+    loc_vars = function(self, info_queue, card)
+                return {
+                    vars = {
+                        card.ability.extra.xmult
+                    }
+                }
+    end,
+    cost = 8,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'jokers',
+    pos = {
+        x = 1,
+        y = 5
+    },
+	config = {
+        extra = {
+            xmult = 1.5,
+            position = -1,
+            enable = false
+        }
+    },
+
+    calculate = function(self, card, context)
+        -- Before doing anything, we grab the position
+        if context.pre_joker then
+            for k, v in ipairs(G.jokers.cards) do
+                if v == card then
+                    card.ability.extra.position = k
+                    if k <= #G.jokers.cards-3 then
+                        card.ability.extra.enable = true
+                    end
+                end
+            end
+        end
+        if context.other_joker and card.ability.extra.enable == true then
+            for k, v in ipairs(G.jokers.cards) do
+                if v == context.other_joker and (k > card.ability.extra.position and k <= card.ability.extra.position+3) then
+                    return {
+                        xmult = card.ability.extra.xmult,
+                        sound = "rh_glee_club_a_"..(k - card.ability.extra.position),
+                        remove_default_message = true,
+                        message = "x"..card.ability.extra.xmult.." Mult",
+                        pitch = 1,
+                        colour = G.C.MULT,
+                        message_card = context.other_joker
+                    }
+                end
+            end
+        end
+    end,
+    
+    set_badges = create_badge_ds,
+
+    credit = {
+        art = "Nate Candles",
+        code = "TheAlternateDoctor",
+        concept = ""
     }
 })
 

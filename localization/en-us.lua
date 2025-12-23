@@ -146,6 +146,14 @@ return {
                     "balances {C:chips}Chips{} and {C:mult}Mult{}"
                 }
             },
+            j_rh_glee_club = {
+                name = 'Conductor',
+                text = {
+                    "The 3 {C:attention}Jokers{} to the",
+                    "right each gives {X:mult,C:white} X#1# {} Mult",
+                    "{C:inactive}(Only applies if there are 3 {C:attention}Jokers{C:inactive})"
+                }
+            }
         },
         Flow = {
             c_rh_you = {

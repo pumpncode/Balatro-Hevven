@@ -108,3 +108,18 @@ SMODS.Sound({
     key="2player_balance",
     path="2player_balance.ogg"
 })
+
+SMODS.Sound({
+    key="glee_club_a_1",
+    path="glee_club_a_1.ogg"
+})
+
+SMODS.Sound({
+    key="glee_club_a_2",
+    path="glee_club_a_2.ogg"
+})
+
+SMODS.Sound({
+    key="glee_club_a_3",
+    path="glee_club_a_3.ogg"
+})

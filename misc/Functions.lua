@@ -251,7 +251,7 @@ function rh_conditional_return_to_hand(round_end) -- used by Virus at end of han
             end
             it = it + 1
         end
-        G.GAME.current_round.rh_cards_to_keep = 0
+        G.GAME.current_round.rh_cards_to_keep = {}
     end
 end
 
